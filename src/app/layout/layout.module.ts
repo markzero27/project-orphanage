@@ -1,0 +1,29 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { LayoutRoutingModule } from './layout-routing.module';
+import { LayoutComponent } from './layout.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { HeaderComponent } from './components/header/header.component';
+import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
+import { EldersComponent } from './elders/elders.component';
+import { StaffComponent } from './staff/staff.component';
+import { HospitalsComponent } from './hospitals/hospitals.component';
+import { ReportsComponent } from './reports/reports.component';
+import { MedicineInventoryComponent } from './medicine-inventory/medicine-inventory.component';
+import { GuessMonitoringComponent } from './guess-monitoring/guess-monitoring.component';
+import { ArchivesComponent } from './archives/archives.component';
+import { SystemUsersComponent } from './system-users/system-users.component';
+
+@NgModule({
+    imports: [
+        CommonModule,
+        LayoutRoutingModule,
+        TranslateModule,
+        NgbDropdownModule
+    ],
+    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, MainDashboardComponent, EldersComponent, StaffComponent, HospitalsComponent, ReportsComponent, MedicineInventoryComponent, GuessMonitoringComponent, ArchivesComponent, SystemUsersComponent]
+})
+export class LayoutModule { }
