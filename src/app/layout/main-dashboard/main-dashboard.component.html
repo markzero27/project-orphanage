@@ -1,227 +1,200 @@
 <div [@routerTransition] class="bg-light">
-    <div class="top">
-        <h2 class="text-warning ">
-            <small>Welcome Admin</small>
-        </h2>
+  <div class="top">
+    <h2 class="text-warning ">
+      <small>Welcome Admin</small>
+    </h2>
+  </div>
+  <div class="row pt-3 mb-5">
+    <div class="col-xl-4 col-lg-6">
+      <div class="card text-dark h200">
+        <div class="row px-3">
+          <div
+            class="col col-xs-3 col-md-4 d-flex align-items-center pl-3 bg-white"
+          >
+            <div>
+              <h4 class="color-dark-primary">43</h4>
+              <h3>Elders</h3>
+            </div>
+            <div class="triangle-left"></div>
+            <div class="triangle-left-border"></div>
+          </div>
+
+          <div class="col col-xs-9 col-md-8 text-right bg-warning">
+            <img
+              src="assets/images/imagesolded.png"
+              alt=""
+              class="image-icons"
+            />
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="row pt-3 mb-5">
-        <div class="col-xl-4 col-lg-6">
-            <div class="card text-dark h200">
-                <div class="row px-3">
-                    <div
-                        class="col col-xs-3 col-md-4 d-flex align-items-center pl-3 bg-white"
-                    >
-                        <div>
-                            <h4 class="color-dark-primary">43</h4>
-                            <h3>Elders</h3>
-                        </div>
-                        <div class="triangle-left"></div>
-                        <div class="triangle-left-border"></div>
-                    </div>
-
-                    <div class="col col-xs-9 col-md-8 text-right bg-warning">
-                        <img
-                            src="assets/images/imagesolded.png"
-                            alt=""
-                            class="image-icons"
-                        />
-                    </div>
-                </div>
+    <div class="col-xl-4 col-lg-6">
+      <div class="card text-dark bg-white h200">
+        <div class="row px-3">
+          <div class="col col-xs-3 col-md-4 d-flex align-items-center pl-3">
+            <div>
+              <h4 class="color-dark-primary">13</h4>
+              <h3>Staff</h3>
             </div>
-        </div>
-        <div class="col-xl-4 col-lg-6">
-            <div class="card text-dark bg-white h200">
-                <div class="row px-3">
-                    <div
-                        class="col col-xs-3 col-md-4 d-flex align-items-center pl-3"
-                    >
-                        <div>
-                            <h4 class="color-dark-primary">13</h4>
-                            <h3>Staff</h3>
-                        </div>
-                    </div>
+          </div>
 
-                    <div class="col col-xs-9 col-md-8 text-right">
-                        <img
-                            src="assets/images/staffi.png"
-                            alt=""
-                            class="image-icons"
-                        />
-                    </div>
-                </div>
-            </div>
+          <div class="col col-xs-9 col-md-8 text-right">
+            <img src="assets/images/staffi.png" alt="" class="image-icons" />
+          </div>
         </div>
-        <div class="col-xl-4 col-lg-6">
-            <div class="card text-dark bg-white h200">
-                <div class="row px-3">
-                    <div
-                        class="col col-xs-3 col-md-4 d-flex align-items-center pl-3"
-                    >
-                        <div>
-                            <h4 class="color-dark-primary">3</h4>
-                            <h3>Visitors</h3>
-                        </div>
-                    </div>
-
-                    <div class="col col-xs-9 col-md-8 text-right">
-                        <img
-                            src="assets/images/staffi.png"
-                            alt=""
-                            class="image-icons"
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-    <div class="row">
-        <div class="col col-xl-8 col-lg-12">
-            <div class="card mb-3">
-                <div class="card-header bg-primary-color text-light pt-3">
-                    <h5>Medicine Inventory Reports</h5>
-                </div>
-                <div class="card-header pt-3">
-                    <span>Medicine List</span>
-                    <input
-                        type="search"
-                        name=""
-                        id=""
-                        class="ml-3 rounded px-2 py-1"
-                        placeholder="Search"
-                    />
-                    <button class="btn btn-light float-right">
-                        <i class="fa fa-filter" aria-hidden="true"></i> Filter
-                    </button>
+    <div class="col-xl-4 col-lg-6">
+      <div class="card text-dark bg-white h200">
+        <div class="row px-3">
+          <div class="col col-xs-3 col-md-4 d-flex align-items-center pl-3">
+            <div>
+              <h4 class="color-dark-primary">3</h4>
+              <h3>Visitors</h3>
+            </div>
+          </div>
 
-                    <button class="btn btn-light float-right">
-                        <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
-                    </button>
-                    <button class="btn btn-light float-right">
-                        <i class="fa fa-archive mr-2" aria-hidden="true"></i>
-                        Archive
-                    </button>
-                </div>
-                <table class="table ">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox" /></th>
-                            <th>#</th>
-                            <th>Medicine</th>
-                            <th>Quantity</th>
-                            <th>Date</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th><input type="checkbox" /></th>
-                            <th scope="row">Lorem</th>
-                            <td>Ipsum</td>
-                            <td>1</td>
-                            <td>01-27-2020</td>
-                            <td>
-                                <button class="btn bg-transparent">
-                                    <i
-                                        class="fa fa-pencil"
-                                        aria-hidden="true"
-                                    ></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" /></th>
-                            <th scope="row">Lorem</th>
-                            <td>Ipsum</td>
-                            <td>1</td>
-                            <td>01-27-2020</td>
-                            <td>
-                                <button class="btn bg-transparent">
-                                    <i
-                                        class="fa fa-pencil"
-                                        aria-hidden="true"
-                                    ></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" /></th>
-                            <th scope="row">Lorem</th>
-                            <td>Ipsum</td>
-                            <td>1</td>
-                            <td>01-27-2020</td>
-                            <td>
-                                <button class="btn bg-transparent">
-                                    <i
-                                        class="fa fa-pencil"
-                                        aria-hidden="true"
-                                    ></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" /></th>
-                            <th scope="row">Lorem</th>
-                            <td>Ipsum</td>
-                            <td>1</td>
-                            <td>01-27-2020</td>
-                            <td>
-                                <button class="btn bg-transparent">
-                                    <i
-                                        class="fa fa-pencil"
-                                        aria-hidden="true"
-                                    ></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" /></th>
-                            <th scope="row">Lorem</th>
-                            <td>Ipsum</td>
-                            <td>1</td>
-                            <td>01-27-2020</td>
-                            <td>
-                                <button class="btn bg-transparent">
-                                    <i
-                                        class="fa fa-pencil"
-                                        aria-hidden="true"
-                                    ></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+          <div class="col col-xs-9 col-md-8 text-right">
+            <img
+              src="assets/images/guestvcrop.png"
+              alt=""
+              class="image-icons"
+            />
+          </div>
         </div>
-        <div class="col col-xl-4 col-lg-12">
-            <div class="card mb-3">
-                <div class="card-header bg-primary-color text-light pt-3">
-                    <h5>My Tasks ( Admin Only )</h5>
-                </div>
-                <ul class="list-group">
-                    <li class="list-group-item bg-light">
-                        <input type="checkbox" name="" id="" class="mr-2" />
-                        Select All
-                        <button class="btn btn-light float-right">
-                            <i class="fa fa-archive" aria-hidden="true"></i>
-                        </button>
-                        <button class="btn btn-light float-right">
-                            <i class="fa fa-plus " aria-hidden="true"></i>
-                        </button>
-                    </li>
-                    <li class="list-group-item">
-                        <input type="checkbox" name="" id="" class="mr-2" />
-                        Checking Medicice Inventory Reports
-                    </li>
-                    <li class="list-group-item">
-                        <input
-                            type="checkbox"
-                            name=""
-                            id=""
-                            class="mr-2"
-                        />Print copies of medicine inventory
-                    </li>
-                </ul>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
+  <div class="row">
+    <div class="col col-xl-8 col-lg-12">
+      <div class="card mb-3">
+        <div class="card-header bg-primary-color text-light pt-3">
+          <h5>Medicine Inventory Reports</h5>
+        </div>
+        <div class="card-header pt-3">
+          <span>Medicine List</span>
+          <input
+            type="search"
+            name=""
+            id=""
+            class="ml-3 rounded px-2 py-1"
+            placeholder="Search"
+          />
+          <button class="btn btn-light float-right">
+            <i class="fa fa-filter" aria-hidden="true"></i> Filter
+          </button>
+
+          <button class="btn btn-light float-right">
+            <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
+          </button>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-archive mr-2" aria-hidden="true"></i>
+            Archive
+          </button>
+        </div>
+        <table class="table ">
+          <thead>
+            <tr>
+              <th><input type="checkbox" /></th>
+              <th>#</th>
+              <th>Medicine</th>
+              <th>Quantity</th>
+              <th>Date</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th><input type="checkbox" /></th>
+              <th scope="row">Lorem</th>
+              <td>Ipsum</td>
+              <td>1</td>
+              <td>01-27-2020</td>
+              <td>
+                <button class="btn bg-transparent">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <th><input type="checkbox" /></th>
+              <th scope="row">Lorem</th>
+              <td>Ipsum</td>
+              <td>1</td>
+              <td>01-27-2020</td>
+              <td>
+                <button class="btn bg-transparent">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <th><input type="checkbox" /></th>
+              <th scope="row">Lorem</th>
+              <td>Ipsum</td>
+              <td>1</td>
+              <td>01-27-2020</td>
+              <td>
+                <button class="btn bg-transparent">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <th><input type="checkbox" /></th>
+              <th scope="row">Lorem</th>
+              <td>Ipsum</td>
+              <td>1</td>
+              <td>01-27-2020</td>
+              <td>
+                <button class="btn bg-transparent">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <th><input type="checkbox" /></th>
+              <th scope="row">Lorem</th>
+              <td>Ipsum</td>
+              <td>1</td>
+              <td>01-27-2020</td>
+              <td>
+                <button class="btn bg-transparent">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col col-xl-4 col-lg-12">
+      <div class="card mb-3">
+        <div class="card-header bg-primary-color text-light pt-3">
+          <h5>My Tasks ( Admin Only )</h5>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item bg-light">
+            <input type="checkbox" name="" id="" class="mr-2" />
+            Select All
+            <button class="btn btn-light float-right">
+              <i class="fa fa-archive" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-plus " aria-hidden="true"></i>
+            </button>
+          </li>
+          <li class="list-group-item">
+            <input type="checkbox" name="" id="" class="mr-2" />
+            Checking Medicice Inventory Reports
+          </li>
+          <li class="list-group-item">
+            <input type="checkbox" name="" id="" class="mr-2" />Print copies of
+            medicine inventory
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
