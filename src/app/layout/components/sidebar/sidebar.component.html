@@ -1,94 +1,84 @@
 <nav
-    class="sidebar"
-    [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }"
+  class="sidebar"
+  [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }"
 >
-    <div class="list-group pt-3 px-1">
-        <label class="text-light mx-2">MAIN MENU</label>
-        <a
-            routerLink="/dashboard"
-            [routerLinkActive]="['router-link-active']"
-            class="list-group-item"
-        >
-            <i class="fa fa-fw fa-dashboard"></i>&nbsp;
-            <span>{{ "Dashboard" | translate }}</span>
-        </a>
-        <a
-            [routerLink]="['/elders']"
-            [routerLinkActive]="['router-link-active']"
-            class="list-group-item"
-        >
-            <i class="fa fa-wheelchair" aria-hidden="true"></i>&nbsp;
-            <span>{{ "Elders" | translate }}</span>
-        </a>
-        <a
-            [routerLink]="['/staff']"
-            [routerLinkActive]="['router-link-active']"
-            class="list-group-item"
-        >
-            <i class="fa fa-user-md" aria-hidden="true"></i>&nbsp;
-            <span>{{ "Staff" | translate }}</span>
-        </a>
-        <a
-            [routerLink]="['/hospitals']"
-            [routerLinkActive]="['router-link-active']"
-            class="list-group-item"
-        >
-            <i class="fa fa-hospital-o" aria-hidden="true"></i>&nbsp;
-            <span>{{ "Hospital Information" | translate }}</span>
-        </a>
-        <a
-            [routerLink]="['/reports']"
-            [routerLinkActive]="['router-link-active']"
-            class="list-group-item"
-        >
-            <i class="fa fa-file-text" aria-hidden="true"></i>&nbsp;
-            <span>{{ "Reports" | translate }}</span>
-        </a>
-        <a
-            [routerLink]="['/medicine-inventory']"
-            [routerLinkActive]="['router-link-active']"
-            class="list-group-item"
-        >
-            <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;
-            <span>{{ "Medicine Inventory" | translate }}</span>
-        </a>
-        <a
-            [routerLink]="['/guess-monitoring']"
-            [routerLinkActive]="['router-link-active']"
-            class="list-group-item"
-        >
-            <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
-            <span>{{ "Guess Monitoring" | translate }}</span>
-        </a>
-        <label class="text-light mx-2">OTHERS</label>
-        <a
-            [routerLink]="['/archives']"
-            [routerLinkActive]="['router-link-active']"
-            class="list-group-item"
-        >
-            <i class="fa fa-file-archive-o" aria-hidden="true"></i>&nbsp;
-            <span>{{ "Archive" | translate }}</span>
-        </a>
-        <a
-            [routerLink]="['/system-users']"
-            [routerLinkActive]="['router-link-active']"
-            class="list-group-item"
-        >
-            <i class="fa fa-user" aria-hidden="true"></i>&nbsp;
-            <span>{{ "Sytem Users" | translate }}</span>
-        </a>
-    </div>
-    <div
-        class="toggle-button"
-        [ngClass]="{ collapsed: collapsed }"
-        (click)="toggleCollapsed()"
+  <div class="list-group pt-3 px-1">
+    <label class="text-light mx-2">MAIN MENU</label>
+    <a
+      routerLink="/dashboard"
+      [routerLinkActive]="['router-link-active']"
+      class="list-group-item"
     >
-        <i
-            class="fa fa-fw fa-angle-double-{{ collapsed ? 'right' : 'left' }}"
-        ></i
-        >&nbsp;
-        <span>{{ "Collapse Sidebar" | translate }}</span>
-    </div>
+      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+      <span>{{ 'Dashboard' | translate }}</span>
+    </a>
+    <a
+      [routerLink]="['/elders']"
+      [routerLinkActive]="['router-link-active']"
+      class="list-group-item"
+    >
+      <i class="fa fa-wheelchair" aria-hidden="true"></i>&nbsp;
+      <span>{{ 'Elders' | translate }}</span>
+    </a>
+    <a
+      [routerLink]="['/staff']"
+      [routerLinkActive]="['router-link-active']"
+      class="list-group-item"
+    >
+      <i class="fa fa-user-md" aria-hidden="true"></i>&nbsp;
+      <span>{{ 'Staff' | translate }}</span>
+    </a>
+    <a
+      [routerLink]="['/reports']"
+      [routerLinkActive]="['router-link-active']"
+      class="list-group-item"
+    >
+      <i class="fa fa-file-text" aria-hidden="true"></i>&nbsp;
+      <span>{{ 'Reports' | translate }}</span>
+    </a>
+    <a
+      [routerLink]="['/medicine-inventory']"
+      [routerLinkActive]="['router-link-active']"
+      class="list-group-item"
+    >
+      <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;
+      <span>{{ 'Medicine Inventory' | translate }}</span>
+    </a>
+    <a
+      [routerLink]="['/guess-monitoring']"
+      [routerLinkActive]="['router-link-active']"
+      class="list-group-item"
+    >
+      <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
+      <span>{{ 'Guess Monitoring' | translate }}</span>
+    </a>
+    <label class="text-light mx-2">OTHERS</label>
+    <a
+      [routerLink]="['/archives']"
+      [routerLinkActive]="['router-link-active']"
+      class="list-group-item"
+    >
+      <i class="fa fa-file-archive-o" aria-hidden="true"></i>&nbsp;
+      <span>{{ 'Archive' | translate }}</span>
+    </a>
+    <a
+      [routerLink]="['/system-users']"
+      [routerLinkActive]="['router-link-active']"
+      class="list-group-item"
+    >
+      <i class="fa fa-user" aria-hidden="true"></i>&nbsp;
+      <span>{{ 'Sytem Users' | translate }}</span>
+    </a>
+  </div>
+  <div
+    class="toggle-button"
+    [ngClass]="{ collapsed: collapsed }"
+    (click)="toggleCollapsed()"
+  >
+    <i class="fa fa-fw fa-angle-double-{{ collapsed ? 'right' : 'left' }}"></i
+    >&nbsp;
+    <span>{{ 'Collapse Sidebar' | translate }}</span>
+  </div>
 </nav>
 
 <!-- Template -->

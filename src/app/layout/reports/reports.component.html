@@ -1,3 +1,228 @@
-<p>
-  reports works!
-</p>
+<ul class="nav nav-tabs">
+  <li class="nav-item" (click)="selectedType = 'accomplishments'">
+    <a
+      class="nav-link"
+      [ngClass]="{ active: selectedType == 'accomplishments' }"
+      >Accompishments</a
+    >
+  </li>
+  <li class="nav-item" (click)="selectedType = 'inventory'">
+    <a class="nav-link" [ngClass]="{ active: selectedType == 'inventory' }">
+      Medicine Inventory
+    </a>
+  </li>
+  <li class="nav-item" (click)="selectedType = 'monitoring'">
+    <a class="nav-link" [ngClass]="{ active: selectedType == 'monitoring' }">
+      Guest Monitoring
+    </a>
+  </li>
+</ul>
+
+<div [ngSwitch]="selectedType">
+  <!-- Accomplishments -->
+  <div class=" mb-3 py-3" *ngSwitchCase="'accomplishments'">
+    <div class="mb-3">
+      <button class="btn btn-success float-right mr-1">
+        Export as PDF
+      </button>
+      <button class="btn btn-light float-right">
+        <i class="fa fa-filter" aria-hidden="true"></i>
+      </button>
+      <button class="btn btn-light float-right">
+        <i class="fa fa-archive" aria-hidden="true"></i>
+      </button>
+    </div>
+    <table class="table table-striped">
+      <thead class="bg-primary-color text-light">
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th>#</th>
+          <th>Date</th>
+          <th>Task</th>
+          <th>Problems Encountered</th>
+          <th>Remarks</th>
+          <th>Time-in</th>
+          <th>Time-out</th>
+          <th>Submitted By</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th scope="row">1</th>
+          <td>01-01-2020</td>
+          <td>Lorem ipsum dolor sit amet.</td>
+          <td>Lorem ipsum dolor sit amet.</td>
+          <td>Lorem ipsum dolor sit amet.</td>
+          <td>8:00 AM</td>
+          <td>8:00 PM</td>
+          <td>Gina Karenina</td>
+        </tr>
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th scope="row">2</th>
+          <td>01-01-2020</td>
+          <td>Lorem ipsum dolor sit amet.</td>
+          <td>Lorem ipsum dolor sit amet.</td>
+          <td>Lorem ipsum dolor sit amet.</td>
+          <td>8:00 AM</td>
+          <td>8:00 PM</td>
+          <td>Gina Karenina</td>
+        </tr>
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th scope="row">3</th>
+          <td>01-01-2020</td>
+          <td>Lorem ipsum dolor sit amet.</td>
+          <td>Lorem ipsum dolor sit amet.</td>
+          <td>Lorem ipsum dolor sit amet.</td>
+          <td>8:00 AM</td>
+          <td>8:00 PM</td>
+          <td>Gina Karenina</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Inventory -->
+  <div class=" mb-3 py-3" *ngSwitchCase="'inventory'">
+    <div class="mb-3">
+      <button class="btn btn-success float-right mr-1">
+        Export as PDF
+      </button>
+      <button class="btn btn-light float-right">
+        <i class="fa fa-filter" aria-hidden="true"></i>
+      </button>
+      <button class="btn btn-light float-right">
+        <i class="fa fa-archive" aria-hidden="true"></i>
+      </button>
+    </div>
+    <table class="table table-striped">
+      <thead class="bg-primary-color text-light">
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th>#</th>
+          <th>Medicine Name</th>
+          <th>Medicine Type</th>
+          <th>Medicine Restock</th>
+          <th>Dispense</th>
+          <th>Remaining Stock</th>
+          <th>Buffer</th>
+          <th>Status</th>
+          <th>Created By</th>
+          <th>Date Modified</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th scope="row">1</th>
+          <td>Lorem</td>
+          <td>Lorem, ipsum dolor.</td>
+          <td>1000</td>
+          <td>200</td>
+          <td>1800</td>
+          <td>100</td>
+          <td>-</td>
+          <td>Gina Karenina</td>
+          <td>01-01-2020</td>
+        </tr>
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th scope="row">2</th>
+          <td>Lorem</td>
+          <td>Lorem, ipsum dolor.</td>
+          <td>1000</td>
+          <td>200</td>
+          <td>1800</td>
+          <td>100</td>
+          <td>-</td>
+          <td>Gina Karenina</td>
+          <td>01-01-2020</td>
+        </tr>
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th scope="row">3</th>
+          <td>Lorem</td>
+          <td>Lorem, ipsum dolor.</td>
+          <td>1000</td>
+          <td>200</td>
+          <td>1800</td>
+          <td>100</td>
+          <td>-</td>
+          <td>Gina Karenina</td>
+          <td>01-01-2020</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Monitoring -->
+  <div class=" mb-3 py-3" *ngSwitchCase="'monitoring'">
+    <div class="mb-3">
+      <button class="btn btn-success float-right mr-1">
+        Export as PDF
+      </button>
+      <button class="btn btn-light float-right">
+        <i class="fa fa-filter" aria-hidden="true"></i>
+      </button>
+      <button class="btn btn-light float-right">
+        <i class="fa fa-archive" aria-hidden="true"></i>
+      </button>
+    </div>
+    <table class="table table-striped">
+      <thead class="bg-primary-color text-light">
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th>#</th>
+          <th>Guess Name</th>
+          <th>Contact #</th>
+          <th>Address</th>
+          <th>Relationship</th>
+          <th>Elders Visited</th>
+          <th>Time-in</th>
+          <th>Time-out</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th scope="row">1</th>
+          <td>Lorem</td>
+          <td>0987654321</td>
+          <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
+          <td>Lorem</td>
+          <td>lorem Ipsum</td>
+          <td>10:00 AM</td>
+          <td>12:00 PM</td>
+          <td>01-01-2020</td>
+        </tr>
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th scope="row">1</th>
+          <td>Lorem</td>
+          <td>0987654321</td>
+          <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
+          <td>Lorem</td>
+          <td>lorem Ipsum</td>
+          <td>10:00 AM</td>
+          <td>12:00 PM</td>
+          <td>01-01-2020</td>
+        </tr>
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th scope="row">1</th>
+          <td>Lorem</td>
+          <td>0987654321</td>
+          <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
+          <td>Lorem</td>
+          <td>lorem Ipsum</td>
+          <td>10:00 AM</td>
+          <td>12:00 PM</td>
+          <td>01-01-2020</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
