@@ -1,0 +1,310 @@
+<div class="top">
+  <h2 class="">
+    <small>Staff</small>
+  </h2>
+</div>
+<div>
+  <ul class="nav nav-tabs">
+    <li class="nav-item" (click)="tab = 1">
+      <a class="nav-link" [ngClass]="{ active: tab == 1 }">Personal Data</a>
+    </li>
+    <li class="nav-item" (click)="tab = 2">
+      <a class="nav-link" [ngClass]="{ active: tab == 2 }">
+        Task
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="border border-top-0 p-2">
+  <div class="row" [ngSwitch]="tab">
+    <div class="col-md-4">
+      <div class="card p-4 mb-3">
+        <div>
+          <button class="btn btn-transparent float-right large border">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+          <div class="position-relative">
+            <img
+              src="https://www.purdueglobal.edu/blog/nursing/purgshouldyoubecomeanurse-image.jpg"
+              alt=""
+              class="elder-img"
+            />
+          </div>
+          <div class="elder-name">
+            <p class="text-center color-dark-primary m-0">
+              Gina E. Buenaventura
+            </p>
+            <p class="text-center small m-0">Staff</p>
+          </div>
+        </div>
+        <hr />
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Nickname</label>
+          <div class="col-sm-7">
+            <!-- <label for="" class="col-sm-3 col-form-label">First Name</label> -->
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Gender</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Age</label>
+          <div class="col-sm-7">
+            <input type="number" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Birthdate</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Birthplace</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Sabath</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Address</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Date Hired</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 right-div" *ngSwitchCase="1">
+      <div class="card p-4 mb-3">
+        <h5 class="pb-2 color-dark-primary">
+          Personal Information
+          <button class="btn btn-transparent float-right large border">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+        </h5>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">First Name</label>
+          <div class="col-sm-9">
+            <!-- <label for="" class="col-sm-3 col-form-label">First Name</label> -->
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Middle Name</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Surmame</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Age</label>
+          <div class="col-sm-9">
+            <input type="number" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Birthdate</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Birthplace</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Sabath</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label"
+            >Provincial Address</label
+          >
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Civil Status</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Nationality</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <div class="card p-4 mb-3">
+        <h5 class="pb-2 color-dark-primary">
+          Employment History
+          <button class="btn btn-transparent float-right large border">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+        </h5>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Company</label>
+          <div class="col-sm-9">
+            <!-- <label for="" class="col-sm-3 col-form-label">First Name</label> -->
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Position</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Duties</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+            <input type="text" class="form-control" />
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Duration</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">References</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <div class="card p-4 mb-3">
+        <h5 class="pb-2 color-dark-primary">
+          Other Information
+          <button class="btn btn-transparent float-right large border">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+        </h5>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Phil Health</label>
+          <div class="col-sm-9">
+            <!-- <label for="" class="col-sm-3 col-form-label">First Name</label> -->
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">UMID</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">SSS</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Pagibig</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 right-div" *ngSwitchCase="2">
+      <div class="card-header bg-transparent border pt-3 color-dark-primary">
+        Task
+        <button class="btn btn-light float-right">
+          <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
+        </button>
+        <button class="btn btn-light float-right">
+          <i class="fa fa-filter" aria-hidden="true"></i> Filter
+        </button>
+        <button class="btn btn-light float-right">
+          <i class="fa fa-archive mr-2" aria-hidden="true"></i>
+          Archive
+        </button>
+      </div>
+      <div class="card w-100 mb-3">
+        <table class="table table-striped">
+          <thead class="bg-primary-color text-light">
+            <tr>
+              <th><input type="checkbox" /></th>
+              <th>Elder Name</th>
+              <th>Medicine</th>
+              <th>Qty</th>
+              <th>Time-in</th>
+              <th>Time-out</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              [routerLink]="['/elders/details']"
+              routerLinkActive="router-link-active"
+            >
+              <th><input type="checkbox" /></th>
+              <th scope="row">Lorem</th>
+              <td>Ipsum</td>
+              <td>1</td>
+              <td>10:30</td>
+              <td>10:30</td>
+              <td>01-27-2020</td>
+              <td>Done</td>
+              <td>
+                <button class="btn bg-transparent">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+            <tr
+              [routerLink]="['/elders/details']"
+              routerLinkActive="router-link-active"
+            >
+              <th><input type="checkbox" /></th>
+              <th scope="row">Lorem</th>
+              <td>Ipsum</td>
+              <td>1</td>
+              <td>10:30</td>
+              <td>10:30</td>
+              <td>01-27-2020</td>
+              <td>Done</td>
+              <td>
+                <button class="btn bg-transparent">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

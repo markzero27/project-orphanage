@@ -11,6 +11,9 @@ import { GuessMonitoringComponent } from './guess-monitoring/guess-monitoring.co
 import { SystemUsersComponent } from './system-users/system-users.component';
 import { ArchivesComponent } from './archives/archives.component';
 import { DoctorListComponent } from './doctor-list/doctor-list.component';
+import { EldersDetailsComponent } from './elders-details/elders-details.component';
+import { StaffDetailsComponent } from './staff-details/staff-details.component';
+import { HospitalDetailsComponent } from './hospital-details/hospital-details.component';
 
 const routes: Routes = [
     {
@@ -28,8 +31,11 @@ const routes: Routes = [
             { path: 'blank-page', loadChildren: () => import('./blank-page/blank-page.module').then(m => m.BlankPageModule) },
             { path: 'dashboard', component: MainDashboardComponent },
             { path: 'elders', component: EldersComponent },
+            { path: 'elders/details', component: EldersDetailsComponent },
             { path: 'staff', component: StaffComponent },
-            { path: 'hospital-list', component: HospitalsComponent },
+            { path: 'staff/details', component: StaffDetailsComponent },
+            { path: 'hospitals', component: HospitalsComponent },
+            { path: 'hospitals/details', component: HospitalDetailsComponent },
             { path: 'doctor-list', component: DoctorListComponent },
             { path: 'reports', component: ReportsComponent },
             { path: 'medicine-inventory', component: MedicineInventoryComponent },

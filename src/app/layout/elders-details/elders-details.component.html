@@ -1,0 +1,389 @@
+<div class="top">
+  <h2 class="">
+    <small>Elders</small>
+  </h2>
+</div>
+<div>
+  <ul class="nav nav-tabs">
+    <li class="nav-item" (click)="tab = 1">
+      <a class="nav-link" [ngClass]="{ active: tab == 1 }">Accompishments</a>
+    </li>
+    <li class="nav-item" (click)="tab = 2">
+      <a class="nav-link" [ngClass]="{ active: tab == 2 }">
+        Medicine Inventory
+      </a>
+    </li>
+    <li class="nav-item" (click)="tab = 3">
+      <a class="nav-link" [ngClass]="{ active: tab == 3 }">
+        Medical History
+      </a>
+    </li>
+  </ul>
+</div>
+<div class="border border-top-0 p-2">
+  <div class="row" [ngSwitch]="tab">
+    <div class="col-md-4">
+      <div class="card p-4 mb-3">
+        <div>
+          <button class="btn btn-transparent float-right large border">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+          <div class="position-relative">
+            <img
+              src="https://media.gettyimages.com/photos/perfect-grandma-xxl-picture-id157314260?s=612x612"
+              alt=""
+              class="elder-img"
+            />
+          </div>
+          <div class="elder-name">
+            <p class="text-center color-dark-primary m-0">Gloria Diaz</p>
+            <p class="text-center small m-0">Bed no.3</p>
+          </div>
+        </div>
+        <hr />
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Nickname</label>
+          <div class="col-sm-7">
+            <!-- <label for="" class="col-sm-3 col-form-label">First Name</label> -->
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Gender</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Age</label>
+          <div class="col-sm-7">
+            <input type="number" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Birthdate</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Birthplace</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Sabath</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Address</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Date (Stay in)</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">References</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 right-div" *ngSwitchCase="1">
+      <div class="card p-4 mb-3">
+        <h5 class="pb-2 color-dark-primary">
+          Personal Information
+          <button class="btn btn-transparent float-right large border">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+        </h5>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">First Name</label>
+          <div class="col-sm-9">
+            <!-- <label for="" class="col-sm-3 col-form-label">First Name</label> -->
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Middle Name</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Surmame</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Age</label>
+          <div class="col-sm-9">
+            <input type="number" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Birthdate</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Birthplace</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Sabath</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label"
+            >Provincial Address</label
+          >
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Civil Status</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Nationality</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <div class="card p-4 mb-3">
+        <h5 class="pb-2 color-dark-primary">
+          Contact Person (Relatives)
+          <button class="btn btn-transparent float-right large border">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+        </h5>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">First Name</label>
+          <div class="col-sm-9">
+            <!-- <label for="" class="col-sm-3 col-form-label">First Name</label> -->
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Middle Name</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Surmame</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Relationship</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Contact Number</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label"
+            >Provincial Address</label
+          >
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Work</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <div class="card p-4 mb-3">
+        <h5 class="pb-2 color-dark-primary">
+          Other Information
+          <button class="btn btn-transparent float-right large border">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+        </h5>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Phil Health</label>
+          <div class="col-sm-9">
+            <!-- <label for="" class="col-sm-3 col-form-label">First Name</label> -->
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label"
+            >Senior Citizen ID No.</label
+          >
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">SSS ID</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Pagibig</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 right-div" *ngSwitchCase="2">
+      <div class="card-header bg-transparent border pt-3 color-dark-primary">
+        Taken Medicines
+        <button class="btn btn-light float-right">
+          <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
+        </button>
+        <button class="btn btn-light float-right">
+          <i class="fa fa-filter" aria-hidden="true"></i> Filter
+        </button>
+        <button class="btn btn-light float-right">
+          <i class="fa fa-archive mr-2" aria-hidden="true"></i>
+          Archive
+        </button>
+      </div>
+      <div class="card w-100 mb-3">
+        <table class="table table-striped">
+          <thead class="bg-primary-color text-light">
+            <tr>
+              <th><input type="checkbox" /></th>
+              <th>Name</th>
+              <th>Medicine</th>
+              <th>Quantity</th>
+              <th>Time</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Assigned Staff</th>
+              <th><i class="fa fa-cog ml-3" aria-hidden="true"></i></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              [routerLink]="['/elders/details']"
+              routerLinkActive="router-link-active"
+            >
+              <th><input type="checkbox" /></th>
+              <th scope="row">Lorem</th>
+              <td>Ipsum</td>
+              <td>1</td>
+              <td>10:30</td>
+              <td>01-27-2020</td>
+              <td>Done</td>
+              <td>Gina Buenaventura</td>
+              <td>
+                <button class="btn bg-transparent">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <th><input type="checkbox" /></th>
+              <th scope="row">Lorem</th>
+              <td>Ipsum</td>
+              <td>1</td>
+              <td>10:30</td>
+              <td>01-27-2020</td>
+              <td>Done</td>
+              <td>Gina Buenaventura</td>
+              <td>
+                <button class="btn bg-transparent">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <th><input type="checkbox" /></th>
+              <th scope="row">Lorem</th>
+              <td>Ipsum</td>
+              <td>1</td>
+              <td>10:30</td>
+              <td>01-27-2020</td>
+              <td>Done</td>
+              <td>Gina Buenaventura</td>
+              <td>
+                <button class="btn bg-transparent">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <th><input type="checkbox" /></th>
+              <th scope="row">Lorem</th>
+              <td>Ipsum</td>
+              <td>1</td>
+              <td>10:30</td>
+              <td>01-27-2020</td>
+              <td>Done</td>
+              <td>Gina Buenaventura</td>
+              <td>
+                <button class="btn bg-transparent">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-8 right-div" *ngSwitchCase="3">
+      <div class="card p-4 mb-3">
+        <h5 class="pb-2 color-dark-primary">
+          Medical History
+          <button class="btn btn-transparent float-right large border">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+        </h5>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Present Illness</label>
+          <div class="col-sm-9">
+            <!-- <label for="" class="col-sm-3 col-form-label">First Name</label> -->
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Past History</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Assigned Doctor</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

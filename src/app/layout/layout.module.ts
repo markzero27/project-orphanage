@@ -17,6 +17,9 @@ import { GuessMonitoringComponent } from './guess-monitoring/guess-monitoring.co
 import { ArchivesComponent } from './archives/archives.component';
 import { SystemUsersComponent } from './system-users/system-users.component';
 import { DoctorListComponent } from './doctor-list/doctor-list.component';
+import { EldersDetailsComponent } from './elders-details/elders-details.component';
+import { StaffDetailsComponent } from './staff-details/staff-details.component';
+import { HospitalDetailsComponent } from './hospital-details/hospital-details.component';
 
 @NgModule({
     imports: [
@@ -25,6 +28,6 @@ import { DoctorListComponent } from './doctor-list/doctor-list.component';
         TranslateModule,
         NgbDropdownModule
     ],
-    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, MainDashboardComponent, EldersComponent, StaffComponent, HospitalsComponent, ReportsComponent, MedicineInventoryComponent, GuessMonitoringComponent, ArchivesComponent, SystemUsersComponent, DoctorListComponent]
+    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, MainDashboardComponent, EldersComponent, StaffComponent, HospitalsComponent, ReportsComponent, MedicineInventoryComponent, GuessMonitoringComponent, ArchivesComponent, SystemUsersComponent, DoctorListComponent, EldersDetailsComponent, StaffDetailsComponent, HospitalDetailsComponent]
 })
 export class LayoutModule { }
