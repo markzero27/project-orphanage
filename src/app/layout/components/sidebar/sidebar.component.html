@@ -28,6 +28,36 @@
       <i class="fa fa-user-md" aria-hidden="true"></i>&nbsp;
       <span>{{ 'Staff' | translate }}</span>
     </a>
+    <div class="nested-menu">
+      <a class="list-group-item" (click)="addExpandClass('pages')">
+        <i class="fa fa-hospital-o"></i>&nbsp;
+        <span>{{ 'Hospital Information' | translate }}</span>
+      </a>
+      <li class="nested" [class.expand]="showMenu === 'pages'">
+        <ul class="submenu">
+          <li>
+            <a
+              [routerLink]="['/hospital-list']"
+              [routerLinkActive]="['router-link-active']"
+              class="list-group-item"
+            >
+              <i class="fa fa-circle" aria-hidden="true"></i>&nbsp;
+              <span>{{ 'Hospital List' | translate }}</span>
+            </a>
+          </li>
+          <li>
+            <a
+              [routerLink]="['/doctor-list']"
+              [routerLinkActive]="['router-link-active']"
+              class="list-group-item"
+            >
+              <i class="fa fa-circle" aria-hidden="true"></i>&nbsp;
+              <span>{{ 'Doctor List' | translate }}</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </div>
     <a
       [routerLink]="['/reports']"
       [routerLinkActive]="['router-link-active']"
@@ -52,7 +82,7 @@
       <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
       <span>{{ 'Guess Monitoring' | translate }}</span>
     </a>
-    <label class="text-light mx-2">OTHERS</label>
+    <label class="text-light mx-2 small">OTHERS</label>
     <a
       [routerLink]="['/archives']"
       [routerLinkActive]="['router-link-active']"

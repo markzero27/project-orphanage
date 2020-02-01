@@ -10,6 +10,7 @@ import { MedicineInventoryComponent } from './medicine-inventory/medicine-invent
 import { GuessMonitoringComponent } from './guess-monitoring/guess-monitoring.component';
 import { SystemUsersComponent } from './system-users/system-users.component';
 import { ArchivesComponent } from './archives/archives.component';
+import { DoctorListComponent } from './doctor-list/doctor-list.component';
 
 const routes: Routes = [
     {
@@ -28,7 +29,8 @@ const routes: Routes = [
             { path: 'dashboard', component: MainDashboardComponent },
             { path: 'elders', component: EldersComponent },
             { path: 'staff', component: StaffComponent },
-            { path: 'hospitals', component: HospitalsComponent },
+            { path: 'hospital-list', component: HospitalsComponent },
+            { path: 'doctor-list', component: DoctorListComponent },
             { path: 'reports', component: ReportsComponent },
             { path: 'medicine-inventory', component: MedicineInventoryComponent },
             { path: 'guess-monitoring', component: GuessMonitoringComponent },
