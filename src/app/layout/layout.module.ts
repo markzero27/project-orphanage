@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
@@ -21,6 +21,7 @@ import { EldersDetailsComponent } from './elders-details/elders-details.componen
 import { StaffDetailsComponent } from './staff-details/staff-details.component';
 import { HospitalDetailsComponent } from './hospital-details/hospital-details.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { ModalComponent } from './bs-component/components';
 
 @NgModule({
     imports: [
@@ -28,8 +29,9 @@ import { FullCalendarModule } from '@fullcalendar/angular';
         LayoutRoutingModule,
         TranslateModule,
         NgbDropdownModule,
-        FullCalendarModule
+        FullCalendarModule,
+        NgbModalModule
     ],
-    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, MainDashboardComponent, EldersComponent, StaffComponent, HospitalsComponent, ReportsComponent, MedicineInventoryComponent, GuessMonitoringComponent, ArchivesComponent, SystemUsersComponent, DoctorListComponent, EldersDetailsComponent, StaffDetailsComponent, HospitalDetailsComponent]
+    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, MainDashboardComponent, EldersComponent, StaffComponent, HospitalsComponent, ReportsComponent, MedicineInventoryComponent, GuessMonitoringComponent, ArchivesComponent, SystemUsersComponent, DoctorListComponent, EldersDetailsComponent, StaffDetailsComponent, HospitalDetailsComponent, ModalComponent]
 })
 export class LayoutModule { }

@@ -1,22 +1,40 @@
-<div class="login-page" [@routerTransition]>
-    <div class="row justify-content-md-center">
-        <div class="col-md-4">
-            <img src="assets/images/logo.png" width="150px" class="user-avatar" />
-            <h1>SB Admin BS4 Angular8</h1>
-            <form role="form">
-                <div class="form-content">
-                    <div class="form-group">
-                        <input type="text" ng-model="name" class="form-control input-underline input-lg" id="" placeholder="{{ 'Email' | translate }}">
-                    </div>
+<div class="login-main" [@routerTransition]>
+  <div class="d-flex justify-content-end h-100">
+    <div class="login-form bg-transparent">
+      <div class="bg-white p-3 rounded">
+        <h1 class="text-center mb-4">Orphanage</h1>
+        <p class="text-center mb-5"><b>Signin to access your account</b></p>
 
-                    <div class="form-group">
-                        <input type="password" class="form-control input-underline input-lg" id="" placeholder="{{ 'Password' | translate }}">
-                    </div>
-                </div>
-                <a class="btn rounded-btn" [routerLink]="['/dashboard']" (click)="onLoggedin()">{{ 'Log in' | translate }}</a>
-                &nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/signup']">{{ 'Register' | translate }}</a>
-            </form>
+        <div class="form-content">
+          <div class="form-group mx-5">
+            <input
+              type="text"
+              ng-model="name"
+              class="form-control input-underline input-lg"
+              id=""
+              placeholder="{{ 'Email' | translate }}"
+            />
+          </div>
+
+          <div class="form-group mx-5">
+            <input
+              type="password"
+              class="form-control input-underline input-lg"
+              id=""
+              placeholder="{{ 'Password' | translate }}"
+            />
+          </div>
         </div>
+        <div class="form-buttons text-center">
+          <button
+            class="btn bg-primary-color text-light px-5"
+            (click)="onLoggedin()"
+          >
+            Sign in
+          </button>
+          <p class="py-3">Forgot password? <a href="">Get help</a></p>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

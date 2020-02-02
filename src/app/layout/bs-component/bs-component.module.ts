@@ -48,4 +48,4 @@ import { PageHeaderModule } from '../../shared';
         TimepickerComponent
     ]
 })
-export class BsComponentModule {}
+export class BsComponentModule { }

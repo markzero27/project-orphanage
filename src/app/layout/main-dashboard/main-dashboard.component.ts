@@ -5,6 +5,8 @@ import { EventInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { MedicineService } from 'src/app/services/medicine/medicine.service';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -21,11 +23,13 @@ export class MainDashboardComponent implements OnInit {
   calendarEvents: EventInput[] = [
     { title: 'Event Now', start: new Date() }
   ];
+  closeResult: string;
 
+  constructor(private modalService: NgbModal, private medicineService: MedicineService) { }
 
-  constructor() { }
-
-  ngOnInit() { }
+  ngOnInit() {
+    this.getAllMedicines();
+  }
 
 
   toggleVisible() {
@@ -49,6 +53,32 @@ export class MainDashboardComponent implements OnInit {
         allDay: arg.allDay
       });
     }
+  }
+
+  open(content) {
+    this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  getAllMedicines() {
+    this.medicineService.getAllMecine().subscribe(test => {
+      console.log('====================================');
+      console.log(test);
+      console.log('====================================');
+    });
   }
 
 }
