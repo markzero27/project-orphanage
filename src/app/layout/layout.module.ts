@@ -20,13 +20,15 @@ import { DoctorListComponent } from './doctor-list/doctor-list.component';
 import { EldersDetailsComponent } from './elders-details/elders-details.component';
 import { StaffDetailsComponent } from './staff-details/staff-details.component';
 import { HospitalDetailsComponent } from './hospital-details/hospital-details.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
     imports: [
         CommonModule,
         LayoutRoutingModule,
         TranslateModule,
-        NgbDropdownModule
+        NgbDropdownModule,
+        FullCalendarModule
     ],
     declarations: [LayoutComponent, SidebarComponent, HeaderComponent, MainDashboardComponent, EldersComponent, StaffComponent, HospitalsComponent, ReportsComponent, MedicineInventoryComponent, GuessMonitoringComponent, ArchivesComponent, SystemUsersComponent, DoctorListComponent, EldersDetailsComponent, StaffDetailsComponent, HospitalDetailsComponent]
 })

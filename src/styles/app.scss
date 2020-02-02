@@ -4,9 +4,17 @@
 @import "utils";
 @import "rtl";
 @import "responsive";
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
 
 @media print {
     .breadcrumb {
         display: none !important;
     }
+}
+
+.fc-toolbar.fc-header-toolbar {
+    margin: 0 !important;
+    padding: 1.5em;
+    background: #F7BA65 !important;
 }
