@@ -85,7 +85,7 @@
             <i class="fa fa-filter" aria-hidden="true"></i> Filter
           </button>
 
-          <button class="btn btn-light float-right">
+          <button class="btn btn-light float-right" (click)="open(content)">
             <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
           </button>
           <button class="btn btn-light float-right">
@@ -105,60 +105,15 @@
             </tr>
           </thead>
           <tbody>
-            <tr (click)="open(content)">
-              <th><input type="checkbox" /></th>
-              <th scope="row">Lorem</th>
-              <td>Ipsum</td>
-              <td>1</td>
-              <td>01-27-2020</td>
-              <td>
-                <button class="btn bg-transparent">
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                </button>
-              </td>
+            <tr *ngIf="medicineList.length == 0">
+              <td colspan="13" class="text-center">No Record</td>
             </tr>
-            <tr>
+            <tr *ngFor="let medicine of medicineList; let i = index">
               <th><input type="checkbox" /></th>
-              <th scope="row">Lorem</th>
-              <td>Ipsum</td>
-              <td>1</td>
-              <td>01-27-2020</td>
-              <td>
-                <button class="btn bg-transparent">
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <th><input type="checkbox" /></th>
-              <th scope="row">Lorem</th>
-              <td>Ipsum</td>
-              <td>1</td>
-              <td>01-27-2020</td>
-              <td>
-                <button class="btn bg-transparent">
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <th><input type="checkbox" /></th>
-              <th scope="row">Lorem</th>
-              <td>Ipsum</td>
-              <td>1</td>
-              <td>01-27-2020</td>
-              <td>
-                <button class="btn bg-transparent">
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <th><input type="checkbox" /></th>
-              <th scope="row">Lorem</th>
-              <td>Ipsum</td>
-              <td>1</td>
-              <td>01-27-2020</td>
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ medicine.medicine_name }}</td>
+              <td>{{ medicine.quantity }}</td>
+              <td>{{ medicine.date_created }}</td>
               <td>
                 <button class="btn bg-transparent">
                   <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -216,24 +171,81 @@
     ></full-calendar>
   </div>
 </div>
+<div class="form-group">
+  <div class="input-group datepicker-input">
+    <input
+      class="form-control"
+      placeholder="yyyy-mm-dd"
+      name="dp"
+      [(ngModel)]="model"
+      ngbDatepicker
+      #d="ngbDatepicker"
+    />
+    <button class="input-group-addon" (click)="d.toggle()" type="button">
+      <!-- <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/> -->
+      <span class="fa fa-calendar"></span>
+    </button>
+  </div>
+</div>
 
-<!-- Update modal -->
+<!-- Add Medicine modal -->
 
 <div>
   <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h4 class="modal-title">Modal title</h4>
+      <h5 class="modal-title">Add Medicine</h5>
       <button
         type="button"
         class="close"
         aria-label="Close"
-        (click)="d('Cross click')"
+        (click)="c('Cross click')"
       >
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
-      <p>One fine body&hellip;</p>
+      <fieldset class="form-group">
+        <label>Medicine Name</label>
+        <input class="form-control" placeholder="" [(ngModel)]="medName" />
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Quantity</label>
+        <input
+          class="form-control"
+          placeholder=""
+          type="number"
+          [(ngModel)]="quantity"
+        />
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Date</label>
+        <div class="form-group">
+          <div class="input-group datepicker-input">
+            <input
+              class="form-control"
+              placeholder="Select Date"
+              name="dp"
+              [(ngModel)]="dateCreated"
+              ngbDatepicker
+              #d="ngbDatepicker"
+              readonly
+            />
+            <button
+              class="input-group-addon"
+              (click)="d.toggle()"
+              type="button"
+            >
+              <!-- <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/> -->
+              <span class="fa fa-calendar"></span>
+            </button>
+          </div>
+        </div>
+      </fieldset>
+      <p *ngFor="let alert of alerts">
+        <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{
+          alert.message
+        }}</ngb-alert>
+      </p>
     </div>
     <div class="modal-footer">
       <button
@@ -242,6 +254,9 @@
         (click)="c('Close click')"
       >
         Close
+      </button>
+      <button type="button" class="btn btn-primary" (click)="addMedicine()">
+        Add
       </button>
     </div>
   </ng-template>

@@ -7,6 +7,7 @@ import timeGrigPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MedicineService } from 'src/app/services/medicine/medicine.service';
+import { Medicine } from 'src/app/models/medicine.model';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -15,6 +16,12 @@ import { MedicineService } from 'src/app/services/medicine/medicine.service';
   animations: [routerTransition()]
 })
 export class MainDashboardComponent implements OnInit {
+
+  medicineList: Medicine[] = [];
+  medName = '';
+  quantity = 1;
+  dateCreated: any;
+  // calendar variables
   @ViewChild('calendar', null) calendarComponent: FullCalendarComponent; // the #calendar in the template
 
   calendarVisible = true;
@@ -23,14 +30,19 @@ export class MainDashboardComponent implements OnInit {
   calendarEvents: EventInput[] = [
     { title: 'Event Now', start: new Date() }
   ];
+
   closeResult: string;
+  alerts: Array<any> = [];
 
   constructor(private modalService: NgbModal, private medicineService: MedicineService) { }
 
   ngOnInit() {
-    this.getAllMedicines();
   }
 
+  closeAlert(alert: any) {
+    const index: number = this.alerts.indexOf(alert);
+    this.alerts.splice(index, 1);
+  }
 
   toggleVisible() {
     this.calendarVisible = !this.calendarVisible;
@@ -63,6 +75,10 @@ export class MainDashboardComponent implements OnInit {
     });
   }
 
+  close() {
+    this.modalService.dismissAll();
+  }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -73,12 +89,47 @@ export class MainDashboardComponent implements OnInit {
     }
   }
 
-  getAllMedicines() {
-    this.medicineService.getAllMecine().subscribe(test => {
-      console.log('====================================');
-      console.log(test);
-      console.log('====================================');
+  async getAllMedicines() {
+    this.medicineService.getAllMecine().subscribe((list: Medicine[]) => {
+      this.medicineList = list;
     });
+  }
+
+  addMedicine() {
+
+    if (this.medName.trim() == '') {
+      return this.addAlert('Please enter medicine name!');
+    }
+
+    if (this.quantity == 0 || this.quantity == null) {
+      return this.addAlert('Please enter valid quantity!');
+    }
+
+    if (!this.dateCreated) {
+      return this.addAlert('Please enter valid Date!');
+    }
+
+    this.clearModalFields();
+    this.close();
+
+  }
+
+  addAlert(message) {
+    const alert = {
+      id: Math.random().toFixed(2),
+      type: 'danger',
+      message
+    };
+    this.alerts.push(alert);
+    setTimeout(() => {
+      this.alerts = this.alerts.filter(filter => filter.id != alert.id);
+    }, 3000);
+  }
+
+  clearModalFields() {
+    this.medName = '';
+    this.dateCreated = '';
+    this.quantity = 1;
   }
 
 }

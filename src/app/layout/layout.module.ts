@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
-import { NgbDropdownModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
@@ -22,7 +22,10 @@ import { StaffDetailsComponent } from './staff-details/staff-details.component';
 import { HospitalDetailsComponent } from './hospital-details/hospital-details.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { ModalComponent } from './bs-component/components';
-
+import { FormsModule } from '@angular/forms';
+import { EldersAddPageComponent } from './elders-add-page/elders-add-page.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
     imports: [
         CommonModule,
@@ -30,8 +33,27 @@ import { ModalComponent } from './bs-component/components';
         TranslateModule,
         NgbDropdownModule,
         FullCalendarModule,
-        NgbModalModule
+        NgbModalModule,
+        NgbModule,
+        FormsModule,
     ],
-    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, MainDashboardComponent, EldersComponent, StaffComponent, HospitalsComponent, ReportsComponent, MedicineInventoryComponent, GuessMonitoringComponent, ArchivesComponent, SystemUsersComponent, DoctorListComponent, EldersDetailsComponent, StaffDetailsComponent, HospitalDetailsComponent, ModalComponent]
+    declarations: [
+        LayoutComponent,
+        SidebarComponent,
+        HeaderComponent,
+        MainDashboardComponent,
+        EldersComponent,
+        StaffComponent,
+        HospitalsComponent,
+        ReportsComponent,
+        MedicineInventoryComponent,
+        GuessMonitoringComponent,
+        ArchivesComponent,
+        SystemUsersComponent,
+        DoctorListComponent,
+        EldersDetailsComponent,
+        StaffDetailsComponent,
+        HospitalDetailsComponent,
+        EldersAddPageComponent]
 })
 export class LayoutModule { }

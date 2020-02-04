@@ -6,6 +6,7 @@
 @import "responsive";
 @import '~@fullcalendar/core/main.css';
 @import '~@fullcalendar/daygrid/main.css';
+@import '~ngx-toastr/toastr-bs4-alert';
 
 @media print {
     .breadcrumb {

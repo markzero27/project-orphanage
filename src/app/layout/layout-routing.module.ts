@@ -14,6 +14,7 @@ import { DoctorListComponent } from './doctor-list/doctor-list.component';
 import { EldersDetailsComponent } from './elders-details/elders-details.component';
 import { StaffDetailsComponent } from './staff-details/staff-details.component';
 import { HospitalDetailsComponent } from './hospital-details/hospital-details.component';
+import { EldersAddPageComponent } from './elders-add-page/elders-add-page.component';
 
 const routes: Routes = [
     {
@@ -31,6 +32,7 @@ const routes: Routes = [
             { path: 'blank-page', loadChildren: () => import('./blank-page/blank-page.module').then(m => m.BlankPageModule) },
             { path: 'dashboard', component: MainDashboardComponent },
             { path: 'elders', component: EldersComponent },
+            { path: 'elders/add', component: EldersAddPageComponent },
             { path: 'elders/details', component: EldersDetailsComponent },
             { path: 'staff', component: StaffComponent },
             { path: 'staff/details', component: StaffDetailsComponent },

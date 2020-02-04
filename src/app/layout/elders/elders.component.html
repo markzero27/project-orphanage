@@ -11,7 +11,10 @@
     class="ml-3 rounded px-2 py-1"
     placeholder="Search"
   />
-  <button class="btn btn-light float-right">
+  <button
+    class="btn btn-light float-right"
+    (click)="router.navigate(['/elders/add'])"
+  >
     <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
   </button>
   <button class="btn btn-light float-right">
@@ -38,28 +41,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr
-        [routerLink]="['/elders/details']"
-        routerLinkActive="router-link-active"
-      >
-        <th><input type="checkbox" /></th>
-        <th scope="row">Lorem</th>
-        <td>Ipsum</td>
-        <td>1</td>
-        <td>10:30</td>
-        <td>01-27-2020</td>
-        <td>Done</td>
-        <td>Gina Buenaventura</td>
-        <td>
-          <button class="btn bg-transparent">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </button>
-        </td>
+      <tr *ngIf="elderList.length == 0">
+        <td colspan="13" class="text-center">No Record</td>
       </tr>
-      <tr
-        [routerLink]="['/elders/details']"
-        routerLinkActive="router-link-active"
-      >
+      <tr *ngFor="let elder of elderList">
         <th><input type="checkbox" /></th>
         <th scope="row">Lorem</th>
         <td>Ipsum</td>
@@ -69,40 +54,10 @@
         <td>Done</td>
         <td>Gina Buenaventura</td>
         <td>
-          <button class="btn bg-transparent">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </button>
-        </td>
-      </tr>
-      <tr
-        [routerLink]="['/elders/details']"
-        routerLinkActive="router-link-active"
-      >
-        <th><input type="checkbox" /></th>
-        <th scope="row">Lorem</th>
-        <td>Ipsum</td>
-        <td>1</td>
-        <td>10:30</td>
-        <td>01-27-2020</td>
-        <td>Done</td>
-        <td>Gina Buenaventura</td>
-        <td>
-          <button class="btn bg-transparent">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <th><input type="checkbox" /></th>
-        <th scope="row">Lorem</th>
-        <td>Ipsum</td>
-        <td>1</td>
-        <td>10:30</td>
-        <td>01-27-2020</td>
-        <td>Done</td>
-        <td>Gina Buenaventura</td>
-        <td>
-          <button class="btn bg-transparent">
+          <button
+            class="btn bg-transparent"
+            (click)="router.navigate(['/elders/details'])"
+          >
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </button>
         </td>

@@ -1,82 +1,157 @@
-<div class="top">
-  <h2 class="">
-    <small>Medicine Inventory</small>
-  </h2>
+<div>
+  <div class="top">
+    <h2 class="">
+      <small>Medicine Inventory</small>
+    </h2>
+  </div>
+  <div class="card-header pt-3">
+    <input
+      type="search"
+      name=""
+      id=""
+      class="ml-3 rounded px-2 py-1"
+      placeholder="Search"
+    />
+    <button class="btn btn-light float-right" (click)="open(content)">
+      <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
+    </button>
+    <button class="btn btn-light float-right">
+      <i class="fa fa-filter" aria-hidden="true"></i> Filter
+    </button>
+    <button class="btn btn-light float-right">
+      <i class="fa fa-archive mr-2" aria-hidden="true"></i>
+      Archive
+    </button>
+  </div>
+  <table class="table table-striped">
+    <thead class="bg-primary-color text-light">
+      <tr>
+        <th><input type="checkbox" /></th>
+        <th>#</th>
+        <th>Medicine Name</th>
+        <th>Medicine Type</th>
+        <th>Medicine Restock</th>
+        <th>Dispense</th>
+        <th>Remaining Stock</th>
+        <th>Buffer</th>
+        <th>Status</th>
+        <th>Created By</th>
+        <th>Date Modified</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th><input type="checkbox" /></th>
+        <th scope="row">1</th>
+        <td>Lorem</td>
+        <td>Lorem, ipsum dolor.</td>
+        <td>1000</td>
+        <td>200</td>
+        <td>1800</td>
+        <td>100</td>
+        <td>-</td>
+        <td>Gina Karenina</td>
+        <td>01-01-2020</td>
+      </tr>
+      <tr>
+        <th><input type="checkbox" /></th>
+        <th scope="row">2</th>
+        <td>Lorem</td>
+        <td>Lorem, ipsum dolor.</td>
+        <td>1000</td>
+        <td>200</td>
+        <td>1800</td>
+        <td>100</td>
+        <td>-</td>
+        <td>Gina Karenina</td>
+        <td>01-01-2020</td>
+      </tr>
+      <tr>
+        <th><input type="checkbox" /></th>
+        <th scope="row">3</th>
+        <td>Lorem</td>
+        <td>Lorem, ipsum dolor.</td>
+        <td>1000</td>
+        <td>200</td>
+        <td>1800</td>
+        <td>100</td>
+        <td>-</td>
+        <td>Gina Karenina</td>
+        <td>01-01-2020</td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- Add Medicine modal -->
+
+  <div>
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Medicine</h5>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="c('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <fieldset class="form-group">
+          <label>Medicine Name</label>
+          <input class="form-control" placeholder="" [(ngModel)]="medName" />
+        </fieldset>
+        <fieldset class="form-group">
+          <label>Quantity</label>
+          <input
+            class="form-control"
+            placeholder=""
+            type="number"
+            [(ngModel)]="quantity"
+          />
+        </fieldset>
+        <fieldset class="form-group">
+          <label>Date</label>
+          <div class="form-group">
+            <div class="input-group datepicker-input">
+              <input
+                class="form-control"
+                placeholder="Select Date"
+                name="dp"
+                [(ngModel)]="dateCreated"
+                ngbDatepicker
+                #d="ngbDatepicker"
+                readonly
+              />
+              <button
+                class="input-group-addon"
+                (click)="d.toggle()"
+                type="button"
+              >
+                <!-- <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/> -->
+                <span class="fa fa-calendar"></span>
+              </button>
+            </div>
+          </div>
+        </fieldset>
+        <p *ngFor="let alert of alerts">
+          <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{
+            alert.message
+          }}</ngb-alert>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="c('Close click')"
+        >
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" (click)="addMedicine()">
+          Add
+        </button>
+      </div>
+    </ng-template>
+  </div>
 </div>
-<div class="card-header pt-3">
-  <input
-    type="search"
-    name=""
-    id=""
-    class="ml-3 rounded px-2 py-1"
-    placeholder="Search"
-  />
-  <button class="btn btn-light float-right">
-    <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
-  </button>
-  <button class="btn btn-light float-right">
-    <i class="fa fa-filter" aria-hidden="true"></i> Filter
-  </button>
-  <button class="btn btn-light float-right">
-    <i class="fa fa-archive mr-2" aria-hidden="true"></i>
-    Archive
-  </button>
-</div>
-<table class="table table-striped">
-  <thead class="bg-primary-color text-light">
-    <tr>
-      <th><input type="checkbox" /></th>
-      <th>#</th>
-      <th>Medicine Name</th>
-      <th>Medicine Type</th>
-      <th>Medicine Restock</th>
-      <th>Dispense</th>
-      <th>Remaining Stock</th>
-      <th>Buffer</th>
-      <th>Status</th>
-      <th>Created By</th>
-      <th>Date Modified</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th><input type="checkbox" /></th>
-      <th scope="row">1</th>
-      <td>Lorem</td>
-      <td>Lorem, ipsum dolor.</td>
-      <td>1000</td>
-      <td>200</td>
-      <td>1800</td>
-      <td>100</td>
-      <td>-</td>
-      <td>Gina Karenina</td>
-      <td>01-01-2020</td>
-    </tr>
-    <tr>
-      <th><input type="checkbox" /></th>
-      <th scope="row">2</th>
-      <td>Lorem</td>
-      <td>Lorem, ipsum dolor.</td>
-      <td>1000</td>
-      <td>200</td>
-      <td>1800</td>
-      <td>100</td>
-      <td>-</td>
-      <td>Gina Karenina</td>
-      <td>01-01-2020</td>
-    </tr>
-    <tr>
-      <th><input type="checkbox" /></th>
-      <th scope="row">3</th>
-      <td>Lorem</td>
-      <td>Lorem, ipsum dolor.</td>
-      <td>1000</td>
-      <td>200</td>
-      <td>1800</td>
-      <td>100</td>
-      <td>-</td>
-      <td>Gina Karenina</td>
-      <td>01-01-2020</td>
-    </tr>
-  </tbody>
-</table>

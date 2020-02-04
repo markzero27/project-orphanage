@@ -8,6 +8,7 @@ import { LanguageTranslationModule } from './shared/modules/language-translation
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     imports: [
@@ -17,9 +18,11 @@ import { AuthGuard } from './shared';
         HttpClientModule,
         LanguageTranslationModule,
         AppRoutingModule,
+        ToastrModule.forRoot()
+
     ],
     declarations: [AppComponent],
-    providers: [AuthGuard],
+    providers: [AuthGuard, ToastrModule],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
