@@ -8,8 +8,8 @@ export interface Guest {
     elder_id: number;
     time_in: string;
     time_out: string;
-    created_by: string;
-    updated_by: string;
+    created_by: number;
+    updated_by: number;
     date_created?: any;
     date_updated?: any;
 }

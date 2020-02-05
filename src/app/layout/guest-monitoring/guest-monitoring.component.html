@@ -30,49 +30,29 @@
       <th>Guess Name</th>
       <th>Contact #</th>
       <th>Address</th>
-      <th>Relationship</th>
       <th>Elders Visited</th>
+      <th>Relationship</th>
       <th>Time-in</th>
       <th>Time-out</th>
       <th>Date</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
+    <tr *ngFor="let guest of guestList; let i = index">
       <th><input type="checkbox" /></th>
-      <th scope="row">1</th>
-      <td>Lorem</td>
-      <td>0987654321</td>
-      <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
-      <td>Lorem</td>
-      <td>lorem Ipsum</td>
-      <td>10:00 AM</td>
-      <td>12:00 PM</td>
-      <td>01-01-2020</td>
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ guest.guest_name }}</td>
+      <td>{{ guest.contact_no }}</td>
+      <td>{{ guest.address }}</td>
+      <td></td>
+      <td>{{ guest.relationship_description }}</td>
+      <td>{{ guest.time_in }}</td>
+      <td>{{ guest.time_out }}</td>
+      <td>{{ guest.date_created }}</td>
     </tr>
-    <tr>
-      <th><input type="checkbox" /></th>
-      <th scope="row">1</th>
-      <td>Lorem</td>
-      <td>0987654321</td>
-      <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
-      <td>Lorem</td>
-      <td>lorem Ipsum</td>
-      <td>10:00 AM</td>
-      <td>12:00 PM</td>
-      <td>01-01-2020</td>
-    </tr>
-    <tr>
-      <th><input type="checkbox" /></th>
-      <th scope="row">1</th>
-      <td>Lorem</td>
-      <td>0987654321</td>
-      <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
-      <td>Lorem</td>
-      <td>lorem Ipsum</td>
-      <td>10:00 AM</td>
-      <td>12:00 PM</td>
-      <td>01-01-2020</td>
+
+    <tr *ngIf="guestList.length == 0">
+      <td class="text-center p-3" colspan="13">No Record Found</td>
     </tr>
   </tbody>
 </table>

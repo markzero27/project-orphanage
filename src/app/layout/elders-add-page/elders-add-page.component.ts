@@ -47,11 +47,49 @@ export class EldersAddPageComponent implements OnInit {
     this.elderService.addElder(this.elder).subscribe(data => {
       console.log(data);
       this.toastr.success('Success!');
+      this.elder = null;
       this.elder = initialElder;
-      this.bDate = null;
-      this.dateIn = null;
-      this.sabbath = null;
+      this.clearAll();
     });
+
+
   }
 
+  clearAll() {
+    this.bDate = null;
+    this.dateIn = null;
+    this.sabbath = null;
+    this.elder = {
+      id: 0
+      , first_name: '',
+      middle_name: '',
+      last_name: '',
+      nickname: '',
+      gender: 'male',
+      image: 'assets/images/default.jpeg',
+      nationality: '',
+      age: 0
+      , birth_place: '',
+      provincial_address: '',
+      birth_date: '',
+      sabbath: '',
+      civil_status: 5,
+      date_stay_in_orphanage: '',
+      bed_no: 0
+      , cp_first_name: '',
+      cp_middle_name: '',
+      cp_surname: '',
+      cp_contact_no: '',
+      cp_relationship: '',
+      cp_provincial_add: '',
+      cp_work: '',
+      oi_phil_health: '',
+      oi_sss_id: '',
+      oi_senior_citizen_id: '',
+      oi_pagibig: '',
+      created_by: 0,
+      updated_by: 0
+
+    }
+  }
 }

@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GuessService } from './guess.service';
+import { GuestService } from './guest.service';
 
 describe('GuessService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: GuessService = TestBed.get(GuessService);
+    const service: GuestService = TestBed.get(GuestService);
     expect(service).toBeTruthy();
   });
 });

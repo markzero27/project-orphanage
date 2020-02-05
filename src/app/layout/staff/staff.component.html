@@ -37,13 +37,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr
-        [routerLink]="['/staff/details']"
-        routerLinkActive="router-link-active"
-      >
+      <tr *ngFor="let staff of staffList">
         <th><input type="checkbox" /></th>
-        <th scope="row">Lorem</th>
-        <td>Ipsum@mail.com</td>
+        <th scope="row">{{ staff.first_name }} {{ staff.last_name }}</th>
+        <td>{{ staff.email }}</td>
         <td>10:30</td>
         <td>01-27-2020</td>
         <td>Active</td>
@@ -54,53 +51,8 @@
           </button>
         </td>
       </tr>
-      <tr
-        [routerLink]="['/staff/details']"
-        routerLinkActive="router-link-active"
-      >
-        <th><input type="checkbox" /></th>
-        <th scope="row">Lorem</th>
-        <td>Ipsum@mail.com</td>
-        <td>10:30</td>
-        <td>01-27-2020</td>
-        <td>Active</td>
-        <td>Gloria Diaz</td>
-        <td>
-          <button class="btn bg-transparent">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </button>
-        </td>
-      </tr>
-      <tr
-        [routerLink]="['/staff/details']"
-        routerLinkActive="router-link-active"
-      >
-        <th><input type="checkbox" /></th>
-        <th scope="row">Lorem</th>
-        <td>Ipsum@mail.com</td>
-        <td>10:30</td>
-        <td>01-27-2020</td>
-        <td>Active</td>
-        <td>Gloria Diaz</td>
-        <td>
-          <button class="btn bg-transparent">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </button>
-        </td>
-      </tr>
-      <tr>
-        <th><input type="checkbox" /></th>
-        <th scope="row">Lorem</th>
-        <td>Ipsum@mail.com</td>
-        <td>10:30</td>
-        <td>01-27-2020</td>
-        <td>Active</td>
-        <td>Gloria Diaz</td>
-        <td>
-          <button class="btn bg-transparent">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </button>
-        </td>
+      <tr *ngIf="staffList.length == 0">
+        <td colspan="13" class="text-center">No Record</td>
       </tr>
     </tbody>
   </table>
