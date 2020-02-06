@@ -50,6 +50,7 @@ export class EldersAddPageComponent implements OnInit {
       this.elder = null;
       this.elder = initialElder;
       this.clearAll();
+      this.router.navigate(['/elders']);
     });
 
 

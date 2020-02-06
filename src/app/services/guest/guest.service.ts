@@ -7,9 +7,9 @@ import { Guest } from 'src/app/models/guest.model';
   providedIn: 'root'
 })
 export class GuestService {
-  url = environment.api + 'users';
+  url = environment.api + 'guests';
   userId = +localStorage.getItem('user_id');
-  reqHeader = new HttpHeaders({ 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': 'http://localhost:4200' });
+  reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(private http: HttpClient) {
   }
 
@@ -21,5 +21,11 @@ export class GuestService {
     data.created_by = Number(this.userId);
     data.updated_by = Number(this.userId);
     return this.http.post(this.url, data, { headers: this.reqHeader });
+  }
+
+  updateGuest(data: Guest) {
+    data.updated_by = Number(this.userId);
+    console.log(this.reqHeader);
+    return this.http.patch(`${this.url}/${data.id}`, data, { headers: this.reqHeader });
   }
 }

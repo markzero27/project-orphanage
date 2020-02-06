@@ -11,7 +11,7 @@
     class="ml-3 rounded px-2 py-1"
     placeholder="Search"
   />
-  <button class="btn btn-light float-right">
+  <button class="btn btn-light float-right" (click)="open(content)">
     <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
   </button>
   <button class="btn btn-light float-right">
@@ -35,6 +35,7 @@
       <th>Time-in</th>
       <th>Time-out</th>
       <th>Date</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -44,11 +45,19 @@
       <td>{{ guest.guest_name }}</td>
       <td>{{ guest.contact_no }}</td>
       <td>{{ guest.address }}</td>
-      <td></td>
+      <td>{{ guest.elder_name }}</td>
       <td>{{ guest.relationship_description }}</td>
-      <td>{{ guest.time_in }}</td>
-      <td>{{ guest.time_out }}</td>
-      <td>{{ guest.date_created }}</td>
+      <td>{{ formatTime(guest.time_in) | date: 'hh:mm a' }}</td>
+      <td>{{ formatTime(guest.time_out) | date: 'hh:mm a' }}</td>
+      <td>{{ guest.created_at }}</td>
+      <td>
+        <button
+          class="btn bg-transparent"
+          (click)="setSelectedGuest(guest, content2)"
+        >
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+        </button>
+      </td>
     </tr>
 
     <tr *ngIf="guestList.length == 0">
@@ -56,3 +65,215 @@
     </tr>
   </tbody>
 </table>
+
+<!-- add modal -->
+
+<div>
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title text-center">Add Guest</h5>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="c('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <fieldset class="form-group">
+        <div class="d-flex justify-content-between ">
+          <div class="text-center px-3 border-right">
+            Time In
+            <ngb-timepicker
+              [(ngModel)]="time_in"
+              [meridian]="true"
+            ></ngb-timepicker>
+          </div>
+          <div class="text-center px-3">
+            Time out
+            <ngb-timepicker
+              [(ngModel)]="time_out"
+              [meridian]="true"
+            ></ngb-timepicker>
+          </div>
+        </div>
+      </fieldset>
+      <hr />
+      <fieldset class="form-group">
+        <label>Name</label>
+        <input
+          class="form-control"
+          placeholder=""
+          [(ngModel)]="guest.guest_name"
+        />
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Contact Number</label>
+        <input
+          class="form-control"
+          placeholder=""
+          type="text"
+          [(ngModel)]="guest.contact_no"
+        />
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Address</label>
+        <input
+          class="form-control"
+          placeholder=""
+          [(ngModel)]="guest.address"
+        />
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Elder Visited</label>
+        <div class="form-group">
+          <label for=""></label>
+          <select
+            class="custom-select"
+            name=""
+            id=""
+            [(ngModel)]="selectedElder"
+          >
+            <option *ngFor="let elder of elderList" [value]="elder"
+              >{{ elder.first_name }} {{ elder.last_name }}</option
+            >
+          </select>
+        </div>
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Relationship</label>
+        <input
+          class="form-control"
+          placeholder=""
+          [(ngModel)]="guest.relationship_description"
+        />
+      </fieldset>
+
+      <p *ngFor="let alert of alerts">
+        <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{
+          alert.message
+        }}</ngb-alert>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="c('Close click')"
+      >
+        Close
+      </button>
+      <button type="button" class="btn btn-primary" (click)="addGuest()">
+        Add
+      </button>
+    </div>
+  </ng-template>
+</div>
+
+<!-- add modal -->
+
+<div>
+  <ng-template #content2 let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title text-center">Add Guest</h5>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="c('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <fieldset class="form-group">
+        <div class="d-flex justify-content2-between ">
+          <div class="text-center px-3 border-right">
+            Time In
+            <ngb-timepicker
+              [(ngModel)]="time_in2"
+              [meridian]="true"
+            ></ngb-timepicker>
+          </div>
+          <div class="text-center px-3">
+            Time out
+            <ngb-timepicker
+              [(ngModel)]="time_out2"
+              [meridian]="true"
+            ></ngb-timepicker>
+          </div>
+        </div>
+      </fieldset>
+      <hr />
+      <fieldset class="form-group">
+        <label>Name</label>
+        <input
+          class="form-control"
+          placeholder=""
+          [(ngModel)]="selectedGuest.guest_name"
+        />
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Contact Number</label>
+        <input
+          class="form-control"
+          placeholder=""
+          type="text"
+          [(ngModel)]="selectedGuest.contact_no"
+        />
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Address</label>
+        <input
+          class="form-control"
+          placeholder=""
+          [(ngModel)]="selectedGuest.address"
+        />
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Elder Visited</label>
+        <div class="form-group">
+          <label for=""></label>
+          <select
+            class="custom-select"
+            name=""
+            id=""
+            [(ngModel)]="selectedElder"
+          >
+            <option *ngFor="let elder of elderList" [value]="elder"
+              >{{ elder.first_name }} {{ elder.last_name }}</option
+            >
+          </select>
+        </div>
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Relationship</label>
+        <input
+          class="form-control"
+          placeholder=""
+          [(ngModel)]="selectedGuest.relationship_description"
+        />
+      </fieldset>
+
+      <p *ngFor="let alert of alerts">
+        <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{
+          alert.message
+        }}</ngb-alert>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="c('Close click')"
+      >
+        Cancel
+      </button>
+      <button type="button" class="btn btn-primary" (click)="updateGuest()">
+        Update
+      </button>
+    </div>
+  </ng-template>
+</div>
