@@ -8,7 +8,7 @@ import { User } from 'src/app/models/user.model';
   providedIn: 'root'
 })
 export class StaffService {
-  url = environment.api + 'users';
+  url = environment.api + '/users';
   userId = +localStorage.getItem('user_id');
   reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(private http: HttpClient) {
@@ -25,5 +25,15 @@ export class StaffService {
     data.created_by = Number(this.userId);
     data.updated_by = Number(this.userId);
     return this.http.post(this.url, data, { headers: this.reqHeader });
+  }
+
+  deleteUser(id) {
+    return new Promise(resolve => {
+      this.http.delete(`${this.url}/${id}`, { headers: this.reqHeader }).subscribe(res => {
+        resolve(res);
+      }, err => {
+        resolve(err);
+      });
+    });
   }
 }

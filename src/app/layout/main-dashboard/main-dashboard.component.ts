@@ -90,7 +90,7 @@ export class MainDashboardComponent implements OnInit {
   }
 
   async getAllMedicines() {
-    this.medicineService.getAllMecine().subscribe((list: Medicine[]) => {
+    this.medicineService.getAllMedicine().subscribe((list: Medicine[]) => {
       this.medicineList = list;
     });
   }

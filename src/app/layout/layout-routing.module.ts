@@ -15,6 +15,7 @@ import { EldersDetailsComponent } from './elders-details/elders-details.componen
 import { StaffDetailsComponent } from './staff-details/staff-details.component';
 import { HospitalDetailsComponent } from './hospital-details/hospital-details.component';
 import { EldersAddPageComponent } from './elders-add-page/elders-add-page.component';
+import { StaffAddComponent } from './staff-add/staff-add.component';
 
 const routes: Routes = [
     {
@@ -35,6 +36,7 @@ const routes: Routes = [
             { path: 'elders/add', component: EldersAddPageComponent },
             { path: 'elders/details', component: EldersDetailsComponent },
             { path: 'staff', component: StaffComponent },
+            { path: 'staff/add', component: StaffAddComponent },
             { path: 'staff/details', component: StaffDetailsComponent },
             { path: 'hospitals', component: HospitalsComponent },
             { path: 'hospitals/details', component: HospitalDetailsComponent },

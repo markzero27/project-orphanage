@@ -7,7 +7,7 @@ import { Guest } from 'src/app/models/guest.model';
   providedIn: 'root'
 })
 export class GuestService {
-  url = environment.api + 'guests';
+  url = environment.api + '/guests';
   userId = +localStorage.getItem('user_id');
   reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(private http: HttpClient) {
@@ -25,7 +25,16 @@ export class GuestService {
 
   updateGuest(data: Guest) {
     data.updated_by = Number(this.userId);
-    console.log(this.reqHeader);
     return this.http.patch(`${this.url}/${data.id}`, data, { headers: this.reqHeader });
+  }
+
+  deleteGuest(id) {
+    return new Promise(resolve => {
+      this.http.delete(`${this.url}/${id}`, { headers: this.reqHeader }).subscribe(res => {
+        resolve(res);
+      }, err => {
+        resolve(err);
+      });
+    });
   }
 }

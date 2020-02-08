@@ -11,8 +11,8 @@ export interface Guest {
     time_out: string;
     created_by: number;
     updated_by: number;
-    date_created?: any;
-    date_updated?: any;
+    created_at?: any;
+    uodated_at?: any;
 }
 
 export const initialGuests: Guest = {

@@ -7,7 +7,7 @@ import { Elders } from 'src/app/models/elders.model';
   providedIn: 'root'
 })
 export class EldersService {
-  url = environment.api + 'elders';
+  url = environment.api + '/elders';
   userId = +localStorage.getItem('user_id');
   reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(private http: HttpClient) {
@@ -20,9 +20,43 @@ export class EldersService {
     return this.http.get(this.url, { headers: this.reqHeader });
   }
 
+  getElderById(id) {
+    return this.http.get(`${this.url}/${id}`, { headers: this.reqHeader });
+  }
+
   addElder(data: Elders) {
     data.created_by = Number(this.userId);
     data.updated_by = Number(this.userId);
     return this.http.post(this.url, data, { headers: this.reqHeader });
+  }
+
+  getMedHistoryById(id) {
+    return this.http.get(`${environment.api}/elders-medical-history?elder_id=${id}`, { headers: this.reqHeader });
+  }
+
+  addMedicalHistory(data) {
+    data.created_by = Number(this.userId);
+    data.updated_by = Number(this.userId);
+    return this.http.post(`${environment.api}/elders-medical-history`, data, { headers: this.reqHeader });
+  }
+
+  udpateElder(data: Elders) {
+    data.updated_by = Number(this.userId);
+    return this.http.patch(`${this.url}/${data.id}`, data, { headers: this.reqHeader });
+  }
+
+  deleteElder(id) {
+    return new Promise(resolve => {
+      this.http.delete(`${this.url}/${id}`, { headers: this.reqHeader }).subscribe(res => {
+        resolve(res);
+      }, err => {
+        resolve(err);
+      });
+    });
+  }
+
+  updateMedicalHistory(data) {
+    data.updated_by = Number(this.userId);
+    return this.http.patch(`${environment.api}/elders-medical-history/${data.id}`, data, { headers: this.reqHeader });
   }
 }

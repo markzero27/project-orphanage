@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 export class GuestMonitoringComponent implements OnInit {
   elderList: Elders[] = [];
   guestList: Guest[] = [];
-  selectedElder: Elders;
+  selectedElder = 1;
   selectedGuest: Guest = JSON.parse(JSON.stringify(initialGuests));;
   closeResult: string;
   alerts: Array<any> = [];
@@ -22,6 +22,7 @@ export class GuestMonitoringComponent implements OnInit {
   time_in2: any;
   time_out: any;
   time_out2: any;
+  deleteId = 0;
 
   guest: Guest = JSON.parse(JSON.stringify(initialGuests));
 
@@ -35,17 +36,27 @@ export class GuestMonitoringComponent implements OnInit {
   ngOnInit() {
     this.guestService.getAllGuests().subscribe((guests: Guest[]) => {
       this.guestList = guests;
-      console.log(this.guestList);
     });
-    this.elderService.getAllElders().subscribe((elders: any) => {
+    this.elderService.getAllElders().subscribe((elders: any[]) => {
       this.elderList = elders;
-      this.selectedElder = elders[0];
+      if (elders.length) {
+        this.selectedElder = elders[0].id;
+      }
+
     });
   }
 
 
   open(content) {
     this.modalService.open(content).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  openSm(content) {
+    this.modalService.open(content, { size: 'sm' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -79,13 +90,14 @@ export class GuestMonitoringComponent implements OnInit {
 
     this.guest.time_in = `${this.time_in.hour}:${this.time_in.minute}`;
     this.guest.time_out = `${this.time_out.hour}:${this.time_out.minute}`;
-    this.guest.elder_id = this.selectedElder.id;
-    this.guest.elder_name = `${this.selectedElder.first_name} ${this.selectedElder.last_name}`;
-    this.guestService.addGuest(this.guest).subscribe((res: any) => {
-      console.log('====================================');
-      console.log(res);
-      console.log('====================================');
-      this.guestList.push(res);
+    this.guest.elder_id = this.selectedElder;
+    const elder = this.elderList.find(data => data.id == this.selectedElder);
+    console.log('To be added ====================================');
+    console.log(this.guest);
+    console.log('====================================');
+    this.guest.elder_name = `${elder.first_name} ${elder.last_name}`;
+    this.guestService.addGuest(this.guest).subscribe(async (res: any) => {
+      this.guestList = await this.guestService.getAllGuests().toPromise() as Guest[];
       this.toastr.success('Guest added!');
     });
 
@@ -130,8 +142,13 @@ export class GuestMonitoringComponent implements OnInit {
       hour: +guest.time_out.substring(0, 1),
       minute: +guest.time_out.substring(3, 4)
     };
-    this.selectedElder = this.elderList.find(elder => elder.id == guest.id);
+    this.selectedElder = this.selectedGuest.elder_id;
     this.open(content);
+  }
+
+  setGuestToDelete(id, content) {
+    this.deleteId = id;
+    this.openSm(content);
   }
 
   updateGuest() {
@@ -145,18 +162,24 @@ export class GuestMonitoringComponent implements OnInit {
 
     this.selectedGuest.time_in = `${this.time_in2.hour}:${this.time_in2.minute}`;
     this.selectedGuest.time_out = `${this.time_out2.hour}:${this.time_out2.minute}`;
-    this.selectedGuest.elder_id = this.selectedElder.id;
-    this.selectedGuest.elder_name = `${this.selectedElder.first_name} ${this.selectedElder.last_name}`;
-    this.guestService.updateGuest(this.selectedGuest).subscribe((res: any) => {
-      console.log('====================================');
-      console.log(res);
-      console.log('====================================');
+    this.selectedGuest.elder_id = this.selectedElder;
+    const elder = this.elderList.find(data => data.id == this.selectedElder);
+    this.selectedGuest.elder_name = `${elder.first_name} ${elder.last_name}`;
+
+    this.guestService.updateGuest(this.selectedGuest).subscribe(async (res: any) => {
       const i = this.guestList.findIndex(x => x.id == res.id);
-      this.guestList[i] = res;
+      this.guestList = await this.guestService.getAllGuests().toPromise() as Guest[];
       this.toastr.success('Guest updated!');
     });
 
     this.clearModalFields();
+    this.close();
+  }
+
+  async deleteGuest() {
+    await this.guestService.deleteGuest(this.deleteId);
+    this.guestList = await this.guestService.getAllGuests().toPromise() as Guest[];
+    this.toastr.success('Record deleted!');
     this.close();
   }
 }

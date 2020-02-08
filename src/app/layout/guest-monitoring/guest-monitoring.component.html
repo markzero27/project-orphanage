@@ -53,6 +53,12 @@
       <td>
         <button
           class="btn bg-transparent"
+          (click)="setGuestToDelete(guest.id, content3)"
+        >
+          <i class="fa fa-trash" aria-hidden="true"></i>
+        </button>
+        <button
+          class="btn bg-transparent"
           (click)="setSelectedGuest(guest, content2)"
         >
           <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -61,7 +67,7 @@
     </tr>
 
     <tr *ngIf="guestList.length == 0">
-      <td class="text-center p-3" colspan="13">No Record Found</td>
+      <td class="text-center p-3" colspan="13">No Record</td>
     </tr>
   </tbody>
 </table>
@@ -136,7 +142,7 @@
             id=""
             [(ngModel)]="selectedElder"
           >
-            <option *ngFor="let elder of elderList" [value]="elder"
+            <option *ngFor="let elder of elderList" [value]="elder.id"
               >{{ elder.first_name }} {{ elder.last_name }}</option
             >
           </select>
@@ -172,7 +178,7 @@
   </ng-template>
 </div>
 
-<!-- add modal -->
+<!-- update modal -->
 
 <div>
   <ng-template #content2 let-c="close" let-d="dismiss">
@@ -189,7 +195,7 @@
     </div>
     <div class="modal-body">
       <fieldset class="form-group">
-        <div class="d-flex justify-content2-between ">
+        <div class="d-flex justify-content-between ">
           <div class="text-center px-3 border-right">
             Time In
             <ngb-timepicker
@@ -242,7 +248,7 @@
             id=""
             [(ngModel)]="selectedElder"
           >
-            <option *ngFor="let elder of elderList" [value]="elder"
+            <option *ngFor="let elder of elderList" [value]="elder.id"
               >{{ elder.first_name }} {{ elder.last_name }}</option
             >
           </select>
@@ -273,6 +279,39 @@
       </button>
       <button type="button" class="btn btn-primary" (click)="updateGuest()">
         Update
+      </button>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Delete modal -->
+
+<div>
+  <ng-template #content3 let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title text-center">Delete Record</h5>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="c('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to delete this record?</p>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="c('Close click')"
+      >
+        Cancel
+      </button>
+      <button type="button" class="btn btn-primary" (click)="deleteGuest()">
+        Delete
       </button>
     </div>
   </ng-template>

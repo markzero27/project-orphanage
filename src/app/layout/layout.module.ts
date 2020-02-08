@@ -26,6 +26,7 @@ import { FormsModule } from '@angular/forms';
 import { EldersAddPageComponent } from './elders-add-page/elders-add-page.component';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StaffAddComponent } from './staff-add/staff-add.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -54,6 +55,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         EldersDetailsComponent,
         StaffDetailsComponent,
         HospitalDetailsComponent,
-        EldersAddPageComponent]
+        EldersAddPageComponent,
+        StaffAddComponent]
 })
 export class LayoutModule { }
