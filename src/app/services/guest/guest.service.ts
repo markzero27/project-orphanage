@@ -20,11 +20,13 @@ export class GuestService {
   addGuest(data: Guest) {
     data.created_by = Number(this.userId);
     data.updated_by = Number(this.userId);
+    data.updated_at = new Date().toLocaleString();
     return this.http.post(this.url, data, { headers: this.reqHeader });
   }
 
   updateGuest(data: Guest) {
     data.updated_by = Number(this.userId);
+    data.updated_at = new Date().toLocaleString();
     return this.http.patch(`${this.url}/${data.id}`, data, { headers: this.reqHeader });
   }
 

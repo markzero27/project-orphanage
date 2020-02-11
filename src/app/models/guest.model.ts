@@ -12,7 +12,7 @@ export interface Guest {
     created_by: number;
     updated_by: number;
     created_at?: any;
-    uodated_at?: any;
+    updated_at?: any;
 }
 
 export const initialGuests: Guest = {

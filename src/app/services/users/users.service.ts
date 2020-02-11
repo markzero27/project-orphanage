@@ -31,6 +31,7 @@ export class UsersService {
     const api = environment.api + '/users-employment-history';
     data.created_by = Number(this.userId);
     data.updated_by = Number(this.userId);
+    data.updated_at = new Date().toLocaleString();
     return this.http.post(api, data, { headers: this.reqHeader });
   }
 

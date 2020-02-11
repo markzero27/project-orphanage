@@ -27,6 +27,7 @@ export class EldersService {
   addElder(data: Elders) {
     data.created_by = Number(this.userId);
     data.updated_by = Number(this.userId);
+    data.updated_at = new Date().toLocaleString();
     return this.http.post(this.url, data, { headers: this.reqHeader });
   }
 

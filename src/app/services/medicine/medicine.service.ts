@@ -26,6 +26,7 @@ export class MedicineService {
 
   updateMed(data: Medicine) {
     data.updated_by = Number(this.userId);
+    data.updated_at = new Date().toLocaleString();
     return this.http.patch(`${this.url}/${data.id}`, data, { headers: this.reqHeader });
   }
 
