@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { User } from 'src/app/models/user.model';
+import { Task } from 'src/app/models/task.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,13 +17,13 @@ export class TaskService {
     console.log('====================================');
   }
 
-  // getAllUsers() {
-  //   return this.http.get(this.url, { headers: this.reqHeader });
-  // }
+  getTaskByStaff(id) {
+    return this.http.get(`${this.url}?task_owner_id=${id}`, { headers: this.reqHeader });
+  }
 
-  // addTask(data: User) {
-  //   data.created_by = Number(this.userId);
-  //   data.updated_by = Number(this.userId);
-  //   return this.http.post(this.url, data, { headers: this.reqHeader });
-  // }
+  addTask(data: Task) {
+    data.created_by = Number(this.userId);
+    data.updated_by = Number(this.userId);
+    return this.http.post(this.url, data, { headers: this.reqHeader });
+  }
 }

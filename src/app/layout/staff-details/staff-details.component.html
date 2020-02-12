@@ -36,7 +36,7 @@
           </div>
           <div class="elder-name">
             <p class="text-center color-dark-primary m-0 text-capitalize">
-              {{ staff.first_name }} {{ staff?.middle_name?.substring(0,1) }}.
+              {{ staff.first_name }} {{ staff?.middle_name?.substring(0, 1) }}.
               {{ staff.last_name }}
             </p>
             <p class="text-center small m-0">Staff</p>
@@ -97,7 +97,7 @@
           </div>
           <div class="elder-name">
             <p class="text-center color-dark-primary m-0 text-capitalize">
-              {{ staff.first_name }} {{ staff?.middle_name?.substring(0,1) }}.
+              {{ staff.first_name }} {{ staff?.middle_name?.substring(0, 1) }}.
               {{ staff.last_name }}
             </p>
             <p class="text-center small m-0">Staff</p>
@@ -601,7 +601,7 @@
     <div class="col-md-8 right-div" *ngSwitchCase="2">
       <div class="card-header bg-transparent border pt-3 color-dark-primary">
         Task
-        <button class="btn btn-light float-right">
+        <button class="btn btn-light float-right" (click)="open(content)">
           <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
         </button>
         <button class="btn btn-light float-right">
@@ -620,44 +620,24 @@
               <th>Elder Name</th>
               <th>Medicine</th>
               <th>Qty</th>
-              <th>Time-in</th>
-              <th>Time-out</th>
+              <th>Time</th>
               <th>Date</th>
               <th>Status</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            <tr
-              [routerLink]="['/elders/details']"
-              routerLinkActive="router-link-active"
-            >
-              <th><input type="checkbox" /></th>
-              <th scope="row">Lorem</th>
-              <td>Ipsum</td>
-              <td>1</td>
-              <td>10:30</td>
-              <td>10:30</td>
-              <td>01-27-2020</td>
-              <td>Done</td>
-              <td>
-                <button class="btn bg-transparent">
-                  <i class="fa fa-pencil" aria-hidden="true"></i>
-                </button>
-              </td>
+            <tr *ngIf="taskList.length == 0">
+              <td colspan="13" class="text-center">No Record</td>
             </tr>
-            <tr
-              [routerLink]="['/elders/details']"
-              routerLinkActive="router-link-active"
-            >
+            <tr *ngFor="let task of taskList">
               <th><input type="checkbox" /></th>
-              <th scope="row">Lorem</th>
-              <td>Ipsum</td>
-              <td>1</td>
-              <td>10:30</td>
-              <td>10:30</td>
-              <td>01-27-2020</td>
-              <td>Done</td>
+              <th scope="row">{{ task.elder_name }}</th>
+              <td>{{ task.medicine_description }}</td>
+              <td>{{ task.qty }}</td>
+              <td>{{ task.time }}</td>
+              <td>{{ task.updatedAt }}</td>
+              <td>{{ task.status }}</td>
               <td>
                 <button class="btn bg-transparent">
                   <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -669,4 +649,98 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- add modal -->
+
+<div>
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title text-center">Add Task</h5>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="c('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      
+      <fieldset class="form-group ">
+       <div class="d-flex justify-content-center flex-column align-items-center">
+         <label>Time</label>
+        <div >
+          <ngb-timepicker
+              [(ngModel)]="time"
+              [meridian]="true"
+            ></ngb-timepicker>
+        </div>
+       </div>
+      </fieldset>
+      <hr />
+      <fieldset>
+        <label>Date</label>
+         <div class="input-group datepicker-input">
+          <input
+            class="form-control"
+            placeholder="Select Date"
+            name="dp"
+            [(ngModel)]="addDate"
+            ngbDatepicker
+            #d1="ngbDatepicker"
+            readonly
+          />
+          <button
+            class="input-group-addon"
+            (click)="d1.toggle()"
+            type="button"
+          >
+            <!-- <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/> -->
+            <span class="fa fa-calendar"></span>
+          </button>
+        </div>
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Elder Name</label>
+        <select class="form-control" [(ngModel)]="elderIndex">
+          <option *ngFor="let elder of elderList; let i = index" [value]="i">
+            {{ elder.first_name }} {{ elder.last_name }}</option
+          >
+        </select>
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Medicine Name</label>
+        <select class="form-control" [(ngModel)]="medIndex">
+          <option *ngFor="let med of medList; let i = index" [value]="i">
+            {{ med.medicine_name }}</option
+          >
+        </select>
+      </fieldset>
+
+      <fieldset class="form-group">
+        <label>Quantity</label>
+        <input class="form-control" placeholder="" type="number" [(ngModel)]="quantity"/>
+      </fieldset>
+
+      <p *ngFor="let alert of alerts">
+        <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{
+          alert.message
+        }}</ngb-alert>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="c('Close click')"
+      >
+        Close
+      </button>
+      <button type="button" class="btn btn-primary" (click)="addTask()">
+        Add
+      </button>
+    </div>
+  </ng-template>
 </div>
