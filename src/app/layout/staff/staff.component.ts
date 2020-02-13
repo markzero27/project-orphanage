@@ -24,7 +24,7 @@ export class StaffComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.staffService.getAllUsers().subscribe((users: any) => {
+    this.staffService.getAllUsers(0).subscribe((users: any) => {
       this.staffList = users;
     });
   }
@@ -37,7 +37,7 @@ export class StaffComponent implements OnInit {
   async deleteStaff() {
     this.userService.deleteUser(this.userId).then(async () => {
       this.toastr.success('Record deleted!');
-      this.staffList = await this.staffService.getAllUsers().toPromise() as User[];
+      this.staffList = await this.staffService.getAllUsers(0).toPromise() as User[];
       this.close();
     }).catch(err => {
       console.log('====================================');

@@ -34,10 +34,10 @@ export class GuestMonitoringComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.guestService.getAllGuests().subscribe((guests: Guest[]) => {
+    this.guestService.getAllGuests(0).subscribe((guests: Guest[]) => {
       this.guestList = guests;
     });
-    this.elderService.getAllElders().subscribe((elders: any[]) => {
+    this.elderService.getAllElders('elders', 0).subscribe((elders: any[]) => {
       this.elderList = elders;
       if (elders.length) {
         this.selectedElder = elders[0].id;
@@ -97,7 +97,7 @@ export class GuestMonitoringComponent implements OnInit {
     console.log('====================================');
     this.guest.elder_name = `${elder.first_name} ${elder.last_name}`;
     this.guestService.addGuest(this.guest).subscribe(async (res: any) => {
-      this.guestList = await this.guestService.getAllGuests().toPromise() as Guest[];
+      this.guestList = await this.guestService.getAllGuests(0).toPromise() as Guest[];
       this.toastr.success('Guest added!');
     });
 
@@ -168,7 +168,7 @@ export class GuestMonitoringComponent implements OnInit {
 
     this.guestService.updateGuest(this.selectedGuest).subscribe(async (res: any) => {
       const i = this.guestList.findIndex(x => x.id == res.id);
-      this.guestList = await this.guestService.getAllGuests().toPromise() as Guest[];
+      this.guestList = await this.guestService.getAllGuests(0).toPromise() as Guest[];
       this.toastr.success('Guest updated!');
     });
 
@@ -178,7 +178,7 @@ export class GuestMonitoringComponent implements OnInit {
 
   async deleteGuest() {
     await this.guestService.deleteGuest(this.deleteId);
-    this.guestList = await this.guestService.getAllGuests().toPromise() as Guest[];
+    this.guestList = await this.guestService.getAllGuests(0).toPromise() as Guest[];
     this.toastr.success('Record deleted!');
     this.close();
   }

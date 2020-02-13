@@ -1,36 +1,40 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { Elders } from 'src/app/models/elders.model';
-import { User } from 'src/app/models/user.model';
+import { Doctor } from 'src/app/models/doctor.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StaffService {
-  url = environment.api + '/users';
-  userId = +localStorage.getItem('user_id');
+export class DoctorService {
+  url = environment.api + '/doctors';
   api = environment.api + '/archives-get-all-by-archive';
-
+  userId = +localStorage.getItem('user_id');
   reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-  constructor(private http: HttpClient) {
-    console.log('====================================');
-    console.log(this.userId);
-    console.log('====================================');
+
+  constructor(private http: HttpClient) { }
+
+  getAllDoctors(isArchived) {
+    return this.http.get<Doctor[]>(`${this.api}?table=doctors&archived_value=${isArchived}`, { headers: this.reqHeader });
   }
 
-  getAllUsers(isArchived) {
-    return this.http.get(`${this.api}?table=users&archived_value=${isArchived}`, { headers: this.reqHeader });
+  getDoctorById(id) {
+    return this.http.get(`${this.url}/${id}`, { headers: this.reqHeader });
   }
 
-  addUser(data: User) {
+  addDoctor(data: Doctor) {
     data.created_by = Number(this.userId);
     data.updated_by = Number(this.userId);
-    data.updated_at = new Date().toLocaleString();
     return this.http.post(this.url, data, { headers: this.reqHeader });
   }
 
-  deleteUser(id) {
+
+  udpateDoctor(data: Doctor) {
+    data.updated_by = Number(this.userId);
+    return this.http.patch(`${this.url}/${data.id}`, data, { headers: this.reqHeader });
+  }
+
+  deleteDoctor(id) {
     return new Promise(resolve => {
       this.http.delete(`${this.url}/${id}`, { headers: this.reqHeader }).subscribe(res => {
         resolve(res);

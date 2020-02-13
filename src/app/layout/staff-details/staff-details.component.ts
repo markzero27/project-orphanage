@@ -53,8 +53,8 @@ export class StaffDetailsComponent implements OnInit {
 
       this.staff = await this.userService.getStaff(params.id).toPromise() as User;
       this.ehistory = await this.userService.getEhistoryByStaffId(this.staff.id).toPromise() as EmpoymentHistory[];
-      this.elderList = await this.elderService.getAllElders().toPromise() as Elders[];
-      this.medList = await this.medService.getAllMedicine().toPromise() as Medicine[];
+      this.elderList = await this.elderService.getAllElders('elders', 0).toPromise() as Elders[];
+      this.medList = await this.medService.getAllMedicine(0).toPromise() as Medicine[];
       this.getAllTasks();
       this.initDates();
     });

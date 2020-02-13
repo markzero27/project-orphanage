@@ -3,6 +3,7 @@ import { Elders, initialElder, MedicalHistory, initalMedHistory } from 'src/app/
 import { Router, ActivatedRoute } from '@angular/router';
 import { EldersService } from 'src/app/services/elders/elders.service';
 import { ToastrService } from 'ngx-toastr';
+import { MedicineService } from 'src/app/services/medicine/medicine.service';
 
 @Component({
   selector: 'app-elders-details',
@@ -21,11 +22,14 @@ export class EldersDetailsComponent implements OnInit {
 
   elder: Elders = JSON.parse(JSON.stringify(initialElder));
   medHistory: MedicalHistory[] = [];
+  takenMeds = [];
+  loading = true;
 
   constructor(
     public router: Router,
     private route: ActivatedRoute,
     private elderService: EldersService,
+    private medService: MedicineService,
     private toastr: ToastrService
   ) {
     this.route.params.subscribe(params => {
@@ -36,7 +40,11 @@ export class EldersDetailsComponent implements OnInit {
             this.medHistory = res;
             console.log(this.medHistory);
           });
+          this.medService.getTakenMedicine(this.elder.id).subscribe((med: any[]) => {
+            this.takenMeds = med;
+          });
           this.initDates();
+          this.loading = false;
         });
       } else {
         router.navigate(['/elders']);

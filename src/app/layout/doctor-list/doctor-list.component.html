@@ -11,7 +11,7 @@
     class="ml-3 rounded px-2 py-1"
     placeholder="Search"
   />
-  <button class="btn btn-light float-right">
+  <button class="btn btn-light float-right" (click)="open(content)">
     <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
   </button>
   <button class="btn btn-light float-right">
@@ -36,13 +36,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
+      <tr *ngFor="let doctor of doctorList">
         <th><input type="checkbox" /></th>
-        <th scope="row">Lorem Ipsum</th>
-        <td>09876543210</td>
-        <td>Mod - Fri (8:00 AM - 10 AM</td>
-        <td>Cardiologist</td>
-        <td>01-27-2020</td>
+        <th scope="row">{{ doctor.doc_name }}</th>
+        <td>{{ doctor.contact_no }}</td>
+        <td>{{ doctor.schedules }}</td>
+        <td>{{ doctor.specialization }}</td>
+        <td>{{ doctor.updated_at }}</td>
 
         <td>
           <button class="btn bg-transparent">
@@ -52,4 +52,80 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<!-- add modal -->
+
+<div>
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title text-center">Add Doctor</h5>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="c('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <fieldset class="form-group">
+        <label>Doctor Name</label>
+        <input
+          class="form-control"
+          placeholder=""
+          type="text"
+          [(ngModel)]="doctor.doc_name"
+        />
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Number</label>
+        <input
+          class="form-control"
+          placeholder=""
+          type="text"
+          [(ngModel)]="doctor.contact_no"
+        />
+      </fieldset>
+
+      <fieldset class="form-group">
+        <label>Schedule</label>
+        <input
+          class="form-control"
+          placeholder=""
+          type="text"
+          [(ngModel)]="doctor.schedules"
+        />
+      </fieldset>
+
+      <fieldset class="form-group">
+        <label>Specialization</label>
+        <input
+          class="form-control"
+          placeholder=""
+          type="text"
+          [(ngModel)]="doctor.specialization"
+        />
+      </fieldset>
+
+      <p *ngFor="let alert of alerts">
+        <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{
+          alert.message
+        }}</ngb-alert>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="c('Close click')"
+      >
+        Close
+      </button>
+      <button type="button" class="btn btn-primary" (click)="addDoctor()">
+        Add
+      </button>
+    </div>
+  </ng-template>
 </div>

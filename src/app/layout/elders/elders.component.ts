@@ -19,7 +19,7 @@ export class EldersComponent implements OnInit {
     private modalService: NgbModal,
     private toastr: ToastrService,
   ) {
-    this.elderService.getAllElders().subscribe((elders: Elders[]) => {
+    this.elderService.getAllElders('elders', 0).subscribe((elders: Elders[]) => {
       this.elderList = elders;
       console.log('====================================');
       console.log(elders);
@@ -38,7 +38,7 @@ export class EldersComponent implements OnInit {
   deleteElder() {
     this.elderService.deleteElder(this.userId).then(async () => {
       this.toastr.success('Record deleted!');
-      this.elderList = await this.elderService.getAllElders().toPromise() as Elders[];
+      this.elderList = await this.elderService.getAllElders('elders', 0).toPromise() as Elders[];
       this.close();
     }).catch(err => {
       console.log('====================================');

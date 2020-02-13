@@ -8,13 +8,14 @@ import { Guest } from 'src/app/models/guest.model';
 })
 export class GuestService {
   url = environment.api + '/guests';
+  api = environment.api + '/archives-get-all-by-archive';
   userId = +localStorage.getItem('user_id');
   reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(private http: HttpClient) {
   }
 
-  getAllGuests() {
-    return this.http.get(this.url, { headers: this.reqHeader });
+  getAllGuests(isArchived) {
+    return this.http.get(`${this.api}?table=guests&archived_value=${isArchived}`, { headers: this.reqHeader });
   }
 
   addGuest(data: Guest) {

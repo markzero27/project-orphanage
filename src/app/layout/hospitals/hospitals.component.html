@@ -11,7 +11,7 @@
     class="ml-3 rounded px-2 py-1"
     placeholder="Search"
   />
-  <button class="btn btn-light float-right">
+  <button class="btn btn-light float-right" (click)="open(content)">
     <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
   </button>
   <button class="btn btn-light float-right">
@@ -34,57 +34,96 @@
       </tr>
     </thead>
     <tbody>
-      <tr
-        [routerLink]="['/hospitals/details']"
-        routerLinkActive="router-link-active"
-      >
+      <tr *ngFor="let hospital of hospitalList">
         <th><input type="checkbox" /></th>
-        <th scope="row">Lorem Ipsum</th>
+        <th scope="row">{{ hospital.hospital_name }}</th>
         <td>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti,
-          tempora.
+          {{ hospital.address }}
         </td>
-        <td>09876543210</td>
+        <td>{{ hospital.hospital_contact_no }}</td>
         <td>
-          <button class="btn bg-transparent">
+          <button
+            class="btn bg-transparent"
+            (click)="
+              router.navigate(['/hospitals/details', { id: hospital.id }])
+            "
+          >
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </button>
         </td>
       </tr>
-      <tr
-        [routerLink]="['/hospitals/details']"
-        routerLinkActive="router-link-active"
-      >
-        <th><input type="checkbox" /></th>
-        <th scope="row">Lorem Ipsum</th>
-        <td>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti,
-          tempora.
-        </td>
-        <td>09876543210</td>
-        <td>
-          <button class="btn bg-transparent">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </button>
-        </td>
-      </tr>
-      <tr
-        [routerLink]="['/hospitals/details']"
-        routerLinkActive="router-link-active"
-      >
-        <th><input type="checkbox" /></th>
-        <th scope="row">Lorem Ipsum</th>
-        <td>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti,
-          tempora.
-        </td>
-        <td>09876543210</td>
-        <td>
-          <button class="btn bg-transparent">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </button>
-        </td>
+      <tr *ngIf="hospitalList.length == 0">
+        <td class="text-center p-3" colspan="13">No Record</td>
       </tr>
     </tbody>
   </table>
+</div>
+
+<div>
+  <ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title text-center">Add hospital</h5>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="c('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <fieldset class="form-group">
+        <label>Name</label>
+        <input
+          class="form-control"
+          placeholder=""
+          [(ngModel)]="hospital.hospital_name"
+        />
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Contact Number</label>
+        <input
+          class="form-control"
+          placeholder=""
+          type="text"
+          [(ngModel)]="hospital.hospital_contact_no"
+        />
+      </fieldset>
+      <fieldset class="form-group">
+        <label>Address</label>
+        <textarea
+          class="form-control"
+          placeholder=""
+          [(ngModel)]="hospital.address"
+        ></textarea>
+      </fieldset>
+      <fieldset class="form-group">
+        <label>About</label>
+        <textarea
+          class="form-control"
+          placeholder=""
+          [(ngModel)]="hospital.about"
+        ></textarea>
+      </fieldset>
+
+      <p *ngFor="let alert of alerts">
+        <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{
+          alert.message
+        }}</ngb-alert>
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="c('Close click')"
+      >
+        Close
+      </button>
+      <button type="button" class="btn btn-primary" (click)="addHospital()">
+        Add
+      </button>
+    </div>
+  </ng-template>
 </div>

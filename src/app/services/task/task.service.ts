@@ -9,12 +9,17 @@ import { Task } from 'src/app/models/task.model';
 })
 export class TaskService {
   url = environment.api + '/tasks';
+  api = environment.api + '/archives-get-all-by-archive';
   userId = +localStorage.getItem('user_id');
   reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(private http: HttpClient) {
     console.log('====================================');
     console.log(this.userId);
     console.log('====================================');
+  }
+
+  getAllTasks(isArchived) {
+    return this.http.get(`${this.api}?table=tasks&archived_value=${isArchived}`, { headers: this.reqHeader });
   }
 
   getTaskByStaff(id) {

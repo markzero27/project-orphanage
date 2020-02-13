@@ -63,7 +63,7 @@ export class MedicineInventoryComponent implements OnInit {
   }
 
   async getAllMedicines() {
-    this.medicineService.getAllMedicine().subscribe((list: Medicine[]) => {
+    this.medicineService.getAllMedicine(0).subscribe((list: Medicine[]) => {
       this.medicineList = list;
       console.log('====================================');
       console.log(list);

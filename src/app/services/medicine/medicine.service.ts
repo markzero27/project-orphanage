@@ -8,6 +8,7 @@ import { Medicine } from 'src/app/models/medicine.model';
 })
 export class MedicineService {
   url = environment.api + '/medicines';
+  api = environment.api + '/archives-get-all-by-archive';
   userId = +localStorage.getItem('user_id');
   reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(private http: HttpClient) {
@@ -16,8 +17,12 @@ export class MedicineService {
     console.log('====================================');
   }
 
-  getAllMedicine() {
-    return this.http.get(this.url, { headers: this.reqHeader });
+  getAllMedicine(isArchived) {
+    return this.http.get(`${this.api}?table=medicines&archived_value=${isArchived}`, { headers: this.reqHeader });
+  }
+
+  getTakenMedicine(elder_id) {
+    return this.http.get(`${environment.api}/elders-taken-medicine?elder_id=${elder_id}`, { headers: this.reqHeader });
   }
 
   addMedicine(data) {

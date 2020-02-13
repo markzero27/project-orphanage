@@ -8,6 +8,7 @@ import { Elders } from 'src/app/models/elders.model';
 })
 export class EldersService {
   url = environment.api + '/elders';
+  api = environment.api + '/archives-get-all-by-archive';
   userId = +localStorage.getItem('user_id');
   reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(private http: HttpClient) {
@@ -16,8 +17,12 @@ export class EldersService {
     console.log('====================================');
   }
 
-  getAllElders() {
-    return this.http.get(this.url, { headers: this.reqHeader });
+  // getAllElders() {
+  //   return this.http.get(this.url, { headers: this.reqHeader });
+  // }
+
+  getAllElders(table, isArchived) {
+    return this.http.get(`${this.api}?table=${table}&archived_value=${isArchived}`, { headers: this.reqHeader });
   }
 
   getElderById(id) {
