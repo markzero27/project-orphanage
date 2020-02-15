@@ -2,8 +2,22 @@
   class="sidebar"
   [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }"
 >
-  <div class="list-group pt-3 px-1">
-    <label class="text-light mx-2">MAIN MENU</label>
+  <div class="list-group pt-3 px-1" *ngIf="user.role == 0">
+    <a routerLink="/dashboard" class="list-group-item d-flex">
+      <img
+        src="assets/images/default.jpeg"
+        alt=""
+        class="user-image mr-2 rounded-circle"
+      />
+      <div class="w-100 p-2">
+        <p class="m-0 small text-capitalize">
+          {{ user.first_name }} {{ user.last_name }}
+        </p>
+        <p class="m-0 small ">
+          Admin
+        </p>
+      </div>
+    </a>
     <a
       routerLink="/dashboard"
       [routerLinkActive]="['router-link-active']"
@@ -12,6 +26,7 @@
       <i class="fa fa-fw fa-dashboard"></i>&nbsp;
       <span>{{ 'Dashboard' | translate }}</span>
     </a>
+    <label class="text-light m-2">MAIN MENU</label>
     <a
       [routerLink]="['/elders']"
       [routerLinkActive]="['router-link-active']"
@@ -82,7 +97,7 @@
       <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
       <span>{{ 'Guess Monitoring' | translate }}</span>
     </a>
-    <label class="text-light mx-2 small">OTHERS</label>
+    <label class="text-light m-2 small">OTHERS</label>
     <a
       [routerLink]="['/archives']"
       [routerLinkActive]="['router-link-active']"
@@ -98,6 +113,120 @@
     >
       <i class="fa fa-user" aria-hidden="true"></i>&nbsp;
       <span>{{ 'Sytem Users' | translate }}</span>
+    </a>
+    <a [routerLink]="['/login']" class="list-group-item">
+      <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;
+      <span>{{ 'Logout' | translate }}</span>
+    </a>
+  </div>
+  <div class="list-group pt-3 px-1" *ngIf="user.role > 0">
+    <a routerLink="/dashboard" class="list-group-item d-flex">
+      <img
+        src="assets/images/default.jpeg"
+        alt=""
+        class="user-image mr-2 rounded-circle"
+      />
+      <div class="w-100 p-2">
+        <p class="m-0 small text-capitalize">
+          {{ user.first_name }} {{ user.last_name }}
+        </p>
+        <p class="m-0 small ">
+          {{ user.role == 1 ? 'Medical Staff' : 'Staff' }}
+        </p>
+      </div>
+    </a>
+    <a
+      routerLink="/staff-dashboard"
+      [routerLinkActive]="['router-link-active']"
+      class="list-group-item"
+    >
+      <i class="fa fa-fw fa-dashboard"></i>&nbsp;
+      <span>{{ 'Home' | translate }}</span>
+    </a>
+    <label class="text-light m-2">MAIN MENU</label>
+    <a
+      [routerLink]="['/staff/details', { id: user.id }]"
+      [routerLinkActive]="['router-link-active']"
+      class="list-group-item"
+    >
+      <i class="fa fa-folder-open" aria-hidden="true"></i>&nbsp;
+      <span>{{ 'Personal Data' | translate }}</span>
+    </a>
+    <a
+      [routerLink]="['/tasks']"
+      [routerLinkActive]="['router-link-active']"
+      class="list-group-item"
+    >
+      <i class="fa fa-th-list" aria-hidden="true"></i> &nbsp;
+      <span>{{ 'Tasks' | translate }}</span>
+    </a>
+    <div class="nested-menu">
+      <a class="list-group-item" (click)="addExpandClass('pages')">
+        <i class="fa fa-hospital-o"></i>&nbsp;
+        <span>{{ 'Hospital Information' | translate }}</span>
+      </a>
+      <li class="nested" [class.expand]="showMenu === 'pages'">
+        <ul class="submenu">
+          <li>
+            <a
+              [routerLink]="['/hospitals']"
+              [routerLinkActive]="['router-link-active']"
+              class="list-group-item"
+            >
+              <i class="fa fa-circle" aria-hidden="true"></i>&nbsp;
+              <span>{{ 'Hospital List' | translate }}</span>
+            </a>
+          </li>
+          <li>
+            <a
+              [routerLink]="['/doctor-list']"
+              [routerLinkActive]="['router-link-active']"
+              class="list-group-item"
+            >
+              <i class="fa fa-circle" aria-hidden="true"></i>&nbsp;
+              <span>{{ 'Doctor List' | translate }}</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </div>
+    <a
+      [routerLink]="['/reports']"
+      [routerLinkActive]="['router-link-active']"
+      class="list-group-item"
+    >
+      <i class="fa fa-file-text" aria-hidden="true"></i>&nbsp;
+      <span>{{ 'Reports' | translate }}</span>
+    </a>
+    <a
+      [routerLink]="['/medicine-inventory']"
+      [routerLinkActive]="['router-link-active']"
+      class="list-group-item"
+      *ngIf="userRole == 1"
+    >
+      <i class="fa fa-flask" aria-hidden="true"></i>&nbsp;
+      <span>{{ 'Medicine Inventory' | translate }}</span>
+    </a>
+    <a
+      [routerLink]="['/guess-monitoring']"
+      [routerLinkActive]="['router-link-active']"
+      class="list-group-item"
+    >
+      <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
+      <span>{{ 'Guess Monitoring' | translate }}</span>
+    </a>
+    <label class="text-light m-2 small">OTHERS</label>
+    <a
+      [routerLink]="['/archives']"
+      [routerLinkActive]="['router-link-active']"
+      class="list-group-item"
+    >
+      <i class="fa fa-file-archive-o" aria-hidden="true"></i>&nbsp;
+      <span>{{ 'Archive' | translate }}</span>
+    </a>
+    <a [routerLink]="['/login']" class="list-group-item">
+      <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;
+      <span>{{ 'Logout' | translate }}</span>
     </a>
   </div>
   <div

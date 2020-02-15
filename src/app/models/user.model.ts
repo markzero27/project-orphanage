@@ -8,6 +8,7 @@ export interface User {
     password: string;
     nick_name: string;
     gender: number;
+    image: string;
     age: number;
     birth_date: string;
     birth_place: string;
@@ -22,6 +23,7 @@ export interface User {
     oi_umid: string;
     oi_pagibig: string;
     is_admin: number;
+    role: number;
     status: number;
     created_by: number;
     updated_by: number;
@@ -51,6 +53,7 @@ export const initialUser: User = {
     username: '',
     password: '',
     nick_name: '',
+    image: 'assets/images/default.jpeg',
     gender: 1,
     age: 0,
     birth_date: '',
@@ -68,7 +71,8 @@ export const initialUser: User = {
     is_admin: 0,
     status: 0,
     created_by: 0,
-    updated_by: 0
+    updated_by: 0,
+    role: 0
 };
 
 export const initialEHistory = {

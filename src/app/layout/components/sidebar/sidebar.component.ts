@@ -1,6 +1,8 @@
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { UsersService } from 'src/app/services/users/users.service';
+import { User, initialUser } from 'src/app/models/user.model';
 
 @Component({
     selector: 'app-sidebar',
@@ -8,6 +10,9 @@ import { TranslateService } from '@ngx-translate/core';
     styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+    user: User = JSON.parse(JSON.stringify(initialUser));
+    userId = 0;
+    userRole = 0;
     isActive: boolean;
     collapsed: boolean;
     showMenu: string;
@@ -15,7 +20,21 @@ export class SidebarComponent implements OnInit {
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
 
-    constructor(private translate: TranslateService, public router: Router) {
+    constructor(private translate: TranslateService, public router: Router, private userService: UsersService) {
+        this.userId = +localStorage.getItem('user_id');
+        this.userRole = +localStorage.getItem('user_role');
+        if (this.userId > 0) {
+            this.userService.getStaff(this.userId).subscribe(user => {
+                this.user = user;
+            });
+        } else {
+            this.user.nick_name = 'Admin';
+            this.user.first_name = 'Mark';
+            this.user.last_name = 'Daquis';
+            console.log('====================================');
+            console.log(this.user);
+            console.log('====================================');
+        }
         this.router.events.subscribe(val => {
             if (
                 val instanceof NavigationEnd &&

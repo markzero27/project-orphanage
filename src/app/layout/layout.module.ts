@@ -27,6 +27,9 @@ import { EldersAddPageComponent } from './elders-add-page/elders-add-page.compon
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StaffAddComponent } from './staff-add/staff-add.component';
+import { StaffDashboardComponent } from './staff-dashboard/staff-dashboard.component';
+import { TasksComponent } from './tasks/tasks.component';
+import { TaskDropdownComponent } from './components/task-dropdown/task-dropdown.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -56,6 +59,9 @@ import { StaffAddComponent } from './staff-add/staff-add.component';
         StaffDetailsComponent,
         HospitalDetailsComponent,
         EldersAddPageComponent,
-        StaffAddComponent]
+        StaffAddComponent,
+        StaffDashboardComponent,
+        TasksComponent,
+        TaskDropdownComponent]
 })
 export class LayoutModule { }

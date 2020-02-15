@@ -142,13 +142,25 @@
           </select>
         </div>
       </fieldset>
+
       <fieldset class="form-group">
         <label>Relationship</label>
-        <input
-          class="form-control"
-          placeholder=""
-          [(ngModel)]="guest.relationship_description"
-        />
+        <div class="form-group">
+          <label for=""></label>
+          <select
+            class="custom-select"
+            name=""
+            id=""
+            [(ngModel)]="guest.relationship_description"
+          >
+            <option value="Daughter">Daughter</option>
+            <option value="Son">Son</option>
+            <option value="Siblings">Siblings</option>
+            <option value="Relatives">Relatives</option>
+            <option value="Friends">Friends</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
       </fieldset>
 
       <p *ngFor="let alert of alerts">
@@ -250,11 +262,22 @@
       </fieldset>
       <fieldset class="form-group">
         <label>Relationship</label>
-        <input
-          class="form-control"
-          placeholder=""
-          [(ngModel)]="selectedGuest.relationship_description"
-        />
+        <div class="form-group">
+          <label for=""></label>
+          <select
+            class="custom-select"
+            name=""
+            id=""
+            [(ngModel)]="selectedGuest.relationship_description"
+          >
+            <option value="Daughter">Daughter</option>
+            <option value="Son">Son</option>
+            <option value="Siblings">Siblings</option>
+            <option value="Relatives">Relatives</option>
+            <option value="Friends">Friends</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
       </fieldset>
 
       <p *ngFor="let alert of alerts">

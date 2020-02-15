@@ -13,7 +13,7 @@ export interface Task {
     created_by?: number;
     updated_by?: number;
     created_at?: string;
-    updatedAt?: string;
+    updated_at?: string;
 }
 
 export const initialTask: Task = {

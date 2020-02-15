@@ -1,4 +1,4 @@
-<div class="top">
+<div class="top" *ngIf="userRole == 0">
   <h2 class="">
     <small>Staff</small>
   </h2>
@@ -8,7 +8,7 @@
     <li class="nav-item" (click)="tab = 1">
       <a class="nav-link" [ngClass]="{ active: tab == 1 }">Personal Data</a>
     </li>
-    <li class="nav-item" (click)="tab = 2">
+    <li class="nav-item" (click)="tab = 2" *ngIf="userRole == 0">
       <a class="nav-link" [ngClass]="{ active: tab == 2 }">
         Task
       </a>
@@ -39,7 +39,7 @@
               {{ staff.first_name }} {{ staff?.middle_name?.substring(0, 1) }}.
               {{ staff.last_name }}
             </p>
-            <p class="text-center small m-0">Staff</p>
+            <p class="text-center small m-0">{{ staff.role == 0 ? 'Admin' : staff.role == 1 ? 'Medical Staff' : 'Staff'}}</p>
           </div>
         </div>
         <hr />
@@ -95,12 +95,25 @@
               class="elder-img"
             />
           </div>
-          <div class="elder-name">
+          <div class="elder-name" *ngIf="userRole == 0">
+            <div class="form-group row">
+              <label for="" class="col-sm-3 col-form-label"></label>
+              <div class="col-sm-6">
+                <select class="form-control " [(ngModel)]="staff.role">
+                  <option class="text-center" value="0">Admin</option>
+                  <option class="text-center" value="1">Medical Staff</option>
+                  <option class="text-center" value="2">Staff</option>
+                </select>
+              </div>
+              <div class="col-sm-3"></div>
+            </div>
+          </div>
+          <div class="elder-name" *ngIf="userRole != 0">
             <p class="text-center color-dark-primary m-0 text-capitalize">
               {{ staff.first_name }} {{ staff?.middle_name?.substring(0, 1) }}.
               {{ staff.last_name }}
             </p>
-            <p class="text-center small m-0">Staff</p>
+            <p class="text-center small m-0">{{ staff.role == 0 ? 'Admin' : staff.role == 1 ? 'Medical Staff' : 'Staff'}}</p>
           </div>
         </div>
         <hr />

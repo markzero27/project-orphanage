@@ -27,22 +27,18 @@ export class EldersAddPageComponent implements OnInit {
     if (this.bDate) {
       const newDate = `${this.bDate.year}-${this.bDate.month}-${this.bDate.day}`;
       this.elder.birth_date = newDate;
-    } else {
-      return this.toastr.error('Please enter valid date!');
     }
 
     if (this.dateIn) {
       const newDate = `${this.dateIn.year}-${this.dateIn.month}-${this.dateIn.day}`;
       this.elder.date_stay_in_orphanage = newDate;
     } else {
-      return this.toastr.error('Please enter valid date!');
+      return this.toastr.error('Please enter valid stay in date!');
     }
 
     if (this.sabbath) {
       const newDate = `${this.sabbath.year}-${this.sabbath.month}-${this.sabbath.day}`;
       this.elder.sabbath = newDate;
-    } else {
-      return this.toastr.error('Please enter valid date!');
     }
     console.log('Elder to insert ====================================');
     console.log(this.elder);

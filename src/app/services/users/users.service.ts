@@ -13,12 +13,16 @@ export class UsersService {
 
   constructor(private http: HttpClient) { }
 
+  login(value) {
+    return this.http.post(`${environment.api}/login`, value);
+  }
+
   getAllUsers() {
     return this.http.get(this.url);
   }
 
   getStaff(id) {
-    return this.http.get(this.url + `/${id}`, { headers: this.reqHeader });
+    return this.http.get<User>(this.url + `/${id}`, { headers: this.reqHeader });
   }
 
   addUser(data: User) {
@@ -41,6 +45,9 @@ export class UsersService {
   }
 
   udpateUser(data: User, ehistory: EmpoymentHistory[]) {
+    console.log('====================================');
+    console.log(data);
+    console.log('====================================');
     return new Promise((resolve, reject) => {
       data.updated_by = Number(this.userId);
       this.http.patch(`${this.url}/${data.id}`, data, { headers: this.reqHeader }).subscribe(

@@ -31,4 +31,10 @@ export class TaskService {
     data.updated_by = Number(this.userId);
     return this.http.post(this.url, data, { headers: this.reqHeader });
   }
+
+  updateTask(data: Task) {
+    data.updated_by = Number(this.userId);
+    data.updated_at = new Date().toLocaleString();
+    return this.http.patch(`${this.url}/${data.id}`, data, { headers: this.reqHeader });
+  }
 }

@@ -4,6 +4,8 @@ import { Hospital, initHospital } from 'src/app/models/hospital.model';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { DoctorService } from 'src/app/services/doctor/doctor.service';
+import { Doctor } from 'src/app/models/doctor.model';
 
 @Component({
   selector: 'app-hospitals',
@@ -11,13 +13,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./hospitals.component.scss']
 })
 export class HospitalsComponent implements OnInit {
+  userRole = localStorage.getItem('user_role');
   hospitalList: Hospital[] = [];
   hospital: Hospital;
   loading = true;
   closeResult: string;
+  doctorList: Doctor[] = [];
+  docIndex = [];
+  serviceIndex = [];
+  serviceList = ['hermatology', '2D echo', 'X-ray', 'lood Chemistry', 'EKG', 'Dental X-ray', 'Ultrasound'];
 
   constructor(
     private hospitalService: HospitalService,
+    private doctorService: DoctorService,
     private modalService: NgbModal,
     private toastr: ToastrService,
     public router: Router
@@ -27,8 +35,18 @@ export class HospitalsComponent implements OnInit {
 
   setHospitals() {
     this.hospitalService.getAllHospitals(0).subscribe(hospitals => {
-      this.hospitalList = hospitals;
+      this.hospitalList = hospitals.map(mapped => {
+        const hospital = mapped;
+        hospital.service_offer = JSON.parse(hospital.service_offer as any);
+        return hospital;
+      });
+      console.log('====================================');
+      console.log(this.hospitalList);
+      console.log('====================================');
       this.hospital = JSON.parse(JSON.stringify(initHospital));
+    });
+    this.doctorService.getAllDoctors(0).subscribe(docs => {
+      this.doctorList = docs;
     });
   }
 
@@ -36,11 +54,15 @@ export class HospitalsComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content).result.then((result) => {
+    this.modalService.open(content, { size: 'lg' }).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
+  }
+
+  close() {
+    this.modalService.dismissAll();
   }
 
   private getDismissReason(reason: any): string {
@@ -55,10 +77,19 @@ export class HospitalsComponent implements OnInit {
 
   async addHospital() {
     if (this.hospital.hospital_name.trim() == '') {
-      return this.toastr.error('Please enter hospital name!')
+      return this.toastr.error('Please enter hospital name!');
     }
+
+    this.docIndex.forEach(i => {
+      this.hospital.contact_doctors.push(this.doctorList[i]);
+    });
+
+    this.serviceIndex.forEach(i => {
+      this.hospital.service_offer.push(this.serviceList[i]);
+    });
 
     await this.hospitalService.addHospital(this.hospital).toPromise();
     this.setHospitals();
+    this.close();
   }
 }

@@ -30,6 +30,13 @@
       <button class="btn btn-success float-right mr-1">
         Export as PDF
       </button>
+      <button
+        class="btn btn-light float-right"
+        *ngIf="userRole != 0"
+        (click)="open(content)"
+      >
+        <i class="fa fa-plus" aria-hidden="true"></i>
+      </button>
       <button class="btn btn-light float-right">
         <i class="fa fa-filter" aria-hidden="true"></i>
       </button>
@@ -42,51 +49,112 @@
         <tr>
           <th><input type="checkbox" /></th>
           <th>#</th>
-          <th>Date</th>
           <th>Task</th>
           <th>Problems Encountered</th>
           <th>Remarks</th>
           <th>Time-in</th>
           <th>Time-out</th>
+          <th>Date</th>
           <th>Submitted By</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr *ngFor="let acc of accList; let i = index">
           <th><input type="checkbox" /></th>
-          <th scope="row">1</th>
-          <td>01-01-2020</td>
-          <td>Lorem ipsum dolor sit amet.</td>
-          <td>Lorem ipsum dolor sit amet.</td>
-          <td>Lorem ipsum dolor sit amet.</td>
-          <td>8:00 AM</td>
-          <td>8:00 PM</td>
-          <td>Gina Karenina</td>
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ acc.task_description }}</td>
+          <td>{{ acc.remarks }}</td>
+          <td>{{ acc.problems_encountered }}</td>
+          <td>{{ formatTime(acc.time_in) | date: 'hh:mm a' }}</td>
+          <td>{{ formatTime(acc.time_out) | date: 'hh:mm a' }}</td>
+          <td>{{ acc.updated_at }}</td>
+          <td>{{ acc.submitted_by[1] }}</td>
         </tr>
-        <tr>
-          <th><input type="checkbox" /></th>
-          <th scope="row">2</th>
-          <td>01-01-2020</td>
-          <td>Lorem ipsum dolor sit amet.</td>
-          <td>Lorem ipsum dolor sit amet.</td>
-          <td>Lorem ipsum dolor sit amet.</td>
-          <td>8:00 AM</td>
-          <td>8:00 PM</td>
-          <td>Gina Karenina</td>
-        </tr>
-        <tr>
-          <th><input type="checkbox" /></th>
-          <th scope="row">3</th>
-          <td>01-01-2020</td>
-          <td>Lorem ipsum dolor sit amet.</td>
-          <td>Lorem ipsum dolor sit amet.</td>
-          <td>Lorem ipsum dolor sit amet.</td>
-          <td>8:00 AM</td>
-          <td>8:00 PM</td>
-          <td>Gina Karenina</td>
+        <tr *ngIf="accList.length == 0">
+          <td class="text-center p-3" colspan="13">No Record</td>
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- Add Accomplishments -->
+
+  <div>
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h5 class="modal-title text-center">Add Accomplishments</h5>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="c('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <fieldset class="form-group">
+          <div class="d-flex justify-content-between ">
+            <div class="text-center px-3 border-right">
+              Time In
+              <ngb-timepicker
+                [(ngModel)]="time_in"
+                [meridian]="true"
+              ></ngb-timepicker>
+            </div>
+            <div class="text-center px-3">
+              Time out
+              <ngb-timepicker
+                [(ngModel)]="time_out"
+                [meridian]="true"
+              ></ngb-timepicker>
+            </div>
+          </div>
+        </fieldset>
+        <hr />
+        <fieldset class="form-group">
+          <label>Task</label>
+          <input
+            class="form-control"
+            placeholder=""
+            [(ngModel)]="accomp.task_description"
+          />
+        </fieldset>
+        <fieldset class="form-group">
+          <label>Problems Encountered</label>
+          <input
+            class="form-control"
+            placeholder=""
+            [(ngModel)]="accomp.problems_encountered"
+          />
+        </fieldset>
+        <fieldset class="form-group">
+          <label>Remarks</label>
+          <input
+            class="form-control"
+            placeholder=""
+            type="text"
+            [(ngModel)]="accomp.remarks"
+          />
+        </fieldset>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="c('Close click')"
+        >
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="addAccomplishment()"
+        >
+          Add
+        </button>
+      </div>
+    </ng-template>
   </div>
 
   <!-- Inventory -->
@@ -191,41 +259,21 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr *ngFor="let guest of guestList; let i = index">
           <th><input type="checkbox" /></th>
-          <th scope="row">1</th>
-          <td>Lorem</td>
-          <td>0987654321</td>
-          <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
-          <td>Lorem</td>
-          <td>lorem Ipsum</td>
-          <td>10:00 AM</td>
-          <td>12:00 PM</td>
-          <td>01-01-2020</td>
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ guest.guest_name }}</td>
+          <td>{{ guest.contact_no }}</td>
+          <td>{{ guest.address }}</td>
+          <td>{{ guest.elder_name }}</td>
+          <td>{{ guest.relationship_description }}</td>
+          <td>{{ formatTime(guest.time_in) | date: 'hh:mm a' }}</td>
+          <td>{{ formatTime(guest.time_out) | date: 'hh:mm a' }}</td>
+          <td>{{ guest.created_at }}</td>
         </tr>
-        <tr>
-          <th><input type="checkbox" /></th>
-          <th scope="row">1</th>
-          <td>Lorem</td>
-          <td>0987654321</td>
-          <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
-          <td>Lorem</td>
-          <td>lorem Ipsum</td>
-          <td>10:00 AM</td>
-          <td>12:00 PM</td>
-          <td>01-01-2020</td>
-        </tr>
-        <tr>
-          <th><input type="checkbox" /></th>
-          <th scope="row">1</th>
-          <td>Lorem</td>
-          <td>0987654321</td>
-          <td>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</td>
-          <td>Lorem</td>
-          <td>lorem Ipsum</td>
-          <td>10:00 AM</td>
-          <td>12:00 PM</td>
-          <td>01-01-2020</td>
+
+        <tr *ngIf="guestList.length == 0">
+          <td class="text-center p-3" colspan="13">No Record</td>
         </tr>
       </tbody>
     </table>

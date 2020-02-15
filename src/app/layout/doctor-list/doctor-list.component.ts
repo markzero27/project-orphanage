@@ -11,6 +11,7 @@ import { DoctorService } from 'src/app/services/doctor/doctor.service';
   styleUrls: ['./doctor-list.component.scss']
 })
 export class DoctorListComponent implements OnInit {
+  userRole = localStorage.getItem('user_role');
   doctor: Doctor;
   doctorList: Doctor[] = [];
   closeResult: string;

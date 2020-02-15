@@ -12,10 +12,13 @@ import { UsersService } from 'src/app/services/users/users.service';
 export class StaffAddComponent implements OnInit {
   staff: User = JSON.parse(JSON.stringify(initialUser));
   ehistory: EmpoymentHistory = JSON.parse(JSON.stringify(initialEHistory));
-  constructor(public router: Router, private toastr: ToastrService, private userService: UsersService) { }
+  constructor(public router: Router, private toastr: ToastrService, private userService: UsersService) {
+    this.staff.role = 2;
+  }
   dateHired: any;
   bDate: any;
   sabbathDate: any;
+  confirm = '';
 
   ngOnInit() { }
 
@@ -39,7 +42,15 @@ export class StaffAddComponent implements OnInit {
     }
 
     if (this.staff.first_name.trim() == '' || this.staff.last_name.trim() == '' || this.staff.email.trim() == '') {
-      return this.toastr.error('Please fillup required fields')
+      return this.toastr.error('Please fillup required fields');
+    }
+
+    if (this.staff.email.trim() == '' || this.staff.password.trim() == '') {
+      return this.toastr.error('Please complete username and password');
+    } else {
+      if (this.staff.password != this.confirm) {
+        return this.toastr.error('Password did not match!');
+      }
     }
 
     this.userService.addUser(this.staff).subscribe(async (data: any) => {

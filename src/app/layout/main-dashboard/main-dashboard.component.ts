@@ -8,6 +8,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MedicineService } from 'src/app/services/medicine/medicine.service';
 import { Medicine } from 'src/app/models/medicine.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -34,7 +35,12 @@ export class MainDashboardComponent implements OnInit {
   closeResult: string;
   alerts: Array<any> = [];
 
-  constructor(private modalService: NgbModal, private medicineService: MedicineService) { }
+  constructor(private modalService: NgbModal, private medicineService: MedicineService, public router: Router) {
+
+    if (+localStorage.getItem('user_role') != 0) {
+      this.router.navigate(['staff-dashboard']);
+    }
+  }
 
   ngOnInit() {
   }

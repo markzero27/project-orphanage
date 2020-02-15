@@ -1,0 +1,55 @@
+<div class="h-100" style="margin-bottom: 200px;">
+  <div class="top">
+    <h2 class="">
+      <small>My Tasks</small>
+    </h2>
+  </div>
+  <div class="card-header pt-3">
+    <input
+      type="search"
+      name=""
+      id=""
+      class="ml-3 rounded px-2 py-1"
+      placeholder="Search"
+    />
+  </div>
+  <table class="table table-striped">
+    <thead class="bg-primary-color text-light">
+      <tr>
+        <th><input type="checkbox" /></th>
+        <th>Elder Name</th>
+        <th>Medicine</th>
+        <th>Qty</th>
+        <th>Time</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="taskList.length == 0">
+        <td colspan="13" class="text-center">No Record</td>
+      </tr>
+      <tr *ngFor="let task of taskList">
+        <th><input type="checkbox" /></th>
+        <th scope="row">{{ task.elder_name }}</th>
+        <td>{{ task.medicine_description }}</td>
+        <td>{{ task.qty }}</td>
+        <td>{{ task.time }}</td>
+        <td>{{ task.updated_at }}</td>
+        <td
+          [ngClass]="{
+            'text-primary': task.status == 'Done',
+            'text-warning': task.status == 'Pending',
+            'text-danger': task.status == 'Refused'
+          }"
+        >
+          {{ task.status }}
+        </td>
+        <td>
+          <app-task-dropdown [task]="task"></app-task-dropdown>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

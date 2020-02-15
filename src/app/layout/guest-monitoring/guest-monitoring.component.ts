@@ -36,9 +36,12 @@ export class GuestMonitoringComponent implements OnInit {
   ngOnInit() {
     this.guestService.getAllGuests(0).subscribe((guests: Guest[]) => {
       this.guestList = guests;
+      console.log(guests);
+
     });
     this.elderService.getAllElders('elders', 0).subscribe((elders: any[]) => {
       this.elderList = elders;
+
       if (elders.length) {
         this.selectedElder = elders[0].id;
       }
@@ -48,6 +51,10 @@ export class GuestMonitoringComponent implements OnInit {
 
 
   open(content) {
+    if (this.elderList.length == 0) {
+      return this.toastr.warning('No elder to visit. Please add Elder to visit first!');
+    }
+
     this.modalService.open(content).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

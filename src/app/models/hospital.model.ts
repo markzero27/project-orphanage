@@ -2,6 +2,7 @@ export interface Hospital {
     id?: number;
     hospital_name: string;
     address: string;
+    contact_doctors: any[];
     hospital_contact_no: string;
     about: string;
     service_offer: any[];
@@ -19,6 +20,7 @@ export const initHospital: Hospital = {
     hospital_contact_no: '',
     about: '',
     service_offer: [],
+    contact_doctors: [],
     archived: 0,
     created_by: 0,
     updated_by: 0,

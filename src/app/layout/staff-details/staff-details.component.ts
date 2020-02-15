@@ -17,6 +17,7 @@ import { MedicineService } from 'src/app/services/medicine/medicine.service';
   styleUrls: ['./staff-details.component.scss']
 })
 export class StaffDetailsComponent implements OnInit {
+  userRole = localStorage.getItem('user_role');
   tab = 1;
   editing1 = false;
   editing2 = false;
@@ -52,6 +53,9 @@ export class StaffDetailsComponent implements OnInit {
       }
 
       this.staff = await this.userService.getStaff(params.id).toPromise() as User;
+      console.log('====================================');
+      console.log(this.staff);
+      console.log('====================================');
       this.ehistory = await this.userService.getEhistoryByStaffId(this.staff.id).toPromise() as EmpoymentHistory[];
       this.elderList = await this.elderService.getAllElders('elders', 0).toPromise() as Elders[];
       this.medList = await this.medService.getAllMedicine(0).toPromise() as Medicine[];

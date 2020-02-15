@@ -23,6 +23,7 @@ export class MedicineInventoryComponent implements OnInit {
   restock = 1;
   med: any;
   medToUpdate: any;
+  operation = '+';
 
   constructor(
     private modalService: NgbModal,
@@ -128,13 +129,27 @@ export class MedicineInventoryComponent implements OnInit {
     this.quantity = 1;
   }
 
-  openRestock(content, med) {
+  openRestock(content, med, operation) {
     this.med = med;
+    this.operation = operation;
     this.open(content);
   }
 
   restockMedicine() {
-    this.med.qty += this.restock;
+    if (this.restock <= 0) {
+      return this.toastr.warning('Please input valid quantity!');
+    }
+
+    if (this.operation == '+') {
+      this.med.qty += this.restock;
+    } else {
+      if (this.restock > this.med.qty) {
+        return this.toastr.warning('The entered quantity is more than stock quantity!');
+      } else {
+        this.med.qty -= this.restock;
+      }
+    }
+
     this.updateMedicine(this.med);
   }
 

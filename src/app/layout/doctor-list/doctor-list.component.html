@@ -3,7 +3,7 @@
     <small>Doctor List</small>
   </h2>
 </div>
-<div class="card-header pt-3">
+<div class="card-header pt-3" *ngIf="userRole == 0">
   <input
     type="search"
     name=""
@@ -32,10 +32,15 @@
         <th>Schedules</th>
         <th>Specialization</th>
         <th>Date Updated</th>
-        <th><i class="fa fa-cog ml-3" aria-hidden="true"></i></th>
+        <th *ngIf="userRole == 0">
+          <i class="fa fa-cog ml-3" aria-hidden="true"></i>
+        </th>
       </tr>
     </thead>
     <tbody>
+      <tr *ngIf="doctorList.length == 0">
+        <td class="text-center p-3" colspan="13">No Record</td>
+      </tr>
       <tr *ngFor="let doctor of doctorList">
         <th><input type="checkbox" /></th>
         <th scope="row">{{ doctor.doc_name }}</th>
@@ -44,7 +49,7 @@
         <td>{{ doctor.specialization }}</td>
         <td>{{ doctor.updated_at }}</td>
 
-        <td>
+        <td *ngIf="userRole == 0">
           <button class="btn bg-transparent">
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </button>
