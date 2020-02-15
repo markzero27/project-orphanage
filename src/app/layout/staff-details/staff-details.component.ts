@@ -126,6 +126,9 @@ export class StaffDetailsComponent implements OnInit {
     }
 
     this.userService.udpateUser(this.staff, this.ehistory).then(() => {
+      if (+localStorage.getItem('user_id') == this.staff.id) {
+        localStorage.setItem('user_data', JSON.stringify(this.staff));
+      }
       this.toastr.success('Saved!');
     }).catch(err => {
       this.toastr.error(err.message);

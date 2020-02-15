@@ -11,14 +11,15 @@
       >Accomplishments</a
     >
   </li>
-  <li class="nav-item" (click)="selectedType = 'inventory'">
-    <a class="nav-link" [ngClass]="{ active: selectedType == 'inventory' }">
-      Medicine Inventory
-    </a>
-  </li>
+
   <li class="nav-item" (click)="selectedType = 'monitoring'">
     <a class="nav-link" [ngClass]="{ active: selectedType == 'monitoring' }">
       Guest Monitoring
+    </a>
+  </li>
+  <li class="nav-item" (click)="selectedType = 'inventory'">
+    <a class="nav-link" [ngClass]="{ active: selectedType == 'inventory' }">
+      Medicine Inventory Reports
     </a>
   </li>
 </ul>
@@ -63,8 +64,8 @@
           <th><input type="checkbox" /></th>
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ acc.task_description }}</td>
-          <td>{{ acc.remarks }}</td>
           <td>{{ acc.problems_encountered }}</td>
+          <td>{{ acc.remarks }}</td>
           <td>{{ formatTime(acc.time_in) | date: 'hh:mm a' }}</td>
           <td>{{ formatTime(acc.time_out) | date: 'hh:mm a' }}</td>
           <td>{{ acc.updated_at }}</td>
@@ -177,54 +178,28 @@
           <th>#</th>
           <th>Medicine Name</th>
           <th>Medicine Type</th>
-          <th>Medicine Restock</th>
-          <th>Dispense</th>
+          <th>Action</th>
+          <th>Quantity</th>
           <th>Remaining Stock</th>
-          <th>Buffer</th>
-          <th>Status</th>
           <th>Created By</th>
-          <th>Date Modified</th>
+          <th>Date</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th><input type="checkbox" /></th>
-          <th scope="row">1</th>
-          <td>Lorem</td>
-          <td>Lorem, ipsum dolor.</td>
-          <td>1000</td>
-          <td>200</td>
-          <td>1800</td>
-          <td>100</td>
-          <td>-</td>
-          <td>Gina Karenina</td>
-          <td>01-01-2020</td>
+        <tr *ngFor="let med of medReports">
+          <td><input type="checkbox" /></td>
+          <td>#</td>
+          <td>{{ med.medicine_name }}</td>
+          <td>{{ med.medicine_type }}</td>
+          <td>{{ med.action }}</td>
+          <td>{{ med.quantity }}</td>
+          <td>{{ med.remaining_stock }}</td>
+          <td>{{ med.staff[1] }}</td>
+          <td>{{ med.updated_at }}</td>
         </tr>
-        <tr>
-          <th><input type="checkbox" /></th>
-          <th scope="row">2</th>
-          <td>Lorem</td>
-          <td>Lorem, ipsum dolor.</td>
-          <td>1000</td>
-          <td>200</td>
-          <td>1800</td>
-          <td>100</td>
-          <td>-</td>
-          <td>Gina Karenina</td>
-          <td>01-01-2020</td>
-        </tr>
-        <tr>
-          <th><input type="checkbox" /></th>
-          <th scope="row">3</th>
-          <td>Lorem</td>
-          <td>Lorem, ipsum dolor.</td>
-          <td>1000</td>
-          <td>200</td>
-          <td>1800</td>
-          <td>100</td>
-          <td>-</td>
-          <td>Gina Karenina</td>
-          <td>01-01-2020</td>
+
+        <tr *ngIf="medReports.length == 0">
+          <td class="text-center p-3" colspan="13">No Record</td>
         </tr>
       </tbody>
     </table>

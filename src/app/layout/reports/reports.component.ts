@@ -7,6 +7,8 @@ import { Task } from 'src/app/models/task.model';
 import { User } from 'src/app/models/user.model';
 import { GuestService } from 'src/app/services/guest/guest.service';
 import { Guest } from 'src/app/models/guest.model';
+import { MedicineService } from 'src/app/services/medicine/medicine.service';
+import { MedReport } from 'src/app/models/med-report.model';
 
 @Component({
   selector: 'app-reports',
@@ -18,6 +20,7 @@ export class ReportsComponent implements OnInit {
   userData: User = JSON.parse(localStorage.getItem('user_data'));
   selectedType = 'accomplishments';
   accList: Accomplishments[] = [];
+  medReports: MedReport[] = [];
   time_in: any;
   time_out: any;
   closeResult: string;
@@ -30,10 +33,17 @@ export class ReportsComponent implements OnInit {
     private accompService: AccomplishmentsService,
     private modalService: NgbModal,
     private guestService: GuestService,
+    private medService: MedicineService,
     private toastr: ToastrService) {
     this.getAllAccmp();
     this.guestService.getAllGuests(0).subscribe((guests: Guest[]) => {
       this.guestList = guests;
+    });
+    this.medService.getMedicineReports(0).subscribe(reports => {
+      this.medReports = reports.map(report => {
+        report.staff = JSON.parse(report.staff);
+        return report;
+      });
     });
   }
 

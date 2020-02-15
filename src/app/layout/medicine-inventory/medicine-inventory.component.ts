@@ -4,6 +4,9 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MedicineService } from 'src/app/services/medicine/medicine.service';
 import { medicines } from 'src/app/Datas/medicines.data';
 import { ToastrService } from 'ngx-toastr';
+import { MedReport } from 'src/app/models/med-report.model';
+import { User } from 'src/app/models/user.model';
+import { log } from 'util';
 
 @Component({
   selector: 'app-medicine-inventory',
@@ -12,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class MedicineInventoryComponent implements OnInit {
   userId = +localStorage.getItem('user_id');
+  userData: User = JSON.parse(localStorage.getItem('user_data'));
   medicineList: Medicine[] = [];
   medName = '';
   quantity = 1;
@@ -21,7 +25,7 @@ export class MedicineInventoryComponent implements OnInit {
   medicines = medicines;
   selectedType = 0;
   restock = 1;
-  med: any;
+  med: Medicine;
   medToUpdate: any;
   operation = '+';
 
@@ -101,7 +105,20 @@ export class MedicineInventoryComponent implements OnInit {
       type_of_medicine_id: this.medicines[this.selectedType].id,
     };
 
-    this.medicineService.addMedicine(newMed).subscribe(med => {
+    const report: MedReport = {
+      action: this.operation == '+' ? 'Restock' : 'Dispense',
+      created_by: this.userId,
+      medicine_name: this.medName,
+      medicine_type: this.medicines[this.selectedType].category,
+      quantity: this.quantity,
+      remaining_stock: this.quantity,
+      staff: [this.userId, `${this.userData.first_name} ${this.userData.last_name}`],
+      updated_by: this.userId,
+    };
+
+
+    console.log(report, 'here')
+    this.medicineService.addMedicine(newMed, report).subscribe(med => {
       console.log(med);
       this.getAllMedicines();
     });
@@ -160,7 +177,18 @@ export class MedicineInventoryComponent implements OnInit {
   }
 
   updateMedicine(med) {
-    this.medicineService.updateMed(med).subscribe(res => {
+    const report: MedReport = {
+      action: this.operation == '+' ? 'Restock' : 'Dispense',
+      created_by: this.userId,
+      medicine_name: med.medicine_name,
+      medicine_type: med.type_of_medicine_description,
+      quantity: this.restock,
+      remaining_stock: med.qty,
+      staff: [this.userId, `${this.userData.first_name} ${this.userData.last_name}`],
+      updated_by: this.userId,
+    };
+
+    this.medicineService.updateMed(med, report).subscribe(res => {
       this.close();
       this.restock = 1;
       this.toastr.success('Item restocked!');
