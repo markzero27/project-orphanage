@@ -3,6 +3,8 @@ import { User, initialUser, EmpoymentHistory, initialEHistory } from 'src/app/mo
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UsersService } from 'src/app/services/users/users.service';
+import { environment } from 'src/environments/environment';
+import { resolve } from 'url';
 
 @Component({
   selector: 'app-staff-add',
@@ -12,6 +14,13 @@ import { UsersService } from 'src/app/services/users/users.service';
 export class StaffAddComponent implements OnInit {
   staff: User = JSON.parse(JSON.stringify(initialUser));
   ehistory: EmpoymentHistory = JSON.parse(JSON.stringify(initialEHistory));
+
+
+  fileData: File = null;
+  previewUrl: any = null;
+  fileUploadProgress: string = null;
+  uploadedFilePath: string = null;
+
   constructor(public router: Router, private toastr: ToastrService, private userService: UsersService) {
     this.staff.role = 2;
   }
@@ -19,10 +28,11 @@ export class StaffAddComponent implements OnInit {
   bDate: any;
   sabbathDate: any;
   confirm = '';
+  file: any;
 
   ngOnInit() { }
 
-  addStaff() {
+  async addStaff() {
 
     if (this.bDate) {
       const newDate = `${this.bDate.year}-${this.bDate.month}-${this.bDate.day}`;
@@ -52,6 +62,9 @@ export class StaffAddComponent implements OnInit {
         return this.toastr.error('Password did not match!');
       }
     }
+    if (this.fileData) {
+      this.staff.image = await this.onSubmit() as string;
+    }
 
     this.userService.addUser(this.staff).subscribe(async (data: any) => {
       console.log(data);
@@ -66,6 +79,58 @@ export class StaffAddComponent implements OnInit {
       this.toastr.error('Save Failed!');
     });
 
+  }
+
+
+
+  fileProgress(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview();
+  }
+
+  preview() {
+    // Show preview 
+    const mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    };
+  }
+
+  onSubmit() {
+    return new Promise(resolve => {
+      const formData = new FormData();
+      console.log('====================================');
+      console.log(this.fileData);
+      console.log('====================================');
+      formData.append('image', this.fileData);
+      this.userService.uploadImage(formData).subscribe((res: any) => {
+        console.log('====================================');
+        console.log(res.filePath);
+        console.log('====================================');
+        resolve(`http://localhost:8000/storage/images/${res.filePath.substring(14)}`);
+      });
+    });
+
+  }
+
+  fileUpload($event) {
+    console.log('====================================');
+    console.log($event.target.files);
+    console.log('====================================');
+    const data = {
+      image: $event.target.files
+    };
+    this.userService.uploadImage({ image: data }).subscribe(res => {
+      console.log('====================================');
+      console.log(res);
+      console.log('====================================');
+    });
   }
 
 }
