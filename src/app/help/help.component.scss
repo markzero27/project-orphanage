@@ -4,7 +4,7 @@ $topnav-background-color: #fff;
     display: block;
 }
 
-.login-page {
+.help-page {
     position: absolute;
     top: 0;
     left: 0;
@@ -106,11 +106,11 @@ $topnav-background-color: #fff;
     }
 }
 
-.login-main {
+.help-main {
     height: 100vh;
     background: url(../../assets/images/CHEsigninimage.png) no-repeat left center / contain;
 
-    .login-form {
+    .help-form {
         background: #fff;
         display: flex;
         flex-direction: column;

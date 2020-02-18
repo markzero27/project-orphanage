@@ -5,9 +5,10 @@
 </div>
 <div class="card-header pt-3">
   <input
-    type="search"
+    type="text"
     name=""
     id=""
+    ng-model="search"
     class="ml-3 rounded px-2 py-1"
     placeholder="Search"
   />
@@ -31,18 +32,20 @@
       <tr>
         <th><input type="checkbox" /></th>
         <th>Name</th>
+        <th>User Role</th>
         <th>Email</th>
         <th>Date Hired</th>
         <th>Status</th>
         <th class="text-center">
-          <i class="fa fa-cog ml-3" aria-hidden="true"></i>
+          
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let staff of staffList">
+      <tr *ngFor="let staff of staffList" ng-repeat="post in posts | Filter">
         <th><input type="checkbox" /></th>
         <th scope="row">{{ staff.first_name }} {{ staff.last_name }}</th>
+        <td>{{ staff.role }}</td>
         <td>{{ staff.email }}</td>
         <td>{{ staff.date_hired }}</td>
         <td
@@ -59,7 +62,7 @@
             class="btn bg-transparent"
             (click)="router.navigate(['/staff/details', { id: staff.id }])"
           >
-            <i class="fa fa-pencil" aria-hidden="true"></i>
+            <i class="fa fa-cog ml-3" aria-hidden="true"></i>
           </button>
         </td>
       </tr>

@@ -4,11 +4,13 @@
 >
   <div class="list-group pt-3 px-1" *ngIf="user.role == 0">
     <a routerLink="/dashboard" class="list-group-item d-flex">
-      <img
+      <div class="rounded-circle">
+        <img
         src="assets/images/default.jpeg"
         alt=""
         class="user-image mr-2 rounded-circle"
       />
+      </div>
       <div class="w-100 p-2">
         <p class="m-0 small text-capitalize">
           {{ user.first_name }} {{ user.last_name }}
@@ -95,7 +97,7 @@
       class="list-group-item"
     >
       <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
-      <span>{{ 'Guess Monitoring' | translate }}</span>
+      <span>{{ 'Guest Monitoring' | translate }}</span>
     </a>
     <label class="text-light m-2 small">OTHERS</label>
     <a
@@ -112,7 +114,7 @@
       class="list-group-item"
     >
       <i class="fa fa-user" aria-hidden="true"></i>&nbsp;
-      <span>{{ 'Sytem Users' | translate }}</span>
+      <span>{{ 'User Logs' | translate }}</span>
     </a>
     <a [routerLink]="['/login']" class="list-group-item">
       <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;
@@ -213,7 +215,7 @@
       class="list-group-item"
     >
       <i class="fa fa-users" aria-hidden="true"></i>&nbsp;
-      <span>{{ 'Guess Monitoring' | translate }}</span>
+      <span>{{ 'Guest Monitoring' | translate }}</span>
     </a>
     <label class="text-light m-2 small">OTHERS</label>
     <a

@@ -23,7 +23,6 @@
           <h5>Medicine Inventory Reports</h5>
         </div>
         <div class="card-header pt-3">
-          <span>Medicine List</span>
           <input
             type="search"
             name=""
@@ -31,22 +30,10 @@
             class="ml-3 rounded px-2 py-1"
             placeholder="Search"
           />
-          <button class="btn btn-light float-right">
-            <i class="fa fa-filter" aria-hidden="true"></i> Filter
-          </button>
-
-          <button class="btn btn-light float-right" (click)="open(content)">
-            <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
-          </button>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-archive mr-2" aria-hidden="true"></i>
-            Archive
-          </button>
         </div>
         <table class="table table-striped">
           <thead>
             <tr>
-              <th><input type="checkbox" /></th>
               <th>#</th>
               <th>Medicine</th>
               <th>Quantity</th>
@@ -59,7 +46,6 @@
               <td colspan="13" class="text-center">No Record</td>
             </tr>
             <tr *ngFor="let medicine of medicineList; let i = index">
-              <th><input type="checkbox" /></th>
               <th scope="row">{{ i + 1 }}</th>
               <td>{{ medicine.medicine_name }}</td>
               <td>{{ medicine.quantity }}</td>
@@ -79,31 +65,9 @@
         <div class="card-header bg-primary-color text-light pt-3">
           <h5>Tasks List</h5>
         </div>
-        <div class="card-header pt-3">
-          <span>Search</span>
-          <input
-            type="search"
-            name=""
-            id=""
-            class="ml-3 rounded px-2 py-1"
-            placeholder="Search"
-          />
-          <button class="btn btn-light float-right">
-            <i class="fa fa-filter" aria-hidden="true"></i> Filter
-          </button>
-
-          <button class="btn btn-light float-right">
-            <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
-          </button>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-archive mr-2" aria-hidden="true"></i>
-            Archive
-          </button>
-        </div>
         <table class="table table-striped">
           <thead class="bg-primary-color text-light">
             <tr>
-              <th><input type="checkbox" /></th>
               <th>Elder Name</th>
               <th>Medicine</th>
               <th>Qty</th>
@@ -118,7 +82,6 @@
               <td colspan="13" class="text-center">No Record</td>
             </tr>
             <tr *ngFor="let task of taskList">
-              <th><input type="checkbox" /></th>
               <th scope="row">{{ task.elder_name }}</th>
               <td>{{ task.medicine_description }}</td>
               <td>{{ task.qty }}</td>

@@ -29,8 +29,8 @@ export class SidebarComponent implements OnInit {
             });
         } else {
             this.user.nick_name = 'Admin';
-            this.user.first_name = 'Mark';
-            this.user.last_name = 'Daquis';
+            this.user.first_name = 'Juan';
+            this.user.last_name = 'Dela Cruz';
             console.log('====================================');
             console.log(this.user);
             console.log('====================================');

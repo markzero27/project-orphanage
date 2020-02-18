@@ -8,6 +8,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MedicineService } from 'src/app/services/medicine/medicine.service';
 import { Medicine } from 'src/app/models/medicine.model';
+import { Announcement } from 'src/app/models/announcement.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,9 +20,12 @@ import { Router } from '@angular/router';
 export class MainDashboardComponent implements OnInit {
 
   medicineList: Medicine[] = [];
+  eventList: Event[] = [];
   medName = '';
   quantity = 1;
   dateCreated: any;
+  event = '';
+  dateEvent: any;
   // calendar variables
   @ViewChild('calendar', null) calendarComponent: FullCalendarComponent; // the #calendar in the template
 
@@ -118,6 +122,20 @@ export class MainDashboardComponent implements OnInit {
     this.clearModalFields();
     this.close();
 
+  }
+
+  addAnnouncement() {
+
+    if (this.event.trim() == '') {
+      return this.addAlert('Please enter event name!');
+    }
+
+    if (!this.dateEvent) {
+      return this.addAlert('Please enter the date of event!');
+    }
+
+    this.clearModalFields();
+    this.close();
   }
 
   addAlert(message) {
