@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Elders, initialElder, MedicalHistory, initalMedHistory } from 'src/app/models/elders.model';
 import { EldersService } from 'src/app/services/elders/elders.service';
 import { ToastrService } from 'ngx-toastr';
+import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
   selector: 'app-elders-add-page',
@@ -16,13 +17,18 @@ export class EldersAddPageComponent implements OnInit {
   dateIn: any;
   sabbath: any;
 
-  constructor(public router: Router, private elderService: EldersService, private toastr: ToastrService) {
+  fileData: File = null;
+  previewUrl: any = null;
+  fileUploadProgress: string = null;
+  uploadedFilePath: string = null;
+
+  constructor(public router: Router, private elderService: EldersService, private toastr: ToastrService, private userService: UsersService) {
   }
 
   ngOnInit() {
   }
 
-  addElder() {
+  async addElder() {
 
     if (this.bDate) {
       const newDate = `${this.bDate.year}-${this.bDate.month}-${this.bDate.day}`;
@@ -40,9 +46,11 @@ export class EldersAddPageComponent implements OnInit {
       const newDate = `${this.sabbath.year}-${this.sabbath.month}-${this.sabbath.day}`;
       this.elder.sabbath = newDate;
     }
-    console.log('Elder to insert ====================================');
-    console.log(this.elder);
-    console.log('====================================');
+
+    if (this.fileData) {
+      this.elder.image = await this.onSubmit() as string;
+    }
+
     this.elderService.addElder(this.elder).subscribe((data: Elders) => {
       console.log(data);
       this.medHistory.elder_id = data.id;
@@ -60,5 +68,44 @@ export class EldersAddPageComponent implements OnInit {
     this.dateIn = null;
     this.sabbath = null;
     this.elder = JSON.parse(JSON.stringify(initialElder));
+  }
+
+
+
+
+  fileProgress(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview();
+  }
+
+  preview() {
+    // Show preview 
+    const mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    };
+  }
+
+  onSubmit() {
+    return new Promise(resolve => {
+      const formData = new FormData();
+      console.log('====================================');
+      console.log(this.fileData);
+      console.log('====================================');
+      formData.append('image', this.fileData);
+      this.userService.uploadImage(formData).subscribe((res: any) => {
+        console.log('====================================');
+        console.log(res.filePath);
+        console.log('====================================');
+        resolve(`http://localhost:8000/storage/images/${res.filePath.substring(14)}`);
+      });
+    });
+
   }
 }

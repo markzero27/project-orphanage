@@ -33,15 +33,26 @@
           </button>
           <div class="position-relative">
             <img
-              src="https://media.gettyimages.com/photos/perfect-grandma-xxl-picture-id157314260?s=612x612"
+              [src]="sanitizer.bypassSecurityTrustResourceUrl(elder.image)"
               alt=""
               class="elder-img"
+              *ngIf="!fileData"
             />
+            <img [src]="previewUrl" alt="" class="elder-img" *ngIf="fileData" />
           </div>
           <div class="elder-name">
-            <p class="text-center color-dark-primary m-0">
-              {{ elder.first_name }} {{ elder.last_name }}
-            </p>
+            <div class="form-group row">
+              <div class="col-sm-3"></div>
+
+              <input
+                type="file"
+                class="form-control col-sm-6"
+                name="image"
+                [(ngModel)]="file"
+                (change)="fileProgress($event)"
+              />
+              <div class="col-sm-3"></div>
+            </div>
             <p class="text-center small m-0">
               Bed No.
             </p>
@@ -114,9 +125,10 @@
           </button>
           <div class="position-relative">
             <img
-              src="https://media.gettyimages.com/photos/perfect-grandma-xxl-picture-id157314260?s=612x612"
+              [src]="sanitizer.bypassSecurityTrustResourceUrl(elder.image)"
               alt=""
               class="elder-img"
+              *ngIf="!fileData"
             />
           </div>
           <div class="elder-name">
@@ -152,7 +164,6 @@
             <label for="" class="">{{ elder.date_stay_in_orphanage }}</label>
           </div>
         </div>
-      
       </div>
     </div>
     <div class="col-md-8 right-div" *ngSwitchCase="1">
@@ -171,19 +182,31 @@
             <label for="" class="col-sm-3 col-form-label">First Name</label>
             <div class="col-sm-9">
               <!-- <label for="" class="col-sm-3 col-form-label">First Name</label> -->
-              <input type="text" class="form-control" [(ngModel)]="elder.first_name" />
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.first_name"
+              />
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Middle Name</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" [(ngModel)]="elder.middle_name"/>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.middle_name"
+              />
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Surmame</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" [(ngModel)]="elder.last_name"/>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.last_name"
+              />
             </div>
           </div>
           <div class="form-group row">
@@ -212,13 +235,17 @@
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Birthplace</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" [(ngModel)]="elder.birth_place" />
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.birth_place"
+              />
             </div>
-          </div>         
+          </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Sabbath</label>
             <div class="col-sm-9">
-              <div class="input-group datepicker-input" >
+              <div class="input-group datepicker-input">
                 <input
                   class="form-control"
                   placeholder="select"
@@ -243,19 +270,31 @@
               >Provincial Address</label
             >
             <div class="col-sm-9">
-              <input type="text" class="form-control" [(ngModel)]="elder.provincial_address"/>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.provincial_address"
+              />
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Civil Status</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" [(ngModel)]="elder.civil_status"/>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.civil_status"
+              />
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Nationality</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" [(ngModel)]="elder.nationality"/>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.nationality"
+              />
             </div>
           </div>
         </div>
@@ -267,31 +306,51 @@
             <label for="" class="col-sm-3 col-form-label">First Name</label>
             <div class="col-sm-9">
               <!-- <label for="" class="col-sm-3 col-form-label">First Name</label> -->
-              <input type="text" class="form-control" [(ngModel)]="elder.cp_first_name"/>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.cp_first_name"
+              />
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Middle Name</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" [(ngModel)]="elder.cp_middle_name"/>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.cp_middle_name"
+              />
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Surmame</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" [(ngModel)]="elder.cp_surname"/>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.cp_surname"
+              />
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Relationship</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" [(ngModel)]="elder.cp_relationship"/>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.cp_relationship"
+              />
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Contact Number</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" [(ngModel)]="elder.cp_contact_no"/>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.cp_contact_no"
+              />
             </div>
           </div>
           <div class="form-group row">
@@ -299,13 +358,21 @@
               >Provincial Address</label
             >
             <div class="col-sm-9">
-              <input type="text" class="form-control" [(ngModel)]="elder.cp_provincial_add"/>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.cp_provincial_add"
+              />
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Work</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" [(ngModel)]="elder.cp_work" />
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.cp_work"
+              />
             </div>
           </div>
         </div>
@@ -316,7 +383,11 @@
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Phil Health</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" [(ngModel)]="elder.oi_phil_health"/>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.oi_phil_health"
+              />
             </div>
           </div>
           <div class="form-group row">
@@ -324,19 +395,31 @@
               >Senior Citizen ID No.</label
             >
             <div class="col-sm-9">
-              <input type="text" class="form-control" [(ngModel)]="elder.oi_senior_citizen_id"/>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.oi_senior_citizen_id"
+              />
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">SSS ID</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" [(ngModel)]="elder.oi_sss_id" />
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.oi_sss_id"
+              />
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Pagibig</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" [(ngModel)]="elder.oi_pagibig"/>
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="elder.oi_pagibig"
+              />
             </div>
           </div>
         </div>
@@ -355,32 +438,42 @@
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">First Name</label>
             <div class="col-sm-9">
-              <label for="" class="col-form-label">{{ elder.first_name }}</label>
+              <label for="" class="col-form-label">{{
+                elder.first_name
+              }}</label>
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Middle Name</label>
             <div class="col-sm-9">
-              <label for="" class=" col-form-label">{{ elder.middle_name }}</label>
+              <label for="" class=" col-form-label">{{
+                elder.middle_name
+              }}</label>
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Surmame</label>
             <div class="col-sm-9">
-              <label for="" class=" col-form-label">{{ elder.last_name }}</label>
+              <label for="" class=" col-form-label">{{
+                elder.last_name
+              }}</label>
             </div>
           </div>
-          
+
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Birthdate</label>
             <div class="col-sm-9">
-              <label for="" class="col-form-label">{{elder.birth_date}}</label>
+              <label for="" class="col-form-label">{{
+                elder.birth_date
+              }}</label>
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Birthplace</label>
             <div class="col-sm-9">
-              <label for="" class="col-form-label">{{ elder.birth_place }}</label>
+              <label for="" class="col-form-label">{{
+                elder.birth_place
+              }}</label>
             </div>
           </div>
           <div class="form-group row">
@@ -394,19 +487,25 @@
               >Provincial Address</label
             >
             <div class="col-sm-9">
-              <label for="" class="col-form-label">{{ elder.provincial_address }}</label>
+              <label for="" class="col-form-label">{{
+                elder.provincial_address
+              }}</label>
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Civil Status</label>
             <div class="col-sm-9">
-              <label for="" class=" col-form-label">{{ elder.civil_status }}</label>
+              <label for="" class=" col-form-label">{{
+                elder.civil_status
+              }}</label>
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Nationality</label>
             <div class="col-sm-9">
-              <label for="" class="col-form-label">{{ elder.nationality }}</label>
+              <label for="" class="col-form-label">{{
+                elder.nationality
+              }}</label>
             </div>
           </div>
         </div>
@@ -417,25 +516,33 @@
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">First Name</label>
             <div class="col-sm-9">
-              <label for="" class="col-form-label">{{ elder.cp_first_name }}</label>
+              <label for="" class="col-form-label">{{
+                elder.cp_first_name
+              }}</label>
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Middle Name</label>
             <div class="col-sm-9">
-              <label for="" class="col-form-label">{{ elder.cp_middle_name }}</label>
+              <label for="" class="col-form-label">{{
+                elder.cp_middle_name
+              }}</label>
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Surmame</label>
             <div class="col-sm-9">
-              <label for="" class="col-form-label">{{ elder.cp_surname }}</label>
+              <label for="" class="col-form-label">{{
+                elder.cp_surname
+              }}</label>
             </div>
           </div>
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Relationship</label>
             <div class="col-sm-9">
-              <label for="" class="col-form-label">{{ elder.cp_relationship }}</label>
+              <label for="" class="col-form-label">{{
+                elder.cp_relationship
+              }}</label>
             </div>
           </div>
           <div class="form-group row">
@@ -449,9 +556,9 @@
               >Provincial Address</label
             >
             <div class="col-sm-9">
-              <label for="" class="col-form-label"
-                >{{ elder.cp_provincial_add }}</label
-              >
+              <label for="" class="col-form-label">{{
+                elder.cp_provincial_add
+              }}</label>
             </div>
           </div>
           <div class="form-group row">
@@ -468,7 +575,9 @@
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Phil Health</label>
             <div class="col-sm-9">
-              <label for="" class="col-form-label">{{ elder.oi_phil_health }}</label>
+              <label for="" class="col-form-label">{{
+                elder.oi_phil_health
+              }}</label>
             </div>
           </div>
           <div class="form-group row">
@@ -476,7 +585,9 @@
               >Senior Citizen ID No.</label
             >
             <div class="col-sm-9">
-              <label for="" class="col-form-label">{{ elder.oi_senior_citizen_id }}</label>
+              <label for="" class="col-form-label">{{
+                elder.oi_senior_citizen_id
+              }}</label>
             </div>
           </div>
           <div class="form-group row">
@@ -488,7 +599,9 @@
           <div class="form-group row">
             <label for="" class="col-sm-3 col-form-label">Pagibig</label>
             <div class="col-sm-9">
-              <label for="" class="col-form-label">{{ elder.oi_pagibig }}</label>
+              <label for="" class="col-form-label">{{
+                elder.oi_pagibig
+              }}</label>
             </div>
           </div>
         </div>
@@ -521,7 +634,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let med of takenMeds"
+            <tr
+              *ngFor="let med of takenMeds"
               [routerLink]="['/elders/details']"
               routerLinkActive="router-link-active"
             >
@@ -539,7 +653,7 @@
                 </button>
               </td>
             </tr>
-           <tr *ngIf="takenMeds.length == 0 && !loading">
+            <tr *ngIf="takenMeds.length == 0 && !loading">
               <td colspan="13" class="text-center">No Record</td>
             </tr>
           </tbody>
@@ -548,7 +662,7 @@
     </div>
     <div class="col-md-8 right-div" *ngSwitchCase="3">
       <div class="card p-4 mb-3" *ngIf="updating3">
-         <h5 class="pb-2 color-dark-primary">
+        <h5 class="pb-2 color-dark-primary">
           Medical History
           <button
             class="btn btn-primary float-right large border"
@@ -558,25 +672,40 @@
           </button>
         </h5>
         <div *ngFor="let med of medHistory">
-         
-        <div class="form-group row">
-          <label for="" class="col-sm-3 col-form-label">Present Illness</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" [(ngModel)]="med.present_illness_description"/>
+          <div class="form-group row">
+            <label for="" class="col-sm-3 col-form-label"
+              >Present Illness</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="med.present_illness_description"
+              />
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="" class="col-sm-3 col-form-label">Past History</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" [(ngModel)]="med.past_illness_description"/>
+          <div class="form-group row">
+            <label for="" class="col-sm-3 col-form-label">Past History</label>
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="med.past_illness_description"
+              />
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="" class="col-sm-3 col-form-label">Assigned Doctor</label>
-          <div class="col-sm-9">
-            <input type="text" class="form-control" [(ngModel)]="med.assigned_doctor_name"/>
+          <div class="form-group row">
+            <label for="" class="col-sm-3 col-form-label"
+              >Assigned Doctor</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="med.assigned_doctor_name"
+              />
+            </div>
           </div>
-        </div>
         </div>
       </div>
       <div class="card p-4 mb-3" *ngIf="!updating3">
@@ -590,25 +719,34 @@
           </button>
         </h5>
         <div *ngFor="let med of medHistory">
-          
-        <div class="form-group row">
-          <label for="" class="col-sm-3 col-form-label">Present Illness</label>
-          <div class="col-sm-9">
-            <label for="" class="col-form-label">{{ med.present_illness_description}}</label>
+          <div class="form-group row">
+            <label for="" class="col-sm-3 col-form-label"
+              >Present Illness</label
+            >
+            <div class="col-sm-9">
+              <label for="" class="col-form-label">{{
+                med.present_illness_description
+              }}</label>
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="" class="col-sm-3 col-form-label">Past History</label>
-          <div class="col-sm-9">
-            <label for="" class="col-form-label">{{ med.past_illness_description }}</label>
+          <div class="form-group row">
+            <label for="" class="col-sm-3 col-form-label">Past History</label>
+            <div class="col-sm-9">
+              <label for="" class="col-form-label">{{
+                med.past_illness_description
+              }}</label>
+            </div>
           </div>
-        </div>
-        <div class="form-group row">
-          <label for="" class="col-sm-3 col-form-label">Assigned Doctor</label>
-          <div class="col-sm-9">
-            <label for="" class="col-form-label">{{ med.assigned_doctor_name }}</label>
+          <div class="form-group row">
+            <label for="" class="col-sm-3 col-form-label"
+              >Assigned Doctor</label
+            >
+            <div class="col-sm-9">
+              <label for="" class="col-form-label">{{
+                med.assigned_doctor_name
+              }}</label>
+            </div>
           </div>
-        </div>
         </div>
       </div>
     </div>

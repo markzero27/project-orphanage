@@ -4,6 +4,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { EldersService } from 'src/app/services/elders/elders.service';
 import { ToastrService } from 'ngx-toastr';
 import { MedicineService } from 'src/app/services/medicine/medicine.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
   selector: 'app-elders-details',
@@ -25,12 +27,19 @@ export class EldersDetailsComponent implements OnInit {
   takenMeds = [];
   loading = true;
 
+  fileData: File = null;
+  previewUrl: any = null;
+  fileUploadProgress: string = null;
+  uploadedFilePath: string = null;
+
   constructor(
     public router: Router,
     private route: ActivatedRoute,
     private elderService: EldersService,
     private medService: MedicineService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public sanitizer: DomSanitizer,
+    private userService: UsersService
   ) {
     this.route.params.subscribe(params => {
       if (params.id) {
@@ -84,7 +93,7 @@ export class EldersDetailsComponent implements OnInit {
   }
 
 
-  save() {
+  async save() {
     this.updating1 = false;
     this.updating2 = false;
     if (this.bDate) {
@@ -108,6 +117,10 @@ export class EldersDetailsComponent implements OnInit {
       return this.toastr.error('Please fill up required fields');
     }
 
+    if (this.fileData) {
+      this.elder.image = await this.onSubmit() as string;
+    }
+
     this.elderService.udpateElder(this.elder).subscribe(() => {
       this.toastr.success('Saved!');
     }, err => {
@@ -121,5 +134,41 @@ export class EldersDetailsComponent implements OnInit {
       this.elderService.updateMedicalHistory(med).subscribe();
     });
     this.toastr.success('Saved!');
+  }
+
+  fileProgress(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview();
+  }
+
+  preview() {
+    // Show preview 
+    const mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    };
+  }
+
+  onSubmit() {
+    return new Promise(resolve => {
+      const formData = new FormData();
+      console.log('====================================');
+      console.log(this.fileData);
+      console.log('====================================');
+      formData.append('image', this.fileData);
+      this.userService.uploadImage(formData).subscribe((res: any) => {
+        console.log('====================================');
+        console.log(res.filePath);
+        console.log('====================================');
+        resolve(`http://localhost:8000/storage/images/${res.filePath.substring(14)}`);
+      });
+    });
+
   }
 }
