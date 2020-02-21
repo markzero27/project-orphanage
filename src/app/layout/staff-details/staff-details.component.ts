@@ -10,6 +10,7 @@ import { EldersService } from 'src/app/services/elders/elders.service';
 import { Elders } from 'src/app/models/elders.model';
 import { Medicine } from 'src/app/models/medicine.model';
 import { MedicineService } from 'src/app/services/medicine/medicine.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-staff-details',
@@ -37,6 +38,11 @@ export class StaffDetailsComponent implements OnInit {
   addDate: any;
   alerts: Array<any> = [];
 
+  fileData: File = null;
+  previewUrl: any = null;
+  fileUploadProgress: string = null;
+  uploadedFilePath: string = null;
+
   constructor(
     public route: ActivatedRoute,
     public router: Router,
@@ -46,6 +52,7 @@ export class StaffDetailsComponent implements OnInit {
     private toastr: ToastrService,
     private taskService: TaskService,
     private modalService: NgbModal,
+    public sanitizer: DomSanitizer
   ) {
     this.route.params.subscribe(async params => {
       if (!params.id) {
@@ -98,7 +105,7 @@ export class StaffDetailsComponent implements OnInit {
     }
   }
 
-  save() {
+  async save() {
     this.editing1 = false;
     this.editing2 = false;
     console.log('====================================');
@@ -125,6 +132,11 @@ export class StaffDetailsComponent implements OnInit {
       return this.toastr.error('Please fillup required fields');
     }
 
+
+    if (this.fileData) {
+      this.staff.image = await this.onSubmit() as string;
+    }
+
     this.userService.udpateUser(this.staff, this.ehistory).then(() => {
       if (+localStorage.getItem('user_id') == this.staff.id) {
         localStorage.setItem('user_data', JSON.stringify(this.staff));
@@ -135,7 +147,7 @@ export class StaffDetailsComponent implements OnInit {
     });
   }
 
-  addTask() {
+  async addTask() {
     if (!this.time) {
       return this.toastr.error('Please enter valid time!');
     }
@@ -218,5 +230,44 @@ export class StaffDetailsComponent implements OnInit {
     this.time = null;
     this.addDate = null;
     this.quantity = null;
+  }
+
+
+
+
+  fileProgress(fileInput: any) {
+    this.fileData = <File>fileInput.target.files[0];
+    this.preview();
+  }
+
+  preview() {
+    // Show preview 
+    const mimeType = this.fileData.type;
+    if (mimeType.match(/image\/*/) == null) {
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.readAsDataURL(this.fileData);
+    reader.onload = (_event) => {
+      this.previewUrl = reader.result;
+    };
+  }
+
+  onSubmit() {
+    return new Promise(resolve => {
+      const formData = new FormData();
+      console.log('====================================');
+      console.log(this.fileData);
+      console.log('====================================');
+      formData.append('image', this.fileData);
+      this.userService.uploadImage(formData).subscribe((res: any) => {
+        console.log('====================================');
+        console.log(res.filePath);
+        console.log('====================================');
+        resolve(`http://localhost:8000/storage/images/${res.filePath.substring(14)}`);
+      });
+    });
+
   }
 }

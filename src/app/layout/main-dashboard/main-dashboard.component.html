@@ -1,3 +1,4 @@
+
 <div [@routerTransition] class="bg-light">
   <div class="top">
     <h2 class="text-warning ">
@@ -66,8 +67,7 @@
     <div class="col col-xl-6 col-lg-12">
       <div class="card mb-3">
         <div class="card-header bg-primary-color text-light pt-3">
-          <input type="checkbox" name="" id="" class="mr-2" />
-          ANNOUNCEMENT
+          <h3> ANNOUNCEMENT </h3>
           <button class="btn btn-danger float-right" (click)="open(content)">
             <i class="fa fa-trash M-4" aria-hidden="true"></i>
           </button>
@@ -78,7 +78,7 @@
         <table class="table table-striped">
           <thead class="bg-primary-color text-light">
             <tr>
-              <th><input type="checkbox" /></th>
+              <th><input type="checkbox" (click)="CheckAllOptions()"/></th>
               <th>Event</th>
               <th>Date of Event</th>
             </tr>
@@ -88,18 +88,19 @@
               <td colspan="13" class="text-center">No Record</td>
             </tr>
             <tr *ngFor="let med of medicineList; let i = index">
-              <th><input type="checkbox" /></th>
-              <td>{{ announce.event }}</td>
+              <th><input type="checkbox" [(ngModel)]="checkbox.checked" [value]="checkbox.value"/></th>
+              <td> <span>{{checkbox.name}}</span></td>
               <td>{{ announce.date }}</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
+
     <div class="col col-xl-6 col-lg-12">
       <div class="card mb-3">
         <div class="card-header bg-primary-color text-light pt-3">
-          <input type="checkbox" name="" id="" class="mr-2" />
+          <input type="checkbox" name="" id="" class="mr-2" (click)="CheckAllOptions()"/>
           NOTES
           <button class="btn btn-danger float-right" (click)="open(content)">
             <i class="fa fa-trash M-4" aria-hidden="true"></i>
@@ -109,11 +110,10 @@
           </button>
         </div>
         <ul class="list-group">
-          <li class="list-group-item" *ngFor="let med of medicineList; let i = index">
-            <input type="checkbox" name="" id="" class="mr-2" />
-            {{ announce.event }}
+          <li class="list-group-item" *ngFor="let checkbox of checkboxes">
+            <input type="checkbox" [(ngModel)]="checkbox.checked" [value]="checkbox.value">
+            <span>{{checkbox.name}}</span>
           </li>
-
         </ul>
       </div>
     </div>

@@ -1,4 +1,4 @@
-export interface Announcement {
+export interface AnnouncementService {
     doctor_name: any;
     id?: number;
     event: string;

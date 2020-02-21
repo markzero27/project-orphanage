@@ -9,7 +9,6 @@ import { GuestService } from 'src/app/services/guest/guest.service';
 import { Guest } from 'src/app/models/guest.model';
 import { MedicineService } from 'src/app/services/medicine/medicine.service';
 import { MedReport } from 'src/app/models/med-report.model';
-import { AnnouncementService } from 'src/app/services/announcement/announcement.service';
 
 @Component({
   selector: 'app-reports',
@@ -32,7 +31,6 @@ export class ReportsComponent implements OnInit {
 
   constructor(
     private accompService: AccomplishmentsService,
-    private announceService: AnnouncementService,
     private modalService: NgbModal,
     private guestService: GuestService,
     private medService: MedicineService,

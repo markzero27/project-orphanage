@@ -74,4 +74,9 @@ export class UsersService {
       });
     });
   }
+
+  uploadImage(file) {
+
+    return this.http.post(`${environment.api}/file-upload`, file);
+  }
 }

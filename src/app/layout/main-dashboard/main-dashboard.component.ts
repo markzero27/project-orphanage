@@ -8,7 +8,6 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MedicineService } from 'src/app/services/medicine/medicine.service';
 import { Medicine } from 'src/app/models/medicine.model';
-import { Announcement } from 'src/app/models/announcement.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,8 +16,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./main-dashboard.component.scss'],
   animations: [routerTransition()]
 })
-export class MainDashboardComponent implements OnInit {
 
+export class MainDashboardComponent implements OnInit {
+  checkboxes: any[] = [
+    { name: 'cb1', value: 'cb1', checked: false },
+    { name: 'cb2', value: 'cb2', checked: false },
+    { name: 'cb3', value: 'cb3', checked: false },
+    { name: 'cb4', value: 'cb4', checked: false },
+    { name: 'cb5', value: 'cb5', checked: false },
+  ]
   medicineList: Medicine[] = [];
   eventList: Event[] = [];
   medName = '';
@@ -65,6 +71,13 @@ export class MainDashboardComponent implements OnInit {
   gotoPast() {
     const calendarApi = this.calendarComponent.getApi();
     calendarApi.gotoDate('2000-01-01'); // call a method on the Calendar object
+  }
+
+  CheckAllOptions() {
+    if (this.checkboxes.every(val => val.checked == true))
+      this.checkboxes.forEach(val => { val.checked = false });
+    else
+      this.checkboxes.forEach(val => { val.checked = true });
   }
 
   handleDateClick(arg) {
@@ -124,20 +137,6 @@ export class MainDashboardComponent implements OnInit {
 
   }
 
-  addAnnouncement() {
-
-    if (this.event.trim() == '') {
-      return this.addAlert('Please enter event name!');
-    }
-
-    if (!this.dateEvent) {
-      return this.addAlert('Please enter the date of event!');
-    }
-
-    this.clearModalFields();
-    this.close();
-  }
-
   addAlert(message) {
     const alert = {
       id: Math.random().toFixed(2),
@@ -155,5 +154,5 @@ export class MainDashboardComponent implements OnInit {
     this.dateCreated = '';
     this.quantity = 1;
   }
-
+  
 }

@@ -29,7 +29,7 @@
           </button>
           <div class="position-relative">
             <img
-              src="https://www.purdueglobal.edu/blog/nursing/purgshouldyoubecomeanurse-image.jpg"
+              [src]="sanitizer.bypassSecurityTrustResourceUrl(staff.image)"
               alt=""
               class="elder-img"
             />
@@ -39,7 +39,15 @@
               {{ staff.first_name }} {{ staff?.middle_name?.substring(0, 1) }}.
               {{ staff.last_name }}
             </p>
-            <p class="text-center small m-0">{{ staff.role == 0 ? 'Admin' : staff.role == 1 ? 'Medical Staff' : 'Staff'}}</p>
+            <p class="text-center small m-0">
+              {{
+                staff.role == 0
+                  ? 'Admin'
+                  : staff.role == 1
+                  ? 'Medical Staff'
+                  : 'Staff'
+              }}
+            </p>
           </div>
         </div>
         <hr />
@@ -90,13 +98,28 @@
           </button>
           <div class="position-relative">
             <img
-              src="https://www.purdueglobal.edu/blog/nursing/purgshouldyoubecomeanurse-image.jpg"
+              [src]="sanitizer.bypassSecurityTrustResourceUrl(staff.image)"
               alt=""
               class="elder-img"
+              *ngIf="!fileData"
             />
+            <img [src]="previewUrl" alt="" class="elder-img" *ngIf="fileData" />
           </div>
-          <div class="elder-name" *ngIf="userRole == 0">
+
+          <div class="elder-name">
             <div class="form-group row">
+              <div class="col-sm-3"></div>
+
+              <input
+                type="file"
+                class="form-control col-sm-6"
+                name="image"
+                [(ngModel)]="file"
+                (change)="fileProgress($event)"
+              />
+              <div class="col-sm-3"></div>
+            </div>
+            <div class="form-group row" *ngIf="userRole == 0">
               <label for="" class="col-sm-3 col-form-label"></label>
               <div class="col-sm-6">
                 <select class="form-control " [(ngModel)]="staff.role">
@@ -107,13 +130,22 @@
               </div>
               <div class="col-sm-3"></div>
             </div>
-          </div>
-          <div class="elder-name" *ngIf="userRole != 0">
-            <p class="text-center color-dark-primary m-0 text-capitalize">
-              {{ staff.first_name }} {{ staff?.middle_name?.substring(0, 1) }}.
-              {{ staff.last_name }}
-            </p>
-            <p class="text-center small m-0">{{ staff.role == 0 ? 'Admin' : staff.role == 1 ? 'Medical Staff' : 'Staff'}}</p>
+            <div *ngIf="userRole != 0">
+              <p class="text-center color-dark-primary m-0 text-capitalize">
+                {{ staff.first_name }}
+                {{ staff?.middle_name?.substring(0, 1) }}.
+                {{ staff.last_name }}
+              </p>
+              <p class="text-center small m-0">
+                {{
+                  staff.role == 0
+                    ? 'Admin'
+                    : staff.role == 1
+                    ? 'Medical Staff'
+                    : 'Staff'
+                }}
+              </p>
+            </div>
           </div>
         </div>
         <hr />
@@ -680,22 +712,23 @@
       </button>
     </div>
     <div class="modal-body">
-      
       <fieldset class="form-group ">
-       <div class="d-flex justify-content-center flex-column align-items-center">
-         <label>Time</label>
-        <div >
-          <ngb-timepicker
+        <div
+          class="d-flex justify-content-center flex-column align-items-center"
+        >
+          <label>Time</label>
+          <div>
+            <ngb-timepicker
               [(ngModel)]="time"
               [meridian]="true"
             ></ngb-timepicker>
+          </div>
         </div>
-       </div>
       </fieldset>
       <hr />
       <fieldset>
         <label>Date</label>
-         <div class="input-group datepicker-input">
+        <div class="input-group datepicker-input">
           <input
             class="form-control"
             placeholder="Select Date"
@@ -705,11 +738,7 @@
             #d1="ngbDatepicker"
             readonly
           />
-          <button
-            class="input-group-addon"
-            (click)="d1.toggle()"
-            type="button"
-          >
+          <button class="input-group-addon" (click)="d1.toggle()" type="button">
             <!-- <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/> -->
             <span class="fa fa-calendar"></span>
           </button>
@@ -734,7 +763,12 @@
 
       <fieldset class="form-group">
         <label>Quantity</label>
-        <input class="form-control" placeholder="" type="number" [(ngModel)]="quantity"/>
+        <input
+          class="form-control"
+          placeholder=""
+          type="number"
+          [(ngModel)]="quantity"
+        />
       </fieldset>
 
       <p *ngFor="let alert of alerts">
