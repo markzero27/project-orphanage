@@ -11,7 +11,6 @@
       >Accomplishments</a
     >
   </li>
-
   <li class="nav-item" (click)="selectedType = 'monitoring'">
     <a class="nav-link" [ngClass]="{ active: selectedType == 'monitoring' }">
       Guest Monitoring
@@ -19,7 +18,12 @@
   </li>
   <li class="nav-item" (click)="selectedType = 'inventory'">
     <a class="nav-link" [ngClass]="{ active: selectedType == 'inventory' }">
-      Medicine Inventory Reports
+      Medicine Inventory
+    </a>
+  </li>
+  <li class="nav-item" (click)="selectedType = 'task'">
+    <a class="nav-link" [ngClass]="{ active: selectedType == 'task' }">
+      Task Monitoring
     </a>
   </li>
 </ul>
@@ -28,7 +32,7 @@
   <!-- Accomplishments -->
   <div class=" mb-3 py-3" *ngSwitchCase="'accomplishments'">
     <div class="mb-3">
-      <button class="btn btn-success float-right mr-1">
+      <button class="btn btn-info float-right mr-1">
         Export as PDF
       </button>
       <button
@@ -39,7 +43,7 @@
         <i class="fa fa-plus" aria-hidden="true"></i>
       </button>
       <button class="btn btn-light float-right">
-        <i class="fa fa-filter" aria-hidden="true"></i>
+        <i class="fa fa-sort" aria-hidden="true"></i>
       </button>
       <button class="btn btn-light float-right">
         <i class="fa fa-archive" aria-hidden="true"></i>
@@ -158,14 +162,14 @@
     </ng-template>
   </div>
 
-  <!-- Inventory -->
+  <!-- Medicine Inventory -->
   <div class=" mb-3 py-3" *ngSwitchCase="'inventory'">
     <div class="mb-3">
-      <button class="btn btn-success float-right mr-1">
+      <button class="btn btn-info float-right mr-1">
         Export as PDF
       </button>
       <button class="btn btn-light float-right">
-        <i class="fa fa-filter" aria-hidden="true"></i>
+        <i class="fa fa-sort" aria-hidden="true"></i>
       </button>
       <button class="btn btn-light float-right">
         <i class="fa fa-archive" aria-hidden="true"></i>
@@ -208,11 +212,11 @@
   <!-- Monitoring -->
   <div class=" mb-3 py-3" *ngSwitchCase="'monitoring'">
     <div class="mb-3">
-      <button class="btn btn-success float-right mr-1">
+      <button class="btn btn-info float-right mr-1">
         Export as PDF
       </button>
       <button class="btn btn-light float-right">
-        <i class="fa fa-filter" aria-hidden="true"></i>
+        <i class="fa fa-sort" aria-hidden="true"></i>
       </button>
       <button class="btn btn-light float-right">
         <i class="fa fa-archive" aria-hidden="true"></i>
@@ -248,6 +252,108 @@
         </tr>
 
         <tr *ngIf="guestList.length == 0">
+          <td class="text-center p-3" colspan="13">No Record</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Task -->
+  <div class=" mb-3 py-3" *ngSwitchCase="'task'">
+    <div class="mb-3">
+      <button class="btn btn-info float-right mr-1">
+        Export as PDF
+      </button>
+      <button class="btn btn-light float-right">
+        <i class="fa fa-sort" aria-hidden="true"></i>
+      </button>
+      <button class="btn btn-light float-right">
+        <i class="fa fa-archive" aria-hidden="true"></i>
+      </button>
+    </div>
+    <table class="table table-striped">
+      <thead class="bg-primary-color text-light">
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th>Name</th>
+          <th>Medicine</th>
+          <th>Quantity</th>
+          <th>Time</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Assigned Staff</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let med of takenMeds"
+          [routerLink]="['/elders/details']"
+          routerLinkActive="router-link-active"
+        >
+          <th><input type="checkbox" /></th>
+          <th scope="row">Lorem</th>
+          <td>Ipsum</td>
+          <td>1</td>
+          <td>10:30</td>
+          <td>01-27-2020</td>
+          <td>Done</td>
+          <td>Gina Buenaventura</td>
+        </tr>
+        <tr *ngIf="takenMeds.length == 0 && !loading">
+          <td colspan="13" class="text-center">No Record</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Hospital -->
+  <div *ngSwitchCase="6" class="p-2">
+    <div class="card-header pt-3">
+      <input
+        type="search"
+        class="ml-3 rounded px-2 py-1"
+        placeholder="Search"
+      />
+      <button class="btn btn-light float-right">
+        <i class="fa fa-archive mr-2" aria-hidden="true"></i>
+        Unarchive
+      </button>
+    </div>
+    <table class="table table-striped">
+      <thead class="bg-primary-color text-light">
+        <tr>
+          <th *ngIf="userRole == 0"><input type="checkbox" /></th>
+          <th>Name</th>
+          <th>Addess</th>
+          <th>Contact Number</th>
+          <th>
+            <i
+              class="fa fa-cog ml-3"
+              aria-hidden="true"
+              *ngIf="userRole == 0"
+            ></i>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let hospital of hospitalList">
+          <th *ngIf="userRole == 0"><input type="checkbox" /></th>
+          <th scope="row">{{ hospital.hospital_name }}</th>
+          <td>
+            {{ hospital.address }}
+          </td>
+          <td>{{ hospital.hospital_contact_no }}</td>
+          <td>
+            <button
+              class="btn bg-transparent"
+              (click)="
+                router.navigate(['/hospitals/details', { id: hospital.id }])
+              "
+            >
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="hospitalList.length == 0">
           <td class="text-center p-3" colspan="13">No Record</td>
         </tr>
       </tbody>

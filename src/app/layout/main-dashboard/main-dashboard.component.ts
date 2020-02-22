@@ -19,11 +19,11 @@ import { Router } from '@angular/router';
 
 export class MainDashboardComponent implements OnInit {
   checkboxes: any[] = [
-    { name: 'cb1', value: 'cb1', checked: false },
-    { name: 'cb2', value: 'cb2', checked: false },
-    { name: 'cb3', value: 'cb3', checked: false },
-    { name: 'cb4', value: 'cb4', checked: false },
-    { name: 'cb5', value: 'cb5', checked: false },
+    { name: ' Notes 1', value: 'cb1', checked: false },
+    { name: ' Notes 2', value: 'cb2', checked: false },
+    { name: ' Notes 3', value: 'cb3', checked: false },
+    { name: ' Notes 4', value: 'cb4', checked: false },
+    { name: ' Notes 5', value: 'cb5', checked: false },
   ]
   medicineList: Medicine[] = [];
   eventList: Event[] = [];
