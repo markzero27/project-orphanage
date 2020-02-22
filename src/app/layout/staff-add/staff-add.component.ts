@@ -67,11 +67,7 @@ export class StaffAddComponent implements OnInit {
     }
 
     this.userService.addUser(this.staff).subscribe(async (data: any) => {
-      console.log(data);
       this.ehistory.staff_id = data.id;
-      console.log('Employment ====================================');
-      console.log(this.ehistory);
-      console.log('====================================');
       await this.userService.addEmpolymentHistory(this.ehistory).toPromise();
       this.toastr.success('Success!');
       this.router.navigate(['/staff']);

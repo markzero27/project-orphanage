@@ -32,7 +32,8 @@ export interface User {
 }
 
 export interface EmpoymentHistory {
-    staff_id: string;
+    id?: string;
+    staff_id: number;
     company: string;
     position: string;
     duties: string;
@@ -75,8 +76,8 @@ export const initialUser: User = {
     role: 0
 };
 
-export const initialEHistory = {
-    staff_id: '',
+export const initialEHistory: EmpoymentHistory = {
+    staff_id: 0,
     company: '',
     position: '',
     duties: '',

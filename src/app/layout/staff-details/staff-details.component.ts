@@ -32,7 +32,7 @@ export class StaffDetailsComponent implements OnInit {
   elderIndex = 0;
   medIndex = 0;
   quantity = 0;
-  ehistory: any[];
+  ehistory: EmpoymentHistory[];
   closeResult: string;
   time: any;
   addDate: any;
@@ -42,6 +42,8 @@ export class StaffDetailsComponent implements OnInit {
   previewUrl: any = null;
   fileUploadProgress: string = null;
   uploadedFilePath: string = null;
+
+  addEHistory: EmpoymentHistory = JSON.parse(JSON.stringify(initialEHistory));
 
   constructor(
     public route: ActivatedRoute,
@@ -58,11 +60,7 @@ export class StaffDetailsComponent implements OnInit {
       if (!params.id) {
         this.router.navigate(['/staff']);
       }
-
       this.staff = await this.userService.getStaff(params.id).toPromise() as User;
-      console.log('====================================');
-      console.log(this.staff);
-      console.log('====================================');
       this.ehistory = await this.userService.getEhistoryByStaffId(this.staff.id).toPromise() as EmpoymentHistory[];
       this.elderList = await this.elderService.getAllElders('elders', 0).toPromise() as Elders[];
       this.medList = await this.medService.getAllMedicine(0).toPromise() as Medicine[];
@@ -108,9 +106,6 @@ export class StaffDetailsComponent implements OnInit {
   async save() {
     this.editing1 = false;
     this.editing2 = false;
-    console.log('====================================');
-    console.log(this.dateHired);
-    console.log('====================================');
     if (this.bDate) {
       const newDate = `${this.bDate.year}-${this.bDate.month}-${this.bDate.day}`;
       this.staff.birth_date = newDate;
@@ -232,9 +227,6 @@ export class StaffDetailsComponent implements OnInit {
     this.quantity = null;
   }
 
-
-
-
   fileProgress(fileInput: any) {
     this.fileData = <File>fileInput.target.files[0];
     this.preview();
@@ -257,17 +249,29 @@ export class StaffDetailsComponent implements OnInit {
   onSubmit() {
     return new Promise(resolve => {
       const formData = new FormData();
-      console.log('====================================');
-      console.log(this.fileData);
-      console.log('====================================');
       formData.append('image', this.fileData);
       this.userService.uploadImage(formData).subscribe((res: any) => {
-        console.log('====================================');
-        console.log(res.filePath);
-        console.log('====================================');
         resolve(`http://localhost:8000/storage/images/${res.filePath.substring(14)}`);
       });
     });
 
+  }
+
+  addEmploymentHistory() {
+
+    if (this.addEHistory.company.trim() == '' || this.addEHistory.position.trim() == '') {
+      return this.toastr.warning('Please complete employment details');
+    }
+    this.addEHistory.staff_id = this.staff.id;
+    this.userService.addEmpolymentHistory(this.addEHistory).subscribe(res => {
+      this.ehistory.push(res);
+      this.addEHistory = JSON.parse(JSON.stringify(initialEHistory));
+    });
+  }
+
+  removeEGistory(i) {
+    this.userService.deleteEHistory(this.ehistory[i].id).then(() => {
+      this.ehistory.splice(i, 1);
+    });
   }
 }
