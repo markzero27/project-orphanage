@@ -39,11 +39,12 @@ export class MainDashboardComponent implements OnInit {
   calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
   calendarWeekends = true;
   calendarEvents: EventInput[] = [
-    { title: 'Event Now', start: new Date() }
+    { title: 'Today', start: new Date() }
   ];
 
   closeResult: string;
   alerts: Array<any> = [];
+  dateSelected: EventInput;
 
   constructor(
     private modalService: NgbModal,
@@ -87,15 +88,21 @@ export class MainDashboardComponent implements OnInit {
     calendarApi.gotoDate('2000-01-01'); // call a method on the Calendar object
   }
 
-
-  handleDateClick(arg) {
-    if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
-      this.calendarEvents = this.calendarEvents.concat({ // add new event data. must create new array
-        title: 'New Event',
-        start: arg.date,
-        allDay: arg.allDay
-      });
+  addCalendarEvent() {
+    if (!this.dateSelected.title || this.dateSelected.title.trim() == '') {
+      return;
     }
+    const event = {
+      title: this.dateSelected.title,
+      start: this.dateSelected.date,
+      allDay: this.dateSelected.allDay
+    };
+    console.log('====================================');
+    console.log(this.eventList);
+    console.log('====================================');
+    this.calendarEvents = this.calendarEvents.concat(event);
+
+    this.close();
   }
 
   open(content) {
