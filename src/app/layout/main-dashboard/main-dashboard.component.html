@@ -110,10 +110,11 @@
             name=""
             id=""
             class="mr-2"
-            (click)="CheckAllOptions()"
+            [(ngModel)]="noteChecbox"
+            (change)="selectAllNotes($event.target.value)"
           />
           NOTES
-          <button class="btn btn-danger float-right" (click)="open(content)">
+          <button class="btn btn-danger float-right" (click)="deleteNotes()">
             <i class="fa fa-trash M-4" aria-hidden="true"></i>
           </button>
           <button
@@ -123,9 +124,9 @@
             <i class="fa fa-plus M-4 " aria-hidden="true"></i>
           </button>
         </div>
-        <ul class="list-group">
+        <ul class="list-group notes-ul">
           <li class="list-group-item" *ngFor="let notes of notesList">
-            <input type="checkbox" [(ngModel)]="notes.checked" />
+            <input type="checkbox" [(ngModel)]="notes.isChecked" class="mr-2" />
             <span>{{ notes.text }}</span>
           </li>
           <li class="list-group-item text-center" *ngIf="notesList.length == 0">

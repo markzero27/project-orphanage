@@ -266,6 +266,7 @@ export class StaffDetailsComponent implements OnInit {
     this.userService.addEmpolymentHistory(this.addEHistory).subscribe(res => {
       this.ehistory.push(res);
       this.addEHistory = JSON.parse(JSON.stringify(initialEHistory));
+      this.close();
     });
   }
 

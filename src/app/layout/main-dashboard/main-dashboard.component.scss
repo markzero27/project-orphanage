@@ -43,3 +43,8 @@ $topnav-background-color: #2D7DAC;
 .app-top {
     margin: 0 0 3em;
 }
+
+.notes-ul {
+    max-height: 240px;
+    overflow-y: auto;
+}
