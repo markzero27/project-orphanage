@@ -27,4 +27,5 @@ export const initialGuests: Guest = {
     time_out: '',
     created_by: 0,
     updated_by: 0,
-}
+};
+

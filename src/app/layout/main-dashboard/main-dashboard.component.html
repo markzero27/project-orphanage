@@ -1,4 +1,3 @@
-
 <div [@routerTransition] class="bg-light">
   <div class="top">
     <h2 class="text-warning ">
@@ -9,9 +8,7 @@
     <div class="col-xl-4 col-lg-6">
       <div class="card text-dark bg-white h200">
         <div class="row px-3">
-          <div
-            class="col col-xs-3 col-md-4 d-flex align-items-center pl-3"
-          >
+          <div class="col col-xs-3 col-md-4 d-flex align-items-center pl-3">
             <div>
               <h4 class="color-dark-primary">43</h4>
               <h3>Elders</h3>
@@ -73,12 +70,12 @@
           </button>
           <button class="btn btn-light float-right" (click)="open(content)">
             <i class="fa fa-plus M-4 " aria-hidden="true"></i>
-        </button>
+          </button>
         </div>
         <table class="table table-striped">
           <thead class="bg-primary-color text-light">
             <tr>
-              <th><input type="checkbox" (click)="CheckAllOptions()"/></th>
+              <th><input type="checkbox" (click)="CheckAllOptions()" /></th>
               <th>Event</th>
               <th>Date of Event</th>
             </tr>
@@ -88,8 +85,16 @@
               <td colspan="13" class="text-center">No Record</td>
             </tr>
             <tr *ngFor="let med of medicineList; let i = index">
-              <th><input type="checkbox" [(ngModel)]="checkbox.checked" [value]="checkbox.value"/></th>
-              <td> <span>{{checkbox.name}}</span></td>
+              <th>
+                <input
+                  type="checkbox"
+                  [(ngModel)]="checkbox.checked"
+                  [value]="checkbox.value"
+                />
+              </th>
+              <td>
+                <span>{{ checkbox.name }}</span>
+              </td>
               <td>{{ announce.date }}</td>
             </tr>
           </tbody>
@@ -100,19 +105,32 @@
     <div class="col col-xl-6 col-lg-12">
       <div class="card mb-3">
         <div class="card-header bg-primary-color text-light pt-3">
-          <input type="checkbox" name="" id="" class="mr-2" (click)="CheckAllOptions()"/>
+          <input
+            type="checkbox"
+            name=""
+            id=""
+            class="mr-2"
+            [(ngModel)]="noteChecbox"
+            (change)="selectAllNotes($event.target.value)"
+          />
           NOTES
-          <button class="btn btn-danger float-right" (click)="open(content)">
+          <button class="btn btn-danger float-right" (click)="deleteNotes()">
             <i class="fa fa-trash M-4" aria-hidden="true"></i>
           </button>
-          <button class="btn btn-light float-right" (click)="open(contentnotes)">
+          <button
+            class="btn btn-light float-right"
+            (click)="open(contentnotes)"
+          >
             <i class="fa fa-plus M-4 " aria-hidden="true"></i>
           </button>
         </div>
-        <ul class="list-group">
-          <li class="list-group-item" *ngFor="let checkbox of checkboxes">
-            <input type="checkbox" [(ngModel)]="checkbox.checked" [value]="checkbox.value">
-            <span>{{checkbox.name}}</span>
+        <ul class="list-group notes-ul">
+          <li class="list-group-item" *ngFor="let notes of notesList">
+            <input type="checkbox" [(ngModel)]="notes.isChecked" class="mr-2" />
+            <span>{{ notes.text }}</span>
+          </li>
+          <li class="list-group-item text-center" *ngIf="notesList.length == 0">
+            No Notes
           </li>
         </ul>
       </div>
@@ -133,24 +151,8 @@
       [plugins]="calendarPlugins"
       [weekends]="calendarWeekends"
       [events]="calendarEvents"
-      (dateClick)="handleDateClick($event)"
+      (dateClick)="open(eventModal); dateSelected = $event"
     ></full-calendar>
-  </div>
-</div>
-<div class="form-group">
-  <div class="input-group datepicker-input">
-    <input
-      class="form-control"
-      placeholder="yyyy-mm-dd"
-      name="dp"
-      [(ngModel)]="model"
-      ngbDatepicker
-      #d="ngbDatepicker"
-    />
-    <button class="input-group-addon" (click)="d.toggle()" type="button">
-      <!-- <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/> -->
-      <span class="fa fa-calendar"></span>
-    </button>
   </div>
 </div>
 
@@ -218,7 +220,6 @@
   </ng-template>
 </div>
 
-
 <!-- Add Notes modal -->
 
 <div>
@@ -234,7 +235,15 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <input class="form-control float-right" placeholder="" [(ngModel)]="event"/>
+
+    <div class="container pt-3">
+      <textarea
+        class="form-control"
+        cols="30"
+        rows="5"
+        [(ngModel)]="notes"
+      ></textarea>
+    </div>
     <div class="modal-body">
       <p *ngFor="let alert of alerts">
         <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{
@@ -251,6 +260,52 @@
         Close
       </button>
       <button type="button" class="btn btn-primary" (click)="addNotes()">
+        Add
+      </button>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Add Calendar Event modal -->
+
+<div>
+  <ng-template #eventModal let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title">Date: {{ dateSelected?.dateStr }}</h5>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="c('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="">Event: </label>
+
+        <textarea
+          class="form-control"
+          cols="30"
+          rows="5"
+          [(ngModel)]="dateSelected.title"
+        ></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="c('Close click')"
+      >
+        Close
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="addCalendarEvent()"
+      >
         Add
       </button>
     </div>

@@ -9,6 +9,9 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { MedicineService } from 'src/app/services/medicine/medicine.service';
 import { Medicine } from 'src/app/models/medicine.model';
 import { Router } from '@angular/router';
+import { NotesService } from 'src/app/services/notes/notes.service';
+import { Notes } from 'src/app/models/notes.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -18,20 +21,16 @@ import { Router } from '@angular/router';
 })
 
 export class MainDashboardComponent implements OnInit {
-  checkboxes: any[] = [
-    { name: ' Notes 1', value: 'cb1', checked: false },
-    { name: ' Notes 2', value: 'cb2', checked: false },
-    { name: ' Notes 3', value: 'cb3', checked: false },
-    { name: ' Notes 4', value: 'cb4', checked: false },
-    { name: ' Notes 5', value: 'cb5', checked: false },
-  ]
   medicineList: Medicine[] = [];
   eventList: Event[] = [];
+  notesList: Notes[] = [];
+  notes = '';
   medName = '';
   quantity = 1;
   dateCreated: any;
   event = '';
   dateEvent: any;
+  noteChecbox = false;
   // calendar variables
   @ViewChild('calendar', null) calendarComponent: FullCalendarComponent; // the #calendar in the template
 
@@ -39,20 +38,35 @@ export class MainDashboardComponent implements OnInit {
   calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
   calendarWeekends = true;
   calendarEvents: EventInput[] = [
-    { title: 'Event Now', start: new Date() }
+    { title: 'Today', start: new Date() }
   ];
 
   closeResult: string;
   alerts: Array<any> = [];
+  dateSelected: EventInput;
 
-  constructor(private modalService: NgbModal, private medicineService: MedicineService, public router: Router) {
+  constructor(
+    private modalService: NgbModal,
+    private medicineService: MedicineService,
+    public router: Router,
+    private noteService: NotesService,
+    private toastr: ToastrService
+  ) {
 
     if (+localStorage.getItem('user_role') != 0) {
       this.router.navigate(['staff-dashboard']);
     }
+
+    this.getAllNotes();
   }
 
   ngOnInit() {
+  }
+
+  getAllNotes() {
+    this.noteService.getAllnotes().subscribe(notes => {
+      this.notesList = notes.reverse();
+    });
   }
 
   closeAlert(alert: any) {
@@ -73,21 +87,21 @@ export class MainDashboardComponent implements OnInit {
     calendarApi.gotoDate('2000-01-01'); // call a method on the Calendar object
   }
 
-  CheckAllOptions() {
-    if (this.checkboxes.every(val => val.checked == true))
-      this.checkboxes.forEach(val => { val.checked = false });
-    else
-      this.checkboxes.forEach(val => { val.checked = true });
-  }
-
-  handleDateClick(arg) {
-    if (confirm('Would you like to add an event to ' + arg.dateStr + ' ?')) {
-      this.calendarEvents = this.calendarEvents.concat({ // add new event data. must create new array
-        title: 'New Event',
-        start: arg.date,
-        allDay: arg.allDay
-      });
+  addCalendarEvent() {
+    if (!this.dateSelected.title || this.dateSelected.title.trim() == '') {
+      return;
     }
+    const event = {
+      title: this.dateSelected.title,
+      start: this.dateSelected.date,
+      allDay: this.dateSelected.allDay
+    };
+    console.log('====================================');
+    console.log(this.eventList);
+    console.log('====================================');
+    this.calendarEvents = this.calendarEvents.concat(event);
+
+    this.close();
   }
 
   open(content) {
@@ -154,5 +168,42 @@ export class MainDashboardComponent implements OnInit {
     this.dateCreated = '';
     this.quantity = 1;
   }
-  
+
+  addNotes() {
+    if (this.notes.trim() == '') {
+      return;
+    }
+
+    const newNotes: Notes = {
+      text: this.notes,
+    };
+
+    this.noteService.addnote(newNotes).subscribe(() => {
+      this.getAllNotes();
+      this.close();
+      this.notes = '';
+    });
+  }
+
+  selectAllNotes(value) {
+    this.notesList.forEach(note => {
+      note.isChecked = this.noteChecbox;
+    });
+  }
+
+  deleteNotes() {
+    if (this.notesList.some(note => note.isChecked)) {
+      this.notesList.forEach(async note => {
+        if (note.isChecked) {
+          await this.noteService.deleteNote(note.id);
+        }
+      });
+      this.toastr.success('Notes Deleted!');
+      this.getAllNotes();
+
+    } else {
+      this.toastr.warning('No notes selected');
+    }
+  }
+
 }

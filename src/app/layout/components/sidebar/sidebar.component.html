@@ -6,10 +6,10 @@
     <a routerLink="/dashboard" class="list-group-item d-flex">
       <div class="rounded-circle">
         <img
-        src="assets/images/default.jpeg"
-        alt=""
-        class="user-image mr-2 rounded-circle"
-      />
+          src="assets/images/default.jpeg"
+          alt=""
+          class="user-image mr-2 rounded-circle"
+        />
       </div>
       <div class="w-100 p-2">
         <p class="m-0 small text-capitalize">
@@ -116,7 +116,7 @@
       <i class="fa fa-user" aria-hidden="true"></i>&nbsp;
       <span>{{ 'User Logs' | translate }}</span>
     </a>
-    <a [routerLink]="['/login']" class="list-group-item">
+    <a (click)="onLoggedout()" class="list-group-item">
       <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;
       <span>{{ 'Logout' | translate }}</span>
     </a>
@@ -226,7 +226,7 @@
       <i class="fa fa-file-archive-o" aria-hidden="true"></i>&nbsp;
       <span>{{ 'Archive' | translate }}</span>
     </a>
-    <a [routerLink]="['/login']" class="list-group-item">
+    <a (click)="onLoggedout()" class="list-group-item">
       <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;
       <span>{{ 'Logout' | translate }}</span>
     </a>

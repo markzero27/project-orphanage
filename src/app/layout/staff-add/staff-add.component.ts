@@ -67,11 +67,7 @@ export class StaffAddComponent implements OnInit {
     }
 
     this.userService.addUser(this.staff).subscribe(async (data: any) => {
-      console.log(data);
       this.ehistory.staff_id = data.id;
-      console.log('Employment ====================================');
-      console.log(this.ehistory);
-      console.log('====================================');
       await this.userService.addEmpolymentHistory(this.ehistory).toPromise();
       this.toastr.success('Success!');
       this.router.navigate(['/staff']);
@@ -80,8 +76,6 @@ export class StaffAddComponent implements OnInit {
     });
 
   }
-
-
 
   fileProgress(fileInput: any) {
     this.fileData = <File>fileInput.target.files[0];
@@ -105,14 +99,8 @@ export class StaffAddComponent implements OnInit {
   onSubmit() {
     return new Promise(resolve => {
       const formData = new FormData();
-      console.log('====================================');
-      console.log(this.fileData);
-      console.log('====================================');
       formData.append('image', this.fileData);
       this.userService.uploadImage(formData).subscribe((res: any) => {
-        console.log('====================================');
-        console.log(res.filePath);
-        console.log('====================================');
         resolve(`http://localhost:8000/storage/images/${res.filePath.substring(14)}`);
       });
     });
@@ -120,16 +108,10 @@ export class StaffAddComponent implements OnInit {
   }
 
   fileUpload($event) {
-    console.log('====================================');
-    console.log($event.target.files);
-    console.log('====================================');
     const data = {
       image: $event.target.files
     };
     this.userService.uploadImage({ image: data }).subscribe(res => {
-      console.log('====================================');
-      console.log(res);
-      console.log('====================================');
     });
   }
 

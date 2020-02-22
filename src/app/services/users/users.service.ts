@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User, EmpoymentHistory } from 'src/app/models/user.model';
+import { Userlogs } from 'src/app/models/use-logs.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +26,21 @@ export class UsersService {
     return this.http.get<User>(this.url + `/${id}`, { headers: this.reqHeader });
   }
 
+  getUserLogs() {
+    return this.http.get<Userlogs[]>(`${environment.api}/user-log`);
+  }
+
   addUser(data: User) {
     data.created_by = Number(this.userId);
     data.updated_by = Number(this.userId);
     return this.http.post(this.url, data, { headers: this.reqHeader });
+  }
+
+  addUserLog(data: Userlogs) {
+    const api = environment.api + '/user-log';
+    data.created_by = Number(this.userId);
+    data.updated_by = Number(this.userId);
+    return this.http.post(api, data, { headers: this.reqHeader });
   }
 
   addEmpolymentHistory(data: EmpoymentHistory) {
@@ -36,7 +48,7 @@ export class UsersService {
     data.created_by = Number(this.userId);
     data.updated_by = Number(this.userId);
     data.updated_at = new Date().toLocaleString();
-    return this.http.post(api, data, { headers: this.reqHeader });
+    return this.http.post<EmpoymentHistory>(api, data, { headers: this.reqHeader });
   }
 
   getEhistoryByStaffId(staff_if) {
@@ -68,6 +80,17 @@ export class UsersService {
   deleteUser(id) {
     return new Promise(resolve => {
       this.http.delete(`${this.url}/${id}`, { headers: this.reqHeader }).subscribe(res => {
+        resolve(res);
+      }, err => {
+        resolve(err);
+      });
+    });
+  }
+
+  deleteEHistory(id) {
+    const api = environment.api + '/users-employment-history';
+    return new Promise(resolve => {
+      this.http.delete(`${api}/${id}`, { headers: this.reqHeader }).subscribe(res => {
         resolve(res);
       }, err => {
         resolve(err);
