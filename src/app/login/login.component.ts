@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { routerTransition } from '../router.animations';
 import { UsersService } from '../services/users/users.service';
 import { ToastrService } from 'ngx-toastr';
+import { Userlogs } from '../models/use-logs.model';
 
 @Component({
     selector: 'app-login',
@@ -25,11 +26,22 @@ export class LoginComponent implements OnInit {
 
     onLoggedin() {
         localStorage.setItem('isLoggedin', 'true');
+        const logs: Userlogs = {
+            action: 'Log in',
+            archived: 0,
+            created_by: 0,
+            name: 'Juan Dela Cruz',
+            role: 0,
+            time: new Date().toString(),
+            updated_by: 0
+        };
+
         if (this.email == 'admin' && this.password == 'admin') {
             localStorage.setItem('user_id', '0');
             localStorage.setItem('user_role', '0');
             this.router.navigate(['/dashboard']);
             this.toastr.success('Welcome Admin!');
+            this.userService.addUserLog(logs).subscribe();
         } else {
             this.userService.login({ email: this.email, password: this.password }).subscribe((res: any) => {
                 if (res.data) {
@@ -37,6 +49,11 @@ export class LoginComponent implements OnInit {
                     localStorage.setItem('user_role', res.data.role);
                     localStorage.setItem('user_data', JSON.stringify(res.data));
                     this.router.navigate(['/dashboard']);
+                    logs.updated_by = res.id;
+                    logs.created_by = res.id;
+                    logs.role = res.role;
+                    logs.name = `${res.first_name} ${res.last_name}`;
+                    this.userService.addUserLog(logs).subscribe();
                     this.toastr.success(res.message);
                 }
             }, get => {

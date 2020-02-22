@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Userlogs } from 'src/app/models/use-logs.model';
+import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
   selector: 'app-system-users',
@@ -6,10 +8,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./system-users.component.scss']
 })
 export class SystemUsersComponent implements OnInit {
-
-  constructor() { }
+  userLogs: Userlogs[] = [];
+  constructor(private userService: UsersService) {
+    this.userService.getUserLogs().subscribe(logs => {
+      this.userLogs = logs;
+    });
+  }
 
   ngOnInit() {
+  }
+
+  toDate(date) {
+    return new Date(date);
   }
 
 }

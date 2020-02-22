@@ -18,15 +18,11 @@ import { Router } from '@angular/router';
 })
 
 export class MainDashboardComponent implements OnInit {
-  checkboxes: any[] = [
-    { name: 'cb1', value: 'cb1', checked: false },
-    { name: 'cb2', value: 'cb2', checked: false },
-    { name: 'cb3', value: 'cb3', checked: false },
-    { name: 'cb4', value: 'cb4', checked: false },
-    { name: 'cb5', value: 'cb5', checked: false },
-  ]
+
   medicineList: Medicine[] = [];
   eventList: Event[] = [];
+  notesList: any = [];
+  notes = '';
   medName = '';
   quantity = 1;
   dateCreated: any;
@@ -154,5 +150,5 @@ export class MainDashboardComponent implements OnInit {
     this.dateCreated = '';
     this.quantity = 1;
   }
-  
+
 }

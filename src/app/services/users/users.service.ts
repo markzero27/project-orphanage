@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User, EmpoymentHistory } from 'src/app/models/user.model';
+import { Userlogs } from 'src/app/models/use-logs.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,10 +26,21 @@ export class UsersService {
     return this.http.get<User>(this.url + `/${id}`, { headers: this.reqHeader });
   }
 
+  getUserLogs() {
+    return this.http.get<Userlogs[]>(`${environment.api}/user-log`);
+  }
+
   addUser(data: User) {
     data.created_by = Number(this.userId);
     data.updated_by = Number(this.userId);
     return this.http.post(this.url, data, { headers: this.reqHeader });
+  }
+
+  addUserLog(data: Userlogs) {
+    const api = environment.api + '/user-log';
+    data.created_by = Number(this.userId);
+    data.updated_by = Number(this.userId);
+    return this.http.post(api, data, { headers: this.reqHeader });
   }
 
   addEmpolymentHistory(data: EmpoymentHistory) {

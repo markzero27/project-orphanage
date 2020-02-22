@@ -75,7 +75,6 @@
         Unarchive
       </button>
     </div>
-<<<<<<< HEAD
     <div class="card mb-3">
       <table class="table table-striped">
         <thead class="bg-primary-color text-light">
@@ -103,33 +102,6 @@
         </tbody>
       </table>
     </div>
-=======
-    <table class="table table-striped">
-      <thead class="bg-primary-color text-light">
-        <tr>
-          <th><input type="checkbox" /></th>
-          <th>Full Name</th>
-          <th>Age</th>
-          <th>Bed No.</th>
-          <th>Date (Stay In)</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngIf="elderList.length == 0">
-          <td colspan="13" class="text-center">No Record</td>
-        </tr>
-        <tr *ngFor="let elder of elderList">
-          <th><input type="checkbox" /></th>
-          <th scope="row">{{ elder.first_name }} {{ elder.last_name }}</th>
-          <td>{{ elder.age }}</td>
-          <td>{{ elder.bed_no }}</td>
-          <td>{{ elder.date_stay_in_orphanage }}</td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
->>>>>>> 53518df0263547a38abb3e14ba4611d97613ff60
   </div>
   <!-- Staffs -->
   <div *ngSwitchCase="1" class="p-2">

@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { UsersService } from 'src/app/services/users/users.service';
 import { User, initialUser } from 'src/app/models/user.model';
+import { Userlogs } from 'src/app/models/use-logs.model';
 
 @Component({
     selector: 'app-sidebar',
@@ -91,6 +92,23 @@ export class SidebarComponent implements OnInit {
     }
 
     onLoggedout() {
-        localStorage.removeItem('isLoggedin');
+        const logs: Userlogs = {
+            action: 'Log out',
+            archived: 0,
+            created_by: this.user.id,
+            name: `${this.user.first_name} ${this.user.last_name}`,
+            role: this.userRole,
+            time: new Date().toString(),
+            updated_by: this.user.id
+        };
+
+        console.log('====================================');
+        console.log('Logoout');
+        console.log('====================================');
+        this.userService.addUserLog(logs).subscribe(logs => {
+            localStorage.removeItem('isLoggedin');
+            this.router.navigate(['/login']);
+        });
+
     }
 }
