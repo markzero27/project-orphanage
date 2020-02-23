@@ -17,7 +17,7 @@
 </div>
 <div class="border border-top-0 p-2">
   <div class="row" [ngSwitch]="tab">
-    <div class="col-md-4">
+    <div class="col-md-4" *ngSwitchCase="1">
       <!-- Display mode 1 -->
       <div class="card p-4 mb-3" *ngIf="!editing1">
         <div>
@@ -662,7 +662,7 @@
     <!-- End Personal Info Tab-->
 
     <!-- Task Table -->
-    <div class="col-md-8 right-div" *ngSwitchCase="2">
+    <div class="col-md-12 right-div" *ngSwitchCase="2">
       <div class="card-header bg-transparent border pt-3 color-dark-primary">
         Task
         <button class="btn btn-light float-right" (click)="open(content)">

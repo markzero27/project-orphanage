@@ -48,13 +48,14 @@ export class LoginComponent implements OnInit {
                     localStorage.setItem('user_id', res.data.id);
                     localStorage.setItem('user_role', res.data.role);
                     localStorage.setItem('user_data', JSON.stringify(res.data));
-                    this.router.navigate(['/dashboard']);
-                    logs.updated_by = res.id;
-                    logs.created_by = res.id;
-                    logs.role = res.role;
-                    logs.name = `${res.first_name} ${res.last_name}`;
+
+                    logs.updated_by = res.data.id;
+                    logs.created_by = res.data.id;
+                    logs.role = res.data.role;
+                    logs.name = `${res.data.first_name} ${res.data.last_name}`;
                     this.userService.addUserLog(logs).subscribe();
                     this.toastr.success(res.message);
+                    this.router.navigate(['/dashboard']);
                 }
             }, get => {
                 this.toastr.error(get.error.message);

@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { NotesService } from 'src/app/services/notes/notes.service';
 import { Notes } from 'src/app/models/notes.model';
 import { ToastrService } from 'ngx-toastr';
+import { EventsService } from 'src/app/services/events/events.service';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -37,7 +38,7 @@ export class MainDashboardComponent implements OnInit {
   calendarVisible = true;
   calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
   calendarWeekends = true;
-  calendarEvents: EventInput[] = [
+  calendarEvents: any[] = [
     { title: 'Today', start: new Date() }
   ];
 
@@ -50,13 +51,14 @@ export class MainDashboardComponent implements OnInit {
     private medicineService: MedicineService,
     public router: Router,
     private noteService: NotesService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private eventService: EventsService
   ) {
 
     if (+localStorage.getItem('user_role') != 0) {
       this.router.navigate(['staff-dashboard']);
     }
-
+    this.getAllEvents();
     this.getAllNotes();
   }
 
@@ -66,6 +68,13 @@ export class MainDashboardComponent implements OnInit {
   getAllNotes() {
     this.noteService.getAllnotes().subscribe(notes => {
       this.notesList = notes.reverse();
+    });
+  }
+
+  getAllEvents() {
+    this.eventService.getAllevent().subscribe(events => {
+      this.eventList = events;
+      this.calendarEvents = events;
     });
   }
 
@@ -91,16 +100,14 @@ export class MainDashboardComponent implements OnInit {
     if (!this.dateSelected.title || this.dateSelected.title.trim() == '') {
       return;
     }
-    const event = {
+    const event: EventInput = {
       title: this.dateSelected.title,
       start: this.dateSelected.date,
-      allDay: this.dateSelected.allDay
+      allDay: this.dateSelected.allDay,
     };
-    console.log('====================================');
-    console.log(this.eventList);
-    console.log('====================================');
-    this.calendarEvents = this.calendarEvents.concat(event);
-
+    this.eventService.addEvent(event).subscribe();
+    // this.calendarEvents = this.calendarEvents.concat(event);
+    this.getAllEvents();
     this.close();
   }
 

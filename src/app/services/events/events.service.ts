@@ -13,8 +13,8 @@ export class EventsService {
   reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(private http: HttpClient) { }
 
-  getAllevent(isArchived) {
-    return this.http.get(`${this.api}?table=event&archived_value=${isArchived}`, { headers: this.reqHeader });
+  getAllevent() {
+    return this.http.get<Event[]>(this.url, { headers: this.reqHeader });
   }
 
   addEvent(data: any) {
