@@ -68,6 +68,7 @@
         <table class="table table-striped">
           <thead class="bg-primary-color text-light">
             <tr>
+              <th><input type="checkbox" /></th>
               <th>Elder Name</th>
               <th>Medicine</th>
               <th>Qty</th>
@@ -82,6 +83,7 @@
               <td colspan="13" class="text-center">No Record</td>
             </tr>
             <tr *ngFor="let task of taskList">
+              <th><input type="checkbox" /></th>
               <th scope="row">{{ task.elder_name }}</th>
               <td>{{ task.medicine_description }}</td>
               <td>{{ task.qty }}</td>
@@ -113,9 +115,6 @@
           <li class="list-group-item bg-light">
             <input type="checkbox" name="" id="" class="mr-2" />
             Select All
-            <button class="btn btn-light float-right">
-              <i class="fa fa-archive" aria-hidden="true"></i>
-            </button>
             <button class="btn btn-light float-right">
               <i class="fa fa-plus " aria-hidden="true"></i>
             </button>

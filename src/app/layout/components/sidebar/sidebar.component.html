@@ -101,14 +101,6 @@
     </a>
     <label class="text-light m-2 small">OTHERS</label>
     <a
-      [routerLink]="['/archives']"
-      [routerLinkActive]="['router-link-active']"
-      class="list-group-item"
-    >
-      <i class="fa fa-file-archive-o" aria-hidden="true"></i>&nbsp;
-      <span>{{ 'Archive' | translate }}</span>
-    </a>
-    <a
       [routerLink]="['/system-users']"
       [routerLinkActive]="['router-link-active']"
       class="list-group-item"
@@ -218,14 +210,6 @@
       <span>{{ 'Guest Monitoring' | translate }}</span>
     </a>
     <label class="text-light m-2 small">OTHERS</label>
-    <a
-      [routerLink]="['/archives']"
-      [routerLinkActive]="['router-link-active']"
-      class="list-group-item"
-    >
-      <i class="fa fa-file-archive-o" aria-hidden="true"></i>&nbsp;
-      <span>{{ 'Archive' | translate }}</span>
-    </a>
     <a (click)="onLoggedout()" class="list-group-item">
       <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;
       <span>{{ 'Logout' | translate }}</span>
