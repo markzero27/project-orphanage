@@ -12,6 +12,9 @@
       class="ml-3 rounded px-2 py-1"
       placeholder="Search"
     />
+    <button class="btn btn-info float-right mr-1">
+      Export as PDF
+    </button>
     <button class="btn btn-light float-right" (click)="open(content)">
       <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
     </button>
@@ -19,8 +22,7 @@
       <i class="fa fa-sort" aria-hidden="true"></i> Sort
     </button>
     <button class="btn btn-light float-right">
-      <i class="fa fa-archive mr-2" aria-hidden="true"></i>
-      Archive
+      <i class="fa fa-filter" aria-hidden="true"></i> Filter
     </button>
   </div>
   <table class="table table-striped">
@@ -30,7 +32,11 @@
         <th>#</th>
         <th>Medicine Name</th>
         <th>Medicine Type</th>
+        <th>Buffer</th>
+        <!-- yung mga stock for emergency only... di ginagalaw -->
         <th>Stock</th>
+        <th>Dispense</th>
+        <!-- bilang ng mga nadispense na -->
         <th>Date Modified</th>
         <th></th>
       </tr>
@@ -45,6 +51,10 @@
         <td>{{ med.medicine_name }}</td>
         <td>{{ med.type_of_medicine_description }}</td>
         <td>{{ med.qty }}</td>
+        <!-- yung mga stock for emergency only... di ginagalaw -->
+        <td>{{ med.qty }}</td>
+        <td>{{ med.qty }}</td>
+        <!-- bilang ng mga nadispense na -->
         <td>{{ med.updated_at }}</td>
         <td class="text-center">
           <button
@@ -58,7 +68,8 @@
             (click)="openRestock(content2, med, '-')"
           >
             Dispense
-          </button> -->
+          </button> 
+            *Mababawasn lang po sya pag nagdone/napainum na ng staff yung gamot-->
           <!-- <button class="btn" (click)="setUpdateMed(content3, med)">
             <i class="fa fa-pencil" aria-hidden="true"></i>
           </button> -->
