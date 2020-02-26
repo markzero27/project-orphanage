@@ -18,7 +18,7 @@ import { MedReport } from 'src/app/models/med-report.model';
 export class ReportsComponent implements OnInit {
   userRole = localStorage.getItem('user_role');
   userData: User = JSON.parse(localStorage.getItem('user_data'));
-  selectedType = 'accomplishments';
+  selectedType = 'daily';
   accList: Accomplishments[] = [];
   medReports: MedReport[] = [];
   time_in: any;
