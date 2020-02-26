@@ -65,40 +65,41 @@
       <div class="card mb-3">
         <div class="card-header bg-primary-color text-light pt-3">
           ANNOUNCEMENT
-          <button class="btn btn-danger float-right" (click)="open(content)">
+          <button
+            class="btn btn-danger float-right"
+            (click)="deleteAnnouncement()"
+          >
             <i class="fa fa-trash M-4" aria-hidden="true"></i>
           </button>
           <button class="btn btn-light float-right" (click)="open(content)">
             <i class="fa fa-plus M-4 " aria-hidden="true"></i>
           </button>
         </div>
-        <table class="table table-striped">
-          <thead class="bg-primary-color text-light">
-            <tr>
-              <th><input type="checkbox" (click)="CheckAllOptions()" /></th>
-              <th>Event</th>
-              <th>Date of Event</th>
-            </tr>
-          </thead>
-          <tbody class="border">
-            <tr *ngIf="!medicineList.length">
-              <td colspan="13" class="text-center">No Record</td>
-            </tr>
-            <tr *ngFor="let med of medicineList; let i = index">
-              <th>
-                <input
-                  type="checkbox"
-                  [(ngModel)]="checkbox.checked"
-                  [value]="checkbox.value"
-                />
-              </th>
-              <td>
-                <span>{{ checkbox.name }}</span>
-              </td>
-              <td>{{ announce.date }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="max-height">
+          <table class="table table-striped">
+            <thead class="bg-primary-color text-light">
+              <tr>
+                <th><input type="checkbox" (click)="CheckAllOptions()" /></th>
+                <th>Event</th>
+                <th>Date of Event</th>
+              </tr>
+            </thead>
+            <tbody class="border">
+              <tr *ngIf="!announcementList.length">
+                <td colspan="13" class="text-center">No Record</td>
+              </tr>
+              <tr *ngFor="let item of announcementList; let i = index">
+                <th>
+                  <input type="checkbox" [(ngModel)]="item.isChecked" />
+                </th>
+                <td>
+                  <span>{{ item.title }}</span>
+                </td>
+                <td>{{ convertDate(item.start) | date: 'MM dd yyyy' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
 
@@ -124,7 +125,7 @@
             <i class="fa fa-plus M-4 " aria-hidden="true"></i>
           </button>
         </div>
-        <ul class="list-group notes-ul">
+        <ul class="list-group notes-ul max-height">
           <li class="list-group-item" *ngFor="let notes of notesList">
             <input type="checkbox" [(ngModel)]="notes.isChecked" class="mr-2" />
             <span>{{ notes.text }}</span>
@@ -213,7 +214,11 @@
       >
         Close
       </button>
-      <button type="button" class="btn btn-primary" (click)="addAnnouncement()">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="addAnouncementEvent()"
+      >
         Add
       </button>
     </div>
