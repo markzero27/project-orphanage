@@ -17,6 +17,10 @@ export class EventsService {
     return this.http.get<Event[]>(this.url, { headers: this.reqHeader });
   }
 
+  getAllAnnouncements() {
+    return this.http.get<Event[]>(`${this.url}?type=announcement`, { headers: this.reqHeader });
+  }
+
   addEvent(data: any) {
     data.created_by = Number(this.userId);
     data.updated_by = Number(this.userId);

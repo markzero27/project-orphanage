@@ -48,3 +48,8 @@ $topnav-background-color: #2D7DAC;
     max-height: 240px;
     overflow-y: auto;
 }
+
+.max-height {
+    max-height: 300px;
+    overflow-y: scroll;
+}

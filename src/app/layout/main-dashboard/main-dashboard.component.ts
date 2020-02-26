@@ -23,6 +23,7 @@ import { EventsService } from 'src/app/services/events/events.service';
 
 export class MainDashboardComponent implements OnInit {
   medicineList: Medicine[] = [];
+  announcementList: Event[] = [];
   eventList: Event[] = [];
   notesList: Notes[] = [];
   notes = '';
@@ -59,6 +60,7 @@ export class MainDashboardComponent implements OnInit {
       this.router.navigate(['staff-dashboard']);
     }
     this.getAllEvents();
+    this.getAllAnnouncements();
     this.getAllNotes();
   }
 
@@ -75,6 +77,12 @@ export class MainDashboardComponent implements OnInit {
     this.eventService.getAllevent().subscribe(events => {
       this.eventList = events;
       this.calendarEvents = events;
+    });
+  }
+
+  getAllAnnouncements() {
+    this.eventService.getAllAnnouncements().subscribe(events => {
+      this.announcementList = events.reverse();
     });
   }
 
@@ -109,6 +117,35 @@ export class MainDashboardComponent implements OnInit {
     // this.calendarEvents = this.calendarEvents.concat(event);
     this.getAllEvents();
     this.close();
+  }
+
+  addAnouncementEvent() {
+    let newDate;
+
+    if (this.event.trim() === '') {
+      return;
+    }
+
+    if (this.dateEvent) {
+      newDate = new Date(`${this.dateEvent.year}-${this.dateEvent.month}-${this.dateEvent.day}`).toISOString();
+    } else {
+      return this.toastr.warning('Please select date of the event!');
+    }
+
+    const event: EventInput = {
+      title: this.event,
+      start: newDate,
+      allDay: true,
+      type: 'announcement',
+    };
+
+    this.eventService.addEvent(event).subscribe();
+    // this.calendarEvents = this.calendarEvents.concat(event);
+    this.getAllEvents();
+    this.getAllAnnouncements()
+    this.close();
+    this.event = '';
+    this.dateEvent = null;
   }
 
   open(content) {
@@ -206,11 +243,33 @@ export class MainDashboardComponent implements OnInit {
         }
       });
       this.toastr.success('Notes Deleted!');
-      this.getAllNotes();
+      setTimeout(() => {
+        this.getAllNotes();
+      }, 300);
 
     } else {
       this.toastr.warning('No notes selected');
     }
   }
 
+  deleteAnnouncement() {
+    if (this.announcementList.some((event: any) => event.isChecked)) {
+      this.announcementList.forEach(async (event: any) => {
+        if (event.isChecked) {
+          await this.eventService.deleteEvent(event.id);
+        }
+      });
+      this.toastr.success('Event Deleted!');
+      setTimeout(() => {
+        this.getAllAnnouncements();
+      }, 200);
+
+    } else {
+      this.toastr.warning('No announment selected!');
+    }
+  }
+
+  convertDate(date) {
+    return new Date(date);
+  }
 }
