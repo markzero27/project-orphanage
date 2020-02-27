@@ -50,10 +50,10 @@
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ med.medicine_name }}</td>
         <td>{{ med.type_of_medicine_description }}</td>
-        <td>{{ med.qty }}</td>
+        <td>{{ med.buffer }}</td>
         <!-- yung mga stock for emergency only... di ginagalaw -->
         <td>{{ med.qty }}</td>
-        <td>{{ med.qty }}</td>
+        <td>{{ med.dispense }}</td>
         <!-- bilang ng mga nadispense na -->
         <td>{{ med.updated_at }}</td>
         <td class="text-center">
@@ -77,6 +77,7 @@
       </tr>
     </tbody>
   </table>
+
   <!-- Add Medicine modal -->
 
   <div>
@@ -122,6 +123,15 @@
             placeholder=""
             type="number"
             [(ngModel)]="quantity"
+          />
+        </fieldset>
+        <fieldset class="form-group">
+          <label>Buffer</label>
+          <input
+            class="form-control"
+            placeholder=""
+            type="number"
+            [(ngModel)]="buffer"
           />
         </fieldset>
         <!-- <fieldset class="form-group">
@@ -184,6 +194,13 @@
         </button>
       </div>
       <div class="modal-body">
+        <fieldset class="form-group">
+          <label>Restock type</label>
+          <select [(ngModel)]="restockType" class="form-control">
+            <option value="qty">Stock</option>
+            <option value="buffer">Buffer</option>
+          </select>
+        </fieldset>
         <fieldset class="form-group">
           <label>Quantity ({{ operation }})</label>
           <input
