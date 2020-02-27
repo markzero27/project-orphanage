@@ -12,6 +12,7 @@ import { User } from 'src/app/models/user.model';
 import { routerTransition } from 'src/app/router.animations';
 import { TaskService } from 'src/app/services/task/task.service';
 import { Task } from 'src/app/models/task.model';
+import { EventsService } from 'src/app/services/events/events.service';
 
 @Component({
   selector: 'app-staff-dashboard',
@@ -44,7 +45,9 @@ export class StaffDashboardComponent implements OnInit {
     private modalService: NgbModal,
     private medicineService: MedicineService,
     public router: Router,
-    private taskService: TaskService) {
+    private taskService: TaskService,
+    private eventService: EventsService
+  ) {
 
     if (+localStorage.getItem('user_role') != 0) {
       this.router.navigate(['staff-dashboard']);
@@ -55,9 +58,7 @@ export class StaffDashboardComponent implements OnInit {
 
   ngOnInit() {
     this.userData = JSON.parse(localStorage.getItem('user_data'));
-    console.log('====================================');
-    console.log(this.userData);
-    console.log('====================================');
+    this.getAllEvents();
 
   }
 
@@ -163,5 +164,11 @@ export class StaffDashboardComponent implements OnInit {
 
   async getAllTasks(id) {
     this.taskList = await this.taskService.getTaskByStaff(id).toPromise() as Task[];
+  }
+
+  getAllEvents() {
+    this.eventService.getAllevent().subscribe(events => {
+      this.calendarEvents = events;
+    });
   }
 }
