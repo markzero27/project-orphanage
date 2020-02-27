@@ -13,6 +13,9 @@ import { NotesService } from 'src/app/services/notes/notes.service';
 import { Notes } from 'src/app/models/notes.model';
 import { ToastrService } from 'ngx-toastr';
 import { EventsService } from 'src/app/services/events/events.service';
+import { EldersService } from 'src/app/services/elders/elders.service';
+import { GuestService } from 'src/app/services/guest/guest.service';
+import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
   selector: 'app-main-dashboard',
@@ -33,6 +36,11 @@ export class MainDashboardComponent implements OnInit {
   event = '';
   dateEvent: any;
   noteChecbox = false;
+
+  staffCount: number;
+  elderCount: number;
+  guestCount: number;
+
   // calendar variables
   @ViewChild('calendar', null) calendarComponent: FullCalendarComponent; // the #calendar in the template
 
@@ -49,16 +57,31 @@ export class MainDashboardComponent implements OnInit {
 
   constructor(
     private modalService: NgbModal,
-    private medicineService: MedicineService,
     public router: Router,
     private noteService: NotesService,
     private toastr: ToastrService,
-    private eventService: EventsService
+    private eventService: EventsService,
+    private elderService: EldersService,
+    private guestService: GuestService,
+    private userService: UsersService
   ) {
 
     if (+localStorage.getItem('user_role') != 0) {
       this.router.navigate(['staff-dashboard']);
     }
+
+    this.elderService.getElders().subscribe(elders => {
+      this.elderCount = elders.length;
+    });
+
+    this.userService.getAllUsers().subscribe((users: any[]) => {
+      this.staffCount = users.length;
+    });
+
+    this.guestService.getAllGuests(0).subscribe((guests: any[]) => {
+      this.guestCount = guests.length;
+    });
+
     this.getAllEvents();
     this.getAllAnnouncements();
     this.getAllNotes();
@@ -141,8 +164,10 @@ export class MainDashboardComponent implements OnInit {
 
     this.eventService.addEvent(event).subscribe();
     // this.calendarEvents = this.calendarEvents.concat(event);
-    this.getAllEvents();
-    this.getAllAnnouncements()
+    setTimeout(() => {
+      this.getAllEvents();
+      this.getAllAnnouncements();
+    }, 300);
     this.close();
     this.event = '';
     this.dateEvent = null;

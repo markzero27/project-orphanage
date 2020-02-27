@@ -17,9 +17,9 @@ export class EldersService {
     console.log('====================================');
   }
 
-  // getAllElders() {
-  //   return this.http.get(this.url, { headers: this.reqHeader });
-  // }
+  getElders() {
+    return this.http.get<any[]>(this.url, { headers: this.reqHeader });
+  }
 
   getAllElders(table, isArchived) {
     return this.http.get(`${this.api}?table=${table}&archived_value=${isArchived}`, { headers: this.reqHeader });
