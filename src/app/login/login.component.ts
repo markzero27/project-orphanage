@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
         private userService: UsersService,
         private toastr: ToastrService,
     ) {
-        localStorage.setItem('isLoggedin', 'false');
+        // localStorage.setItem('isLoggedin', 'false');
     }
 
     ngOnInit() { }
