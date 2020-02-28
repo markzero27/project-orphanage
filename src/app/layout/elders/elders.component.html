@@ -1,31 +1,5 @@
 <div class="top">
-  <h2 class="">
-    <small>Elders</small>
-  </h2>
-</div>
-<div class="card-header pt-3">
-  <input
-    type="search"
-    name=""
-    id=""
-    class="ml-3 rounded px-2 py-1"
-    placeholder="Search"
-  />
-  <button class="btn btn-info float-right mr-1">
-    Export as PDF
-  </button>
-  <button
-    class="btn btn-light float-right"
-    (click)="router.navigate(['/elders/add'])"
-  >
-    <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
-  </button>
-  <button class="btn btn-light float-right">
-    <i class="fa fa-sort" aria-hidden="true"></i> Sort
-  </button>
-  <button class="btn btn-light float-right">
-    <i class="fa fa-filter" aria-hidden="true"></i> Filter
-  </button>
+  <hr><h2 class="text-center">ELDERS</h2><hr>
 </div>
 <div class="card mb-3">
   <table class="table table-striped">
@@ -38,25 +12,63 @@
         <th>Date Affiliated</th>
         <th>Status</th>
         <th class="text-center">
-          <button
-            class="btn bg-transparent"
-            (click)="router.navigate(['/elders/details', { id: elder.id }])"
-          >
+          <button class="btn bg-transparent" 
+          (click)="open(setting)">
             <i class="fa fa-cog ml-3" aria-hidden="true"></i>
           </button>
         </th>
       </tr>
     </thead>
     <tbody>
+      <tr>
+        <td>
+          <i class="fa fa-filter" aria-hidden="true"></i>
+        </td>
+        <td>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 60px;"/>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 60px;"/>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-info float-right mr-1">
+            Export as PDF
+          </button>
+        </td>
+      </tr>
       <tr *ngIf="elderList.length == 0">
         <td colspan="13" class="text-center">No Record</td>
       </tr>
       <tr *ngFor="let elder of elderList">
         <th><input type="checkbox" /></th>
         <th scope="row">{{ elder.first_name }} {{ elder.last_name }}</th>
-        <td>{{ elder.age }}</td>
-        <td>{{ elder.bed_no }}</td>
-        <td>{{ elder.date_stay_in_orphanage }}</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ elder.age }}</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ elder.bed_no }}</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ elder.date_stay_in_orphanage }}</td>
         <td></td>
         <td class="text-center">
           <button
@@ -69,6 +81,33 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<!-- Settings -->
+<div>
+  <ng-template #setting let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title text-center">Settings</h5>
+    </div>
+    <div class="modal-body">
+      <fieldset class="form-group">
+        <div class="d-flex justify-content-between ">
+          <div class="text-center px-3 border-right">
+            <input type="checkbox"/>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp; Name</span>
+          </div>
+          <div class="text-center px-3 border-right">
+            <input type="checkbox"> &nbsp;&nbsp;&nbsp;&nbsp; Nickname </input>
+          </div>
+          <div class="text-center px-3 border-right">
+            <input type="checkbox"/>
+            <span>&nbsp;&nbsp;&nbsp;&nbsp; Age</span>
+          </div>
+        </div>
+      </fieldset>
+      <hr />
+    </div>
+  </ng-template>
 </div>
 
 <div>
