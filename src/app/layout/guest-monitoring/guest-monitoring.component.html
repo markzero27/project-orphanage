@@ -1,27 +1,14 @@
 <div class="top">
-  <h2 class="">
-    <small>Guest Monitoring</small>
-  </h2>
+  <hr><h2 class="text-center">GUEST MONITORING
+    <button class="btn btn-light float-right"
+    (click)="open(content)">
+    <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
+  </button></h2><hr>
 </div>
+
 <div class="card-header pt-3">
-  <input
-    type="search"
-    name=""
-    id=""
-    class="ml-3 rounded px-2 py-1"
-    placeholder="Search"
-  />
   <button class="btn btn-info float-right mr-1">
     Export as PDF
-  </button>
-  <button class="btn btn-light float-right" (click)="open(content)">
-    <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
-  </button>
-  <button class="btn btn-light float-right">
-    <i class="fa fa-sort" aria-hidden="true"></i> Sort
-  </button>
-  <button class="btn btn-light float-right">
-    <i class="fa fa-filter" aria-hidden="true"></i> Filter
   </button>
 </div>
 <table class="table table-striped">
@@ -41,6 +28,67 @@
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td>
+        <i class="fa fa-filter" aria-hidden="true"></i>
+      </td>
+      <td>
+        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 50px;"/>
+        <button class="btn btn-light float-right">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+        </button>
+      </td>
+      <td>
+        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+        <button class="btn btn-light float-right">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+        </button>
+      </td>
+      <td>
+        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+        <button class="btn btn-light float-right">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+        </button>
+      </td>
+      <td>
+        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+        <button class="btn btn-light float-right">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+        </button>
+      </td>
+      <td>
+        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+        <button class="btn btn-light float-right">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+        </button>
+      </td>
+      <td>
+        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+        <button class="btn btn-light float-right">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+        </button>
+      </td>
+      <td>
+        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"  style="width: 100px;"/>
+        <button class="btn btn-light float-right">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+        </button>
+      </td>
+      <td>
+        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"  style="width: 100px;"/>
+        <button class="btn btn-light float-right">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+        </button>
+      </td>
+      <td>
+        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+        <button class="btn btn-light float-right">
+          <i class="fa fa-sort" aria-hidden="true"></i>
+        </button>
+      </td>
+      <td>
+      </td>
+    </tr>
     <tr *ngFor="let guest of guestList; let i = index">
       <th><input type="checkbox" /></th>
       <th scope="row">{{ i + 1 }}</th>
@@ -76,7 +124,6 @@
 </table>
 
 <!-- add modal -->
-
 <div>
   <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
@@ -194,7 +241,6 @@
 </div>
 
 <!-- update modal -->
-
 <div>
   <ng-template #content2 let-c="close" let-d="dismiss">
     <div class="modal-header">
@@ -311,7 +357,6 @@
 </div>
 
 <!-- Delete modal -->
-
 <div>
   <ng-template #content3 let-c="close" let-d="dismiss">
     <div class="modal-header">
