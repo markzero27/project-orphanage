@@ -1,9 +1,15 @@
 <div class="top">
-  <hr><h2 class="text-center">STAFF
-    <button class="btn btn-light float-right"
-    (click)="router.navigate(['/staff/add'])">
-    <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
-  </button></h2><hr>
+  <hr />
+  <h2 class="text-center">
+    STAFF
+    <button
+      class="btn btn-light float-right"
+      (click)="router.navigate(['/staff/add'])"
+    >
+      <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
+    </button>
+  </h2>
+  <hr />
 </div>
 <div class="card mb-3">
   <table class="table table-striped">
@@ -28,31 +34,37 @@
           <i class="fa fa-filter" aria-hidden="true"></i>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" />
           <button class="btn btn-light float-right">
             <i class="fa fa-sort" aria-hidden="true"></i>
           </button>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 60px;"/>
+          <input type="search" class="ml-3 rounded px-2 py-1" />
           <button class="btn btn-light float-right">
             <i class="fa fa-sort" aria-hidden="true"></i>
           </button>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" />
           <button class="btn btn-light float-right">
             <i class="fa fa-sort" aria-hidden="true"></i>
           </button>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" />
           <button class="btn btn-light float-right">
             <i class="fa fa-sort" aria-hidden="true"></i>
           </button>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 100px;"/>
+          <input
+            type="search"
+            name=""
+            id=""
+            class="ml-3 rounded px-2 py-1"
+            style="width: 100px;"
+          />
           <button class="btn btn-light float-right">
             <i class="fa fa-sort" aria-hidden="true"></i>
           </button>
@@ -66,7 +78,7 @@
       <tr *ngFor="let staff of staffList" ng-repeat="post in posts | Filter">
         <th><input type="checkbox" /></th>
         <th scope="row">{{ staff.first_name }} {{ staff.last_name }}</th>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ staff.role }}</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ getRole(staff.role) }}</td>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ staff.email }}</td>
         <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ staff.date_hired }}</td>
         <td
@@ -74,7 +86,8 @@
             'text-danger': staff.status == 0,
             'text-success': staff.status == 1
           }"
-        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        >
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           {{ staff.status == 0 ? 'Inactive' : 'Active' }}
         </td>
 
@@ -100,10 +113,11 @@
     <div class="modal-header">
       <h5 class="modal-title text-center">Settings</h5>
       <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="c('Cross click')">
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="c('Cross click')"
+      >
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -114,71 +128,71 @@
             <ul style="list-style: none;">
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Name</span>
+                <span>Name</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Age</span>
+                <span>Age</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Birthday</span>
+                <span>Birthday</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Birth Place</span>
+                <span>Birth Place</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Sabbath</span>
+                <span>Sabbath</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Provincial Address</span>
+                <span>Provincial Address</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Civil Status</span>
+                <span>Civil Status</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Gender</span>
+                <span>Gender</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Date Affiliated</span>
+                <span>Date Affiliated</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Bed No.</span>
+                <span>Bed No.</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Nationality</span>
+                <span>Nationality</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Provincial Address</span>
+                <span>Provincial Address</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Phil Health ID</span>
+                <span>Phil Health ID</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>SSS ID</span>
+                <span>SSS ID</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Senior Citizen ID</span>
+                <span>Senior Citizen ID</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Pagibig ID</span>
+                <span>Pagibig ID</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Status</span>
+                <span>Status</span>
               </li>
             </ul>
           </div>

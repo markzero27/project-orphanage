@@ -51,4 +51,9 @@ export class StaffComponent implements OnInit {
     this.modalService.dismissAll();
   }
 
+  getRole(role) {
+    const text = role == 0 ? 'Admin' : role == 1 ? 'Medical Staff' : 'Staff';
+    return text;
+  }
+
 }

@@ -1,20 +1,25 @@
 <div class="top">
-  <hr><h2 class="text-center">ELDERS
-    <button class="btn btn-light float-right"
-    (click)="router.navigate(['/elders/add'])">
-    <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
-  </button></h2><hr>
+  <hr />
+  <h2 class="text-center">
+    ELDERS
+    <button
+      class="btn btn-light float-right"
+      (click)="router.navigate(['/elders/add'])"
+    >
+      <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
+    </button>
+  </h2>
+  <hr />
 </div>
 <div class="card mb-3">
   <table class="table table-striped">
     <thead class="bg-primary-color text-light">
       <tr>
         <th><input type="checkbox" /></th>
-        <th>Full Name</th>
-        <th>Age</th>
-        <th>Bed No.</th>
-        <th>Date Affiliated</th>
-        <th>Status</th>
+        <th class="text-center">Full Name</th>
+        <th class="text-center">Age</th>
+        <th class="text-center">Bed No.</th>
+        <th class="text-center">Date Affiliated</th>
         <th class="text-center">
           <button class="btn bg-transparent" (click)="open(setting)">
             <i class="fa fa-cog ml-3" aria-hidden="true"></i>
@@ -28,37 +33,70 @@
           <i class="fa fa-filter" aria-hidden="true"></i>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
+          <div class="d-flex border border-secondary rounded bg-white">
+            <div class="flex-1">
+              <input
+                type="text"
+                class="border-0 px-2 py-1 w-100"
+                [(ngModel)]="name"
+                (keyup)="filter($event.target.value)"
+              />
+            </div>
+            <button class="btn btn-light" (click)="sort('first_name')">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </div>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 60px;"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
+          <div class="d-flex border border-secondary rounded bg-white">
+            <div class="flex-1">
+              <input
+                type="text"
+                class="border-0 px-2 py-1 w-100"
+                [(ngModel)]="age"
+                (keyup)="filter($event.target.value)"
+              />
+            </div>
+            <button class="btn btn-light" (click)="sort('age')">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </div>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 60px;"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
+          <div class="d-flex border border-secondary rounded bg-white">
+            <div class="flex-1">
+              <input
+                type="text"
+                class="border-0 px-2 py-1 w-100"
+                [(ngModel)]="bed_no"
+                (keyup)="filter($event.target.value)"
+              />
+            </div>
+            <button class="btn btn-light" (click)="sort('bed_no')">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </div>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
+          <div class="d-flex border border-secondary rounded bg-white">
+            <div class="flex-1">
+              <input
+                type="text"
+                class="border-0 px-2 py-1 w-100"
+                [(ngModel)]="date_aff"
+                (keyup)="filter($event.target.value)"
+              />
+            </div>
+            <button
+              class="btn btn-light"
+              (click)="sort('date_stay_in_orphanage')"
+            >
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </div>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
-        </td>
-        <td>
-          <button class="btn btn-info float-right mr-1">
+          <button class="btn btn-info mr-1">
             Export as PDF
           </button>
         </td>
@@ -67,18 +105,21 @@
         <td colspan="13" class="text-center">No Record</td>
       </tr>
       <tr *ngFor="let elder of elderList">
-        <th><input type="checkbox" /></th>
-        <th scope="row">{{ elder.first_name }} {{ elder.last_name }}</th>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ elder.age }}</td>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ elder.bed_no }}</td>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ elder.date_stay_in_orphanage }}</td>
-        <td></td>
+        <td><input type="checkbox" /></td>
+        <td class="text-center">
+          {{ elder.first_name }} {{ elder.last_name }}
+        </td>
+        <td class="text-center">{{ elder.age }}</td>
+        <td class="text-center">{{ elder.bed_no }}</td>
+        <td class="text-center">
+          {{ elder.date_stay_in_orphanage }}
+        </td>
         <td class="text-center">
           <button
             class="btn bg-transparent"
-           (click)="router.navigate(['/elders/details', { id: elder.id }])"
+            (click)="router.navigate(['/elders/details', { id: elder.id }])"
           >
-            <i class="fa fa-user ml-3" aria-hidden="true"></i>
+            <i class="fa fa-user " aria-hidden="true"></i>
           </button>
         </td>
       </tr>
@@ -92,10 +133,11 @@
     <div class="modal-header">
       <h5 class="modal-title text-center">Settings</h5>
       <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="c('Cross click')">
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="c('Cross click')"
+      >
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
@@ -106,91 +148,91 @@
             <ul style="list-style: none;">
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Name</span>
+                <span>Name</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Nickname</span>
+                <span>Nickname</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Age</span>
+                <span>Age</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Birthday</span>
+                <span>Birthday</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Birth Place</span>
+                <span>Birth Place</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Sabbath</span>
+                <span>Sabbath</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Provincial Address</span>
+                <span>Provincial Address</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Civil Status</span>
+                <span>Civil Status</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Gender</span>
+                <span>Gender</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Date Affiliated</span>
+                <span>Date Affiliated</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Bed No.</span>
+                <span>Bed No.</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Nationality</span>
+                <span>Nationality</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Provincial Address</span>
+                <span>Provincial Address</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Contact Person</span>
+                <span>Contact Person</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Contact Number</span>
+                <span>Contact Number</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Relationship</span>
+                <span>Relationship</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Provincial Address</span>
+                <span>Provincial Address</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Phil Health ID</span>
+                <span>Phil Health ID</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>SSS ID</span>
+                <span>SSS ID</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Senior Citizen ID</span>
+                <span>Senior Citizen ID</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Pagibig ID</span>
+                <span>Pagibig ID</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Status</span>
+                <span>Status</span>
               </li>
             </ul>
           </div>
