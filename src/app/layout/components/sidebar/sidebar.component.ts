@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { UsersService } from 'src/app/services/users/users.service';
@@ -15,11 +15,11 @@ export class SidebarComponent implements OnInit {
     userId = 0;
     userRole = 0;
     isActive: boolean;
-    collapsed: boolean;
     showMenu: string;
     pushRightClass: string;
 
     @Output() collapsedEvent = new EventEmitter<boolean>();
+    @Input() collapsed: boolean;
 
     constructor(private translate: TranslateService, public router: Router, private userService: UsersService) {
         this.userId = +localStorage.getItem('user_id');
