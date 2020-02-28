@@ -11,15 +11,11 @@ export class EldersService {
   api = environment.api + '/archives-get-all-by-archive';
   userId = +localStorage.getItem('user_id');
   reqHeader = new HttpHeaders({ 'Content-Type': 'application/json' });
-  constructor(private http: HttpClient) {
-    console.log('====================================');
-    console.log(this.userId);
-    console.log('====================================');
-  }
+  constructor(private http: HttpClient) { }
 
-  // getAllElders() {
-  //   return this.http.get(this.url, { headers: this.reqHeader });
-  // }
+  getElders() {
+    return this.http.get<any[]>(this.url, { headers: this.reqHeader });
+  }
 
   getAllElders(table, isArchived) {
     return this.http.get(`${this.api}?table=${table}&archived_value=${isArchived}`, { headers: this.reqHeader });
@@ -38,6 +34,10 @@ export class EldersService {
 
   getMedHistoryById(id) {
     return this.http.get(`${environment.api}/elders-medical-history?elder_id=${id}`, { headers: this.reqHeader });
+  }
+
+  getMedHistoryByType(id, type) {
+    return this.http.get(`${environment.api}/elders-medical-history?elder_id=${id}&type=${type}`, { headers: this.reqHeader });
   }
 
   addMedicalHistory(data) {

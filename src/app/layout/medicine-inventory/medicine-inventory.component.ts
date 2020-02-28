@@ -19,6 +19,7 @@ export class MedicineInventoryComponent implements OnInit {
   medicineList: Medicine[] = [];
   medName = '';
   quantity = 1;
+  buffer = 1;
   dateExpire: any;
   alerts: Array<any> = [];
   closeResult: string;
@@ -28,6 +29,7 @@ export class MedicineInventoryComponent implements OnInit {
   med: Medicine;
   medToUpdate: any;
   operation = '+';
+  restockType = 'qty';
 
   constructor(
     private modalService: NgbModal,
@@ -101,6 +103,8 @@ export class MedicineInventoryComponent implements OnInit {
       expiration_date: this.dateExpire,
       medicine_name: this.medName,
       qty: this.quantity,
+      dispense: 0,
+      buffer: this.buffer,
       type_of_medicine_description: this.medicines[this.selectedType].category,
       type_of_medicine_id: this.medicines[this.selectedType].id,
     };
@@ -157,16 +161,17 @@ export class MedicineInventoryComponent implements OnInit {
       return this.toastr.warning('Please input valid quantity!');
     }
 
-    if (this.operation == '+') {
-      this.med.qty += this.restock;
-    } else {
-      if (this.restock > this.med.qty) {
-        return this.toastr.warning('The entered quantity is more than stock quantity!');
-      } else {
-        this.med.qty -= this.restock;
-      }
-    }
+    // if (this.operation == '+') {
+    //   this.med.qty += this.restock;
+    // } else {
+    //   if (this.restock > this.med.qty) {
+    //     return this.toastr.warning('The entered quantity is more than stock quantity!');
+    //   } else {
+    //     this.med.qty -= this.restock;
+    //   }
+    // }
 
+    this.med[this.restockType] += this.restock;
     this.updateMedicine(this.med);
   }
 

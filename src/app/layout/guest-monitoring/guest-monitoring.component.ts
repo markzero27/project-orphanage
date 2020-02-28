@@ -36,9 +36,8 @@ export class GuestMonitoringComponent implements OnInit {
   ngOnInit() {
     this.guestService.getAllGuests(0).subscribe((guests: Guest[]) => {
       this.guestList = guests;
-      console.log(guests);
-
     });
+
     this.elderService.getAllElders('elders', 0).subscribe((elders: any[]) => {
       this.elderList = elders;
 
@@ -87,21 +86,13 @@ export class GuestMonitoringComponent implements OnInit {
 
   addGuest() {
 
-    if (!this.time_in || !this.time_out) {
-      return this.addAlert('Please enter valid time!');
-    }
-
     if (this.guest.guest_name.trim() == '') {
       return this.addAlert('Please enter guest name!');
     }
 
-    this.guest.time_in = `${this.time_in.hour}:${this.time_in.minute}`;
-    this.guest.time_out = `${this.time_out.hour}:${this.time_out.minute}`;
+    this.guest.time_in = new Date().toString();
     this.guest.elder_id = this.selectedElder;
     const elder = this.elderList.find(data => data.id == this.selectedElder);
-    console.log('To be added ====================================');
-    console.log(this.guest);
-    console.log('====================================');
     this.guest.elder_name = `${elder.first_name} ${elder.last_name}`;
     this.guestService.addGuest(this.guest).subscribe(async (res: any) => {
       this.guestList = await this.guestService.getAllGuests(0).toPromise() as Guest[];
@@ -126,11 +117,7 @@ export class GuestMonitoringComponent implements OnInit {
   }
 
   formatTime(timeString: string) {
-    const today = new Date();
-
-    today.setHours(+timeString.substring(0, 1));
-    today.setMinutes(+timeString.substring(3, 4));
-    return today;
+    return new Date(timeString);
   }
 
   clearModalFields() {
@@ -141,14 +128,18 @@ export class GuestMonitoringComponent implements OnInit {
 
   setSelectedGuest(guest: Guest, content) {
     this.selectedGuest = JSON.parse(JSON.stringify(guest));
-    this.time_in2 = {
-      hour: +guest.time_in.substring(0, 1),
-      minute: +guest.time_in.substring(3, 4)
-    };
-    this.time_out2 = {
-      hour: +guest.time_out.substring(0, 1),
-      minute: +guest.time_out.substring(3, 4)
-    };
+    if (guest.time_in) {
+      this.time_in2 = {
+        hour: +guest.time_in.substring(0, 1),
+        minute: +guest.time_in.substring(3, 4)
+      };
+    }
+    if (guest.time_out) {
+      this.time_out2 = {
+        hour: +guest.time_out.substring(0, 1),
+        minute: +guest.time_out.substring(3, 4)
+      };
+    }
     this.selectedElder = this.selectedGuest.elder_id;
     this.open(content);
   }
@@ -159,16 +150,6 @@ export class GuestMonitoringComponent implements OnInit {
   }
 
   updateGuest() {
-    if (!this.time_in2 || !this.time_out2) {
-      return this.addAlert('Please enter valid time!');
-    }
-
-    if (this.selectedGuest.guest_name.trim() == '') {
-      return this.addAlert('Please enter guest name!');
-    }
-
-    this.selectedGuest.time_in = `${this.time_in2.hour}:${this.time_in2.minute}`;
-    this.selectedGuest.time_out = `${this.time_out2.hour}:${this.time_out2.minute}`;
     this.selectedGuest.elder_id = this.selectedElder;
     const elder = this.elderList.find(data => data.id == this.selectedElder);
     this.selectedGuest.elder_name = `${elder.first_name} ${elder.last_name}`;
@@ -188,5 +169,13 @@ export class GuestMonitoringComponent implements OnInit {
     this.guestList = await this.guestService.getAllGuests(0).toPromise() as Guest[];
     this.toastr.success('Record deleted!');
     this.close();
+  }
+
+  timeOut(i) {
+    this.guestList[i].time_out = new Date().toString();
+    this.guestService.updateGuest(this.guestList[i]).subscribe(async (res: any) => {
+      this.guestList = await this.guestService.getAllGuests(0).toPromise() as Guest[];
+      this.toastr.success('Guest updated!');
+    });
   }
 }

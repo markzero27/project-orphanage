@@ -51,7 +51,12 @@
       <td>{{ guest.relationship_description }}</td>
       <td>{{ formatTime(guest.time_in) | date: 'hh:mm a' }}</td>
       <!-- auto time-in na sya one na nagfillup ng form -->
-      <td>{{ formatTime(guest.time_out) | date: 'hh:mm a' }}</td>
+      <td *ngIf="guest.time_out">
+        {{ formatTime(guest.time_out) | date: 'hh:mm a' }}
+      </td>
+      <td *ngIf="!guest.time_out" (click)="timeOut(i)">
+        <button class="btn btn-primary">Time out</button>
+      </td>
       <!-- button na lng yung time-out, di sya required sa form na m -->
       <td>{{ guest.created_at }}</td>
       <td>
@@ -86,8 +91,8 @@
       </button>
     </div>
     <div class="modal-body">
-      <fieldset class="form-group">
-        <div class="d-flex justify-content-between ">
+      <!-- <fieldset class="form-group">
+        <div class="d-flex justify-content-center ">
           <div class="text-center px-3 border-right">
             Time In
             <ngb-timepicker
@@ -104,7 +109,7 @@
           </div>
         </div>
       </fieldset>
-      <hr />
+      <hr /> -->
       <fieldset class="form-group">
         <label>Name</label>
         <input
@@ -204,7 +209,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <fieldset class="form-group">
+      <!-- <fieldset class="form-group">
         <div class="d-flex justify-content-between ">
           <div class="text-center px-3 border-right">
             Time In
@@ -222,7 +227,7 @@
           </div>
         </div>
       </fieldset>
-      <hr />
+      <hr /> -->
       <fieldset class="form-group">
         <label>Name</label>
         <input

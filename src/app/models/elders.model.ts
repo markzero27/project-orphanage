@@ -34,15 +34,15 @@ export interface Elders {
 }
 
 export interface MedicalHistory {
+    id?: number;
     elder_id: number;
-    present_illness_id: string;
-    present_illness_description: string;
-    past_illness_id: string;
-    past_illness_description: string;
-    family_history_illness_id: string;
-    family_history_description: string;
-    assigned_doctor_id: string;
+    type: string;
+    illness: string;
+    description: string;
+    assigned_doctor_id: number;
     assigned_doctor_name: string;
+    duration_from: any;
+    duration_to: any;
     created_by: number;
     updated_by: number;
 }
@@ -82,14 +82,13 @@ export const initialElder: Elders = {
 
 export const initalMedHistory: MedicalHistory = {
     elder_id: 0,
-    present_illness_id: '',
-    present_illness_description: '',
-    past_illness_id: '',
-    past_illness_description: '',
-    family_history_illness_id: '',
-    family_history_description: '',
-    assigned_doctor_id: '',
+    type: 'present',
+    illness: '',
+    description: '',
+    assigned_doctor_id: 0,
     assigned_doctor_name: '',
+    duration_from: null,
+    duration_to: null,
     created_by: 0,
     updated_by: 0,
 };

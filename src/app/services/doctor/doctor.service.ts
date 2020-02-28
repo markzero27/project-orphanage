@@ -14,6 +14,10 @@ export class DoctorService {
 
   constructor(private http: HttpClient) { }
 
+  getDoctors() {
+    return this.http.get<Doctor[]>(`${this.api}`, { headers: this.reqHeader });
+  }
+
   getAllDoctors(isArchived) {
     return this.http.get<Doctor[]>(`${this.api}?table=doctors&archived_value=${isArchived}`, { headers: this.reqHeader });
   }

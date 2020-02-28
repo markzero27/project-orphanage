@@ -1,18 +1,17 @@
 export interface Doctor {
-    doctor_name: any;
     id?: number;
     doc_name: string;
     contact_no: string;
     schedules: string;
     specialization: string;
-    archived: string;
+    archived: number;
     created_by: number;
     updated_by: number;
     created_at?: string;
     updated_at?: string;
 }
 
-export const initDoc = {
+export const initDoc: Doctor = {
     doc_name: '',
     contact_no: '',
     schedules: '',
