@@ -11,14 +11,14 @@
       >Daily</a
     >
   </li>
-  <li class="nav-item" (click)="selectedType = 'monthly'">
-    <a class="nav-link" [ngClass]="{ active: selectedType == 'monthly' }">
-      Monthly
+  <li class="nav-item" (click)="selectedType = 'report'">
+    <a class="nav-link" [ngClass]="{ active: selectedType == 'report' }">
+      Reports
     </a>
   </li>
-  <li class="nav-item" (click)="selectedType = 'yearly'">
-    <a class="nav-link" [ngClass]="{ active: selectedType == 'yearly' }">
-      Yearly
+  <li class="nav-item" (click)="selectedType = 'task'">
+    <a class="nav-link" [ngClass]="{ active: selectedType == 'task' }">
+      Tasks
     </a>
   </li>
 </ul>
@@ -61,12 +61,11 @@
           <th><input type="checkbox" /></th>
           <!-- <th>Task</th> -->
           <th>Date</th>
+          <th>Created By (for Admin view only)</th>
           <th>Problems Encountered</th>
-          <th>Remarks</th>
+          <!-- <th>Remarks</th> -->
           <th>Time-in</th>
           <th>Time-out</th>        
-          <!-- <th>Submitted By</th> di na need ipakita sa staff, automatic n sya na yung nagsubmit
-          iviewview n lng sya for admin view ng reports-->
           <th></th>
         </tr>
       </thead>
@@ -75,18 +74,18 @@
           <th><input type="checkbox" /></th>
           <!-- <td>{{ acc.task_description }}</td> -->
           <td>{{ acc.updated_at }}</td>
+          <td>{{ acc.submitted_by[1] }}</td>
           <td>{{ acc.problems_encountered }}</td>
-          <td>{{ acc.remarks }}</td>
+          <!-- <td>{{ acc.remarks }}</td>-->
           <td>{{ formatTime(acc.time_in) | date: 'hh:mm a' }}</td>
           <td>{{ formatTime(acc.time_out) | date: 'hh:mm a' }}</td>
-          <!-- <td>{{ acc.submitted_by[1] }}</td> -->
           <!-- button for view of the full report -->
           <td class="text-center">
             <button
               class="btn bg-transparent"
               (click)="open(view)"
             >
-              <i class="fa fa-cog ml-3" aria-hidden="true"></i>
+              <i class="fa fa-eye ml-3" aria-hidden="true"></i>
             </button>
           </td>
         </tr>
@@ -98,7 +97,6 @@
   </div>
 
   <!-- Add Accomplishments -->
- 
   <div>
     <ng-template #content let-c="close" let-d="dismiss">
       <div class="modal-header">
@@ -133,7 +131,6 @@
           </div>
         </fieldset>
         <hr />
-        <!-- Auto generated na ang lhat ng task ni staff for that day, di na need maginput, 
           <fieldset class="form-group">
           <label>Task</label>
           <input
@@ -141,7 +138,7 @@
             placeholder=""
             [(ngModel)]="accomp.task_description"
           />
-        </fieldset> -->
+        </fieldset>
         <fieldset class="form-group">
           <label>Problems Encountered</label>
           <!-- change to textarea -->
@@ -195,7 +192,6 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <!-- Huwag na irequire yung login and out ng staff, automatic na pagkalogin ni staff at logout pagkasubmit ni staff ng report  -->
       <div class="modal-body">
         <fieldset class="form-group">
           <div class="d-flex justify-content-between ">
@@ -253,12 +249,19 @@
           </tbody>
         </table>
         </fieldset>
+        <fieldset class="form-group">
+          <!-- change to textarea -->
+          <label>Created By (Admin View Only)</label>
+       </fieldset>
+       <button class="btn btn-info float-right mr-1">
+        Export as PDF
+      </button>
       </div>
     </ng-template>
   </div>
 
-  <!-- Monthly Reporting -->
-  <div class=" mb-3 py-3" *ngSwitchCase="'monthly'">
+  <!-- Reports -->
+  <div class=" mb-3 py-3" *ngSwitchCase="'report'">
     <div class="mb-3">
       <input
       type="search"
@@ -281,25 +284,34 @@
       <thead class="bg-primary-color text-light">
         <tr>
           <th><input type="checkbox" /></th>
-          <!-- <th>Task</th> -->
           <th>Date</th>
+          <th>Created By (for Admin view only)</th>
           <th>Problems Encountered</th>
           <th>Remarks</th>
           <th>Time-in</th>
-          <th>Time-out</th>
-          <!-- <th>Submitted By</th> -->
+          <th>Time-out</th>        
+          <th class="text-center">
+            <button
+              class="btn bg-transparent"
+              (click)="open(weekview)"
+            >
+              <i class="fa fa-cog ml-3" aria-hidden="true"></i>
+            </button>
+          </th> 
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let acc of accList; let i = index">
           <th><input type="checkbox" /></th>
-          <!-- <td>{{ acc.task_description }}</td> -->
           <td>{{ acc.updated_at }}</td>
+          <td>{{ acc.submitted_by[1] }}</td>
           <td>{{ acc.problems_encountered }}</td>
           <td>{{ acc.remarks }}</td>
           <td>{{ formatTime(acc.time_in) | date: 'hh:mm a' }}</td>
           <td>{{ formatTime(acc.time_out) | date: 'hh:mm a' }}</td>
-          <!-- <td>{{ acc.submitted_by[1] }}</td> -->
+          <!-- button for view of the full report -->
+          <td class="text-center">
+          </td>
         </tr>
         <tr *ngIf="accList.length == 0">
           <td class="text-center p-3" colspan="13">No Record</td>
@@ -308,8 +320,8 @@
     </table>
   </div>
 
-  <!-- Yearly Reporting -->
-  <div class=" mb-3 py-3" *ngSwitchCase="'yearly'">
+  <!-- Tasks -->
+  <div class=" mb-3 py-3" *ngSwitchCase="'task'">
     <div class="mb-3">
       <input
       type="search"
@@ -332,25 +344,59 @@
       <thead class="bg-primary-color text-light">
         <tr>
           <th><input type="checkbox" /></th>
-          <!-- <th>Task</th> -->
           <th>Date</th>
-          <th>Problems Encountered</th>
-          <th>Remarks</th>
-          <th>Time-in</th>
-          <th>Time-out</th>
-          <!-- <th>Submitted By</th> -->
+          <th>Assigned Staff (for Admin view only)</th>
+          <th>Elders Name</th>
+          <th>Medicine Description</th>
+          <th>Quantity</th>
+          <th>Time</th>
+          <th>Status</th>
+          <th class="text-center">
+            <button
+              class="btn bg-transparent"
+              (click)="open(weekview)"
+            >
+              <i class="fa fa-cog ml-3" aria-hidden="true"></i>
+            </button>
+          </th> 
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let acc of accList; let i = index">
           <th><input type="checkbox" /></th>
-          <!-- <td>{{ acc.task_description }}</td> -->
-          <td>{{ acc.updated_at }}</td>
-          <td>{{ acc.problems_encountered }}</td>
-          <td>{{ acc.remarks }}</td>
-          <td>{{ formatTime(acc.time_in) | date: 'hh:mm a' }}</td>
-          <td>{{ formatTime(acc.time_out) | date: 'hh:mm a' }}</td>
-          <!-- <td>{{ acc.submitted_by[1] }}</td> -->
+          <td>2020-02-21</td>
+          <td>Jhen Fernando</td>
+          <td>Nathalie Tamayo</td>
+          <td><p>Yeash</p> Aminosol</td>
+          <td><p>1</p> 2</td>
+          <td><p>5pm</p> 6pm</td>
+          <td><p>Done</p> Done</td>
+          <!-- button for view of the full report -->
+          <td class="text-center"></td>
+        </tr>
+        <tr *ngFor="let acc of accList; let i = index">
+          <th><input type="checkbox" /></th>
+          <td>2020-02-21</td>
+          <td>Faith Santiago</td>
+          <td><p> Nathalie Tamayo </p><p>Sai Ramirez</p></td>
+          <td><p>Yeash</p> <p> Aminosol </p><p>Vitamins</p></td>
+          <td><p>1</p> <p>2</p><p>1</p></td>
+          <td><p>5pm</p> <p> 6pm</p> <p>5pm</p></td>
+          <td><p>Done</p> <p>Refuse </p> <p>Done</p></td>
+          <!-- button for view of the full report -->
+          <td class="text-center"></td>
+        </tr>
+        <tr *ngFor="let acc of accList; let i = index">
+          <th><input type="checkbox" /></th>
+          <td>2020-02-21</td>
+          <td>Nao Fu</td>
+          <td>Jane Tamayo</td>
+          <td><p>Yeash</p> Aminosol</td>
+          <td><p>1</p> 2</td>
+          <td><p>5pm</p> 6pm</td>
+          <td><p>Refuse</p> Done</td>
+          <!-- button for view of the full report -->
+          <td class="text-center"></td>
         </tr>
         <tr *ngIf="accList.length == 0">
           <td class="text-center p-3" colspan="13">No Record</td>
@@ -358,4 +404,3 @@
       </tbody>
     </table>
   </div>
-</div>
