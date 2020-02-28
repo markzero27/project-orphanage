@@ -663,259 +663,284 @@
 
     <!-- Additional, Add button to add Present Illness and Past Illness -->
     <div class="col-md-8 right-div" *ngSwitchCase="3">
-      <div class="card p-4 mb-3" *ngIf="updating3">
+      <div class="card p-4 mb-3">
         <h5 class="pb-2 color-dark-primary">
           Medical History
           <button
             class="btn btn-primary float-right large border"
-            (click)="saveMed()"
+            (click)="open(content)"
           >
-            Save
+            <i class="fa fa-plus" aria-hidden="true"></i>
           </button>
         </h5>
-        <div *ngFor="let med of medHistory">
-          <div class="form-group row">
-            <label for="" class="col-sm-3 col-form-label"
-              >Present Illness</label
-            >
-            <div class="col-sm-9">
-              <input
-                type="text"
-                class="form-control"
-                [(ngModel)]="med.present_illness_description"
-              />
-            </div>
-          </div>
-           <!-- additional, duration of present illness -->
-           <div class="form-group row">
-            <label for="" class="col-sm-3 col-form-label">Duration</label>
-            <div class="col-sm-9 row">
-              <div class="col-sm-6">
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="addEHistory.date_from"
-                  placeholder="Started: mm-dd-yyyy"
-                />
-              </div>
-              <div class="col-sm-6">
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="addEHistory.date_to"
-                  placeholder="Finished: mm-dd-yyyy"
-                />
-              </div>
-            </div>
-          </div>
-          <!-- Additional, connected to the doctors listed in the database -->
-          <div class="form-group row">
-            <label for="" class="col-sm-3 col-form-label"
-              >Assigned Doctor</label
-            >
-            <div class="col-sm-9">
-              <input
-                type="text"
-                class="form-control"
-                [(ngModel)]="med.assigned_doctor_name"
-              />
-            </div>
-          </div>
-          <!-- Additional, Medical History information -->
-          <div class="form-group row">
-            <label for="" class="col-sm-3 col-form-label"
-              >Information</label
-            >
-            <div class="col-sm-9">
-              <textarea
-                type="text"
-                class="form-control"
-                [(ngModel)]="med.history_information"
-              ></textarea>
-            </div>
-          </div>
 
-          <div class="form-group row">
-            <label for="" class="col-sm-3 col-form-label">Past Illness</label>
-            <div class="col-sm-9">
-              <input
-                type="text"
-                class="form-control"
-                [(ngModel)]="med.past_illness_description"
-              />
-            </div>
-          </div>
-           <!-- additional, duration of past illness -->
-           <div class="form-group row">
-            <label for="" class="col-sm-3 col-form-label">Duration</label>
-            <div class="col-sm-9 row">
-              <div class="col-sm-6">
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="addEHistory.date_from"
-                  placeholder="Started: mm-dd-yyyy"
-                />
-              </div>
-              <div class="col-sm-6">
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="addEHistory.date_to"
-                  placeholder="Finished: mm-dd-yyyy"
-                />
-              </div>
-            </div>
-          </div>
-          <!-- Additional, connected to the doctors listed in the database (full name ng doctor)-->
-          <div class="form-group row">
-            <label for="" class="col-sm-3 col-form-label"
-              >Assigned Doctor</label
-            >
-            <div class="col-sm-9">
-              <input
-                type="text"
-                class="form-control"
-                [(ngModel)]="med.assigned_doctor_name"
-              />
-            </div>
-          </div>
-          <!-- Additional, Medical History information -->
-          <div class="form-group row">
-            <label for="" class="col-sm-3 col-form-label"
-              >Information</label
-            >
-            <div class="col-sm-9">
-              <textarea
-                type="text"
-                class="form-control"
-                [(ngModel)]="med.history_information"
-              ></textarea>
-            </div>
-          </div>
-        </div>
-      </div>
+        <div>
+          <ul class="nav nav-tabs mb-2">
+            <li class="nav-item" (click)="illnessTab = 1">
+              <a class="nav-link" [ngClass]="{ active: illnessTab == 1 }"
+                >Present</a
+              >
+            </li>
+            <li class="nav-item" (click)="illnessTab = 2">
+              <a class="nav-link" [ngClass]="{ active: illnessTab == 2 }">
+                Past
+              </a>
+            </li>
+          </ul>
+          <div [ngSwitch]="illnessTab">
+            <!-- present illness -->
+            <div *ngSwitchCase="1" class="mb-2">
+              <h3 *ngIf="presentIllness.length == 0" class="text-center mt-2">
+                No Record
+              </h3>
+              <div *ngFor="let present of presentIllness">
+                <div class="form-group row">
+                  <label for="" class="col-sm-3 col-form-label"
+                    >Present Illness</label
+                  >
+                  <div class="col-sm-9">
+                    <label for="" class="col-form-label">
+                      <b>{{ present.illness }}</b>
+                    </label>
+                  </div>
+                </div>
 
-      <!-- Medical History -->
-      <div class="card p-4 mb-3" *ngIf="!updating3">
-        <h5 class="pb-2 color-dark-primary">
-          Medical History
-          <button
-            class="btn btn-transparent float-right large border"
-            (click)="updating3 = !updating3">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-          </button>
-        </h5>
-        <div *ngFor="let med of medHistory">
-          <h6 class="pb-2 color-dark-primary">
-            Present Illness
-            <button
-              class="btn btn-transparent float-right large border"
-              (click)="updating3 = !updating3">
-              <i class="fa fa-plus" aria-hidden="true"></i>
-            </button>
-          </h6>
-          <div class="form-group row">
-            <div class="col-sm-9">
-              <label for="" class="col-form-label"><b>{{
-                med.present_illness_description
-              }}
-              </b></label>
-            </div>
-          </div>
-          <!-- additional, duration of present illness -->
-          <div class="form-group row">
-            <label for="" class="col-sm-3 col-form-label">Duration</label>
-            <div class="col-sm-9 row">
-              <div class="col-sm-6">
-                <label for="" class="col-form-label">{{
-                  addEHistory.date_from
-                }}</label>
-              </div>
-              <div class="col-sm-6">
-                <label for="" class="col-form-label">{{
-                  addEHistory.date_to
-                }}</label>
-              </div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="" class="col-sm-3 col-form-label"
-              >Assigned Doctor</label
-            >
-            <div class="col-sm-9">
-              <label for="" class="col-form-label">{{
-                med.assigned_doctor_name
-              }}</label>
-            </div>
-          </div>
-           <!-- Additional, Medical History information -->
-          <div class="form-group row">
-            <label for="" class="col-sm-3 col-form-label"
-              >Information</label
-            >
-            <div class="col-sm-9">
-              <label for="" class="col-form-label">{{
-                med.history_information
-              }}</label>
-            </div>
-          </div>
+                <div class="form-group row">
+                  <label for="" class="col-sm-3 col-form-label">Duration</label>
+                  <div class="col-sm-9 row">
+                    <div class="col-sm-6">
+                      <label for="" class="col-form-label">
+                        <b>{{
+                          convertDate(present.duration_from)
+                            | date: 'MM-dd-yyyy'
+                        }}</b>
+                      </label>
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="" class="col-form-label">
+                        <b>{{
+                          convertDate(present.duration_to) | date: 'MM-dd-yyyy'
+                        }}</b>
+                      </label>
+                    </div>
+                  </div>
+                </div>
 
-          <h6 class="pb-2 color-dark-primary">
-            Past Illness
-            <button
-              class="btn btn-transparent float-right large border"
-              (click)="updating3 = !updating3">
-              <i class="fa fa-plus" aria-hidden="true"></i>
-            </button>
-          </h6>
-          <div class="form-group row">
-            <div class="col-sm-9">
-              <label for="" class="col-form-label"><b>{{
-                med.past_illness_description
-              }}
-              </b></label>
-            </div>
-          </div>
-          <!-- additional, duration of past illness -->
-          <div class="form-group row">
-            <label for="" class="col-sm-3 col-form-label">Duration</label>
-            <div class="col-sm-9 row">
-              <div class="col-sm-6">
-                <label for="" class="col-form-label">{{
-                  addEHistory.date_from
-                }}</label>
-              </div>
-              <div class="col-sm-6">
-                <label for="" class="col-form-label">{{
-                  addEHistory.date_to
-                }}</label>
+                <div class="form-group row">
+                  <label for="" class="col-sm-3 col-form-label"
+                    >Assigned Doctor</label
+                  >
+                  <div class="col-sm-9">
+                    <label for="" class="col-form-label">
+                      <a [routerLink]="['/doctor-list']">{{
+                        present.assigned_doctor_name
+                      }}</a>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="" class="col-sm-3 col-form-label"
+                    >Information</label
+                  >
+                  <div class="col-sm-9">
+                    <label for="" class="col-form-label">
+                      <b>{{ present.description }}</b>
+                    </label>
+                  </div>
+                </div>
+                <hr />
               </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="" class="col-sm-3 col-form-label"
-              >Assigned Doctor</label
-            >
-            <div class="col-sm-9">
-              <label for="" class="col-form-label">{{
-                med.assigned_doctor_name
-              }}</label>
-            </div>
-          </div>
-          <!-- Additional, Medical History information -->
-          <div class="form-group row">
-            <label for="" class="col-sm-3 col-form-label"
-              >Information</label
-            >
-            <div class="col-sm-9">
-              <label for="" class="col-form-label">{{
-                med.history_information
-              }}</label>
+
+            <!-- past illness -->
+            <div *ngSwitchCase="2">
+              <h3 *ngIf="pastIllness.length == 0" class="text-center mt-2">
+                No Record
+              </h3>
+              <div *ngFor="let past of pastIllness">
+                <div class="form-group row">
+                  <label for="" class="col-sm-3 col-form-label"
+                    >Past Illness</label
+                  >
+                  <div class="col-sm-9">
+                    <label for="" class="col-form-label">
+                      <b>{{ past.illness }}</b>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="" class="col-sm-3 col-form-label">Duration</label>
+                  <div class="col-sm-9 row">
+                    <div class="col-sm-6">
+                      <label for="" class="col-form-label">
+                        <b>{{
+                          convertDate(past.duration_from) | date: 'MM-dd-yyyy'
+                        }}</b>
+                      </label>
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="" class="col-form-label">
+                        <b>{{
+                          convertDate(past.duration_to) | date: 'MM-dd-yyyy'
+                        }}</b>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="" class="col-sm-3 col-form-label"
+                    >Assigned Doctor</label
+                  >
+                  <div class="col-sm-9">
+                    <label for="" class="col-form-label">
+                      <b>{{ past.assigned_doctor_name }}</b>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label for="" class="col-sm-3 col-form-label"
+                    >Information</label
+                  >
+                  <div class="col-sm-9">
+                    <label for="" class="col-form-label">
+                      <b>{{ past.description }}</b>
+                    </label>
+                  </div>
+                </div>
+                <hr />
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- ADD MODAL -->
+  <div>
+    <ng-template #content let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <h5 class="modal-title text-center">Add Medical History</h5>
+        <button
+          type="button"
+          class="close"
+          aria-label="Close"
+          (click)="c('Cross click')"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Type</label>
+          <div class="col-sm-9">
+            <select class="form-control" [(ngModel)]="medHistory.type">
+              <option value="present">
+                Present
+              </option>
+              <option value="past">
+                Past
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Illness</label>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="medHistory.illness"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Information</label>
+          <div class="col-sm-9">
+            <textarea
+              type="text"
+              class="form-control"
+              [(ngModel)]="medHistory.description"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Duration</label>
+          <div class="col-sm-9">
+            <div class="row p-0">
+              <div class="col-sm-6">
+                <div class="input-group datepicker-input">
+                  <input
+                    class="form-control"
+                    placeholder="From"
+                    name="dp"
+                    ngbDatepicker
+                    [(ngModel)]="medHistory.duration_from"
+                    #d1="ngbDatepicker"
+                    readonly
+                  />
+                  <button
+                    class="input-group-addon"
+                    (click)="d1.toggle()"
+                    type="button"
+                  >
+                    <span class="fa fa-calendar"></span>
+                  </button>
+                </div>
+              </div>
+              <div class="col-sm-6 form-group">
+                <div class="input-group datepicker-input">
+                  <input
+                    class="form-control"
+                    placeholder="To"
+                    name="dp"
+                    [(ngModel)]="medHistory.duration_to"
+                    ngbDatepicker
+                    #d2="ngbDatepicker"
+                    readonly
+                  />
+                  <button
+                    class="input-group-addon"
+                    (click)="d2.toggle()"
+                    type="button"
+                  >
+                    <span class="fa fa-calendar"></span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="" class="col-sm-3 col-form-label">Assigned Doctor</label>
+          <div class="col-sm-9">
+            <select class="form-control" [(ngModel)]="selectedDoctor">
+              <option *ngFor="let doctor of doctorList" [value]="doctor">
+                {{ doctor.doc_name }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="c('Close click')"
+        >
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" (click)="addMedHistory()">
+          Add
+        </button>
+      </div>
+    </ng-template>
   </div>
 </div>

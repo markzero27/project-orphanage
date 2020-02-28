@@ -6,6 +6,9 @@ import { ToastrService } from 'ngx-toastr';
 import { MedicineService } from 'src/app/services/medicine/medicine.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UsersService } from 'src/app/services/users/users.service';
+import { Doctor, initDoc } from 'src/app/models/doctor.model';
+import { DoctorService } from 'src/app/services/doctor/doctor.service';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-elders-details',
@@ -13,7 +16,9 @@ import { UsersService } from 'src/app/services/users/users.service';
   styleUrls: ['./elders-details.component.scss']
 })
 export class EldersDetailsComponent implements OnInit {
+  elderID;
   tab = 1;
+  illnessTab = 1;
   updating1 = false;
   updating2 = false;
   updating3 = false;
@@ -23,8 +28,14 @@ export class EldersDetailsComponent implements OnInit {
   sabbathDate: any;
 
   elder: Elders = JSON.parse(JSON.stringify(initialElder));
-  medHistory: MedicalHistory[] = [];
+  medHistory: MedicalHistory = JSON.parse(JSON.stringify(initalMedHistory));
+  presentIllness: MedicalHistory[] = [];
+  pastIllness: MedicalHistory[] = [];
+  selectedDoctor: Doctor = JSON.parse(JSON.stringify(initDoc));
+
   takenMeds = [];
+  doctorList: Doctor[] = [];
+
   loading = true;
 
   fileData: File = null;
@@ -39,25 +50,40 @@ export class EldersDetailsComponent implements OnInit {
     private medService: MedicineService,
     private toastr: ToastrService,
     public sanitizer: DomSanitizer,
-    private userService: UsersService
+    private userService: UsersService,
+    private doctorService: DoctorService,
+    private modalService: NgbModal
   ) {
     this.route.params.subscribe(params => {
       if (params.id) {
-        this.elderService.getElderById(params.id).subscribe((elder: any) => {
-          this.elder = elder;
-          this.elderService.getMedHistoryById(elder.id).subscribe((res: any[]) => {
-            this.medHistory = res;
-            console.log(this.medHistory);
-          });
-          this.medService.getTakenMedicine(this.elder.id).subscribe((med: any[]) => {
-            this.takenMeds = med;
-          });
-          this.initDates();
-          this.loading = false;
+        this.elderID = params.id;
+        this.init(this.elderID);
+
+        this.doctorService.getAllDoctors(0).subscribe(doctors => {
+          this.doctorList = doctors;
+          if (doctors[0]) {
+            this.selectedDoctor = doctors[0];
+          }
         });
+
       } else {
         router.navigate(['/elders']);
       }
+    });
+  }
+
+  init(id) {
+    this.elderService.getElderById(id).subscribe((elder: any) => {
+      this.elder = elder;
+      this.elderService.getMedHistoryById(elder.id).subscribe((res: any[]) => {
+        this.presentIllness = res.filter(data => data.type === 'present');
+        this.pastIllness = res.filter(data => data.type === 'past');
+      });
+      this.medService.getTakenMedicine(this.elder.id).subscribe((med: any[]) => {
+        this.takenMeds = med;
+      });
+      this.initDates();
+      this.loading = false;
     });
   }
 
@@ -130,9 +156,6 @@ export class EldersDetailsComponent implements OnInit {
 
   saveMed() {
     this.updating3 = false;
-    this.medHistory.forEach(med => {
-      this.elderService.updateMedicalHistory(med).subscribe();
-    });
     this.toastr.success('Saved!');
   }
 
@@ -158,17 +181,75 @@ export class EldersDetailsComponent implements OnInit {
   onSubmit() {
     return new Promise(resolve => {
       const formData = new FormData();
-      console.log('====================================');
-      console.log(this.fileData);
-      console.log('====================================');
       formData.append('image', this.fileData);
       this.userService.uploadImage(formData).subscribe((res: any) => {
-        console.log('====================================');
-        console.log(res.filePath);
-        console.log('====================================');
         resolve(`http://localhost:8000/storage/images/${res.filePath.substring(14)}`);
       });
     });
 
+  }
+
+  close() {
+    this.modalService.dismissAll();
+  }
+
+
+
+  open(content) {
+    this.modalService.open(content).result.then((result) => {
+      console.log(
+        `Closed with: ${result}`);
+    }, (reason) => {
+      console.log(
+        `Dismissed ${this.getDismissReason(reason)}`);
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  addMedHistory() {
+    if (this.medHistory.illness.trim() == '' || this.medHistory.description.trim() == '') {
+      return this.toastr.warning('Please input required fields');
+    }
+
+    if (this.medHistory.duration_to) {
+      const newDate = `${this.medHistory.duration_to.month}-${this.medHistory.duration_to.day}-${this.medHistory.duration_to.year}`;
+      this.medHistory.duration_to = new Date(newDate).toString();
+    } else {
+      return this.toastr.warning('Please input valid date');
+    }
+
+    if (this.medHistory.duration_from) {
+      const newDate = `${this.medHistory.duration_from.year}-${this.medHistory.duration_from.month}-${this.medHistory.duration_from.day}`;
+      this.medHistory.duration_from = new Date(newDate).toString();
+    } else {
+      return this.toastr.warning('Please input valid date');
+    }
+
+    this.medHistory.elder_id = this.elderID;
+
+    if (this.selectedDoctor) {
+      this.medHistory.assigned_doctor_id = this.selectedDoctor.id;
+      this.medHistory.assigned_doctor_name = this.selectedDoctor.doc_name;
+    }
+
+    this.elderService.addMedicalHistory(this.medHistory).subscribe(med => {
+      this.init(this.elderID);
+      this.close();
+      this.medHistory = JSON.parse(JSON.stringify(initalMedHistory));
+    });
+
+  }
+
+  convertDate(date) {
+    return new Date(date);
   }
 }

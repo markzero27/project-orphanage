@@ -195,31 +195,6 @@ export class MainDashboardComponent implements OnInit {
     }
   }
 
-  async getAllMedicines() {
-    this.medicineService.getAllMedicine(0).subscribe((list: Medicine[]) => {
-      this.medicineList = list;
-    });
-  }
-
-  addMedicine() {
-
-    if (this.medName.trim() == '') {
-      return this.addAlert('Please enter medicine name!');
-    }
-
-    if (this.quantity == 0 || this.quantity == null) {
-      return this.addAlert('Please enter valid quantity!');
-    }
-
-    if (!this.dateCreated) {
-      return this.addAlert('Please enter valid Date!');
-    }
-
-    this.clearModalFields();
-    this.close();
-
-  }
-
   addAlert(message) {
     const alert = {
       id: Math.random().toFixed(2),

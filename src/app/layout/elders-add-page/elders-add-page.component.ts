@@ -12,7 +12,6 @@ import { UsersService } from 'src/app/services/users/users.service';
 })
 export class EldersAddPageComponent implements OnInit {
   elder: Elders = JSON.parse(JSON.stringify(initialElder));
-  medHistory: MedicalHistory = JSON.parse(JSON.stringify(initalMedHistory));
   bDate: any;
   dateIn: any;
   sabbath: any;
@@ -52,9 +51,6 @@ export class EldersAddPageComponent implements OnInit {
     }
 
     this.elderService.addElder(this.elder).subscribe((data: Elders) => {
-      console.log(data);
-      this.medHistory.elder_id = data.id;
-      this.elderService.addMedicalHistory(this.medHistory).subscribe();
       this.toastr.success('Success!');
       this.clearAll();
       this.router.navigate(['/elders']);
@@ -69,9 +65,6 @@ export class EldersAddPageComponent implements OnInit {
     this.sabbath = null;
     this.elder = JSON.parse(JSON.stringify(initialElder));
   }
-
-
-
 
   fileProgress(fileInput: any) {
     this.fileData = <File>fileInput.target.files[0];

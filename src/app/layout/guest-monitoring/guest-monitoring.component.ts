@@ -90,7 +90,7 @@ export class GuestMonitoringComponent implements OnInit {
       return this.addAlert('Please enter guest name!');
     }
 
-    this.guest.time_in = new Date().toISOString();
+    this.guest.time_in = new Date().toString();
     this.guest.elder_id = this.selectedElder;
     const elder = this.elderList.find(data => data.id == this.selectedElder);
     this.guest.elder_name = `${elder.first_name} ${elder.last_name}`;
@@ -172,7 +172,7 @@ export class GuestMonitoringComponent implements OnInit {
   }
 
   timeOut(i) {
-    this.guestList[i].time_out = new Date().toISOString();
+    this.guestList[i].time_out = new Date().toString();
     this.guestService.updateGuest(this.guestList[i]).subscribe(async (res: any) => {
       this.guestList = await this.guestService.getAllGuests(0).toPromise() as Guest[];
       this.toastr.success('Guest updated!');
