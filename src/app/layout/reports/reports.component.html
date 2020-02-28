@@ -1,8 +1,7 @@
 <div class="top">
-  <h2 class="">
-    <small>Accomplishment Reports </small>
-  </h2>
+  <hr><h2 class="text-center">ACCOMPLISHMENT REPORT</h2>
 </div>
+
 <ul class="nav nav-tabs">
   <li class="nav-item" (click)="selectedType = 'daily'">
     <a
@@ -28,32 +27,6 @@
 <div [ngSwitch]="selectedType">
   <!-- Daily Accomplishments -->
   <div class=" mb-3 py-3" *ngSwitchCase="'daily'">
-    <div class="mb-3">
-      <input
-      type="search"
-      name=""
-      id=""
-      class="ml-3 rounded px-2 py-1"
-      placeholder="Search"
-      />
-      <button class="btn btn-info float-right mr-1">
-        Export as PDF
-      </button>
-      <button
-        class="btn btn-light float-right"
-        *ngIf="userRole != 0"
-        (click)="open(content)"
-      >
-        <i class="fa fa-plus" aria-hidden="true"></i>
-      </button>
-      <button class="btn btn-light float-right">
-        <i class="fa fa-sort" aria-hidden="true"></i>
-      </button>
-      <button class="btn btn-light float-right">
-        <i class="fa fa-filter" aria-hidden="true"></i>
-      </button>
-    </div>
-
     <!-- Accomplishment Reports, auto generated na yung mga task ng staff -->
     <table class="table table-striped">
       <thead class="bg-primary-color text-light">
@@ -61,20 +34,67 @@
           <th><input type="checkbox" /></th>
           <!-- <th>Task</th> -->
           <th>Date</th>
-          <th>Created By (for Admin view only)</th>
+          <th *ngIf="userRole == 0">Created By</th>
           <th>Problems Encountered</th>
           <!-- <th>Remarks</th> -->
           <th>Time-in</th>
           <th>Time-out</th>        
-          <th></th>
+          <th>
+            <button
+            class="btn btn-light float-right"
+            *ngIf="userRole != 0"
+            (click)="open(content)">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </button>
+          </th>
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td>
+            <i class="fa fa-filter" aria-hidden="true"></i>
+          </td>
+          <td>
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td *ngIf="userRole == 0">
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td>
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td>
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td>
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-info float-right mr-1">
+              Export as PDF
+            </button>
+          </td>
+        </tr>
         <tr *ngFor="let acc of accList; let i = index">
           <th><input type="checkbox" /></th>
           <!-- <td>{{ acc.task_description }}</td> -->
           <td>{{ acc.updated_at }}</td>
-          <td>{{ acc.submitted_by[1] }}</td>
+          <td *ngIf="userRole == 0">{{ acc.submitted_by[1] }}</td>
           <td>{{ acc.problems_encountered }}</td>
           <!-- <td>{{ acc.remarks }}</td>-->
           <td>{{ formatTime(acc.time_in) | date: 'hh:mm a' }}</td>
@@ -263,21 +283,13 @@
   <!-- Reports -->
   <div class=" mb-3 py-3" *ngSwitchCase="'report'">
     <div class="mb-3">
-      <input
-      type="search"
-      name=""
-      id=""
-      class="ml-3 rounded px-2 py-1"
-      placeholder="Search"
-      />
+      <button
+      class="btn bg-transparent float-right"
+      (click)="open(weekview)">
+      <i class="fa fa-cog ml-3" aria-hidden="true"></i>
+    </button>
       <button class="btn btn-info float-right mr-1">
         Export as PDF
-      </button>
-      <button class="btn btn-light float-right">
-        <i class="fa fa-sort" aria-hidden="true"></i>
-      </button>
-      <button class="btn btn-light float-right">
-        <i class="fa fa-filter" aria-hidden="true"></i>
       </button>
     </div>
     <table class="table table-striped">
@@ -285,33 +297,64 @@
         <tr>
           <th><input type="checkbox" /></th>
           <th>Date</th>
-          <th>Created By (for Admin view only)</th>
+          <th *ngIf="userRole == 0">Created By</th>
           <th>Problems Encountered</th>
           <th>Remarks</th>
           <th>Time-in</th>
           <th>Time-out</th>        
-          <th class="text-center">
-            <button
-              class="btn bg-transparent"
-              (click)="open(weekview)"
-            >
-              <i class="fa fa-cog ml-3" aria-hidden="true"></i>
-            </button>
-          </th> 
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td>
+            <i class="fa fa-filter" aria-hidden="true"></i>
+          </td>
+          <td>
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td *ngIf="userRole == 0">
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td>
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td>
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td>
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td>
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
         <tr *ngFor="let acc of accList; let i = index">
           <th><input type="checkbox" /></th>
           <td>{{ acc.updated_at }}</td>
-          <td>{{ acc.submitted_by[1] }}</td>
+          <td *ngIf="userRole == 0">{{ acc.submitted_by[1] }}</td>
           <td>{{ acc.problems_encountered }}</td>
           <td>{{ acc.remarks }}</td>
           <td>{{ formatTime(acc.time_in) | date: 'hh:mm a' }}</td>
           <td>{{ formatTime(acc.time_out) | date: 'hh:mm a' }}</td>
           <!-- button for view of the full report -->
-          <td class="text-center">
-          </td>
         </tr>
         <tr *ngIf="accList.length == 0">
           <td class="text-center p-3" colspan="13">No Record</td>
@@ -323,21 +366,13 @@
   <!-- Tasks -->
   <div class=" mb-3 py-3" *ngSwitchCase="'task'">
     <div class="mb-3">
-      <input
-      type="search"
-      name=""
-      id=""
-      class="ml-3 rounded px-2 py-1"
-      placeholder="Search"
-      />
+      <button
+      class="btn bg-transparent float-right"
+      (click)="open(weekview)">
+      <i class="fa fa-cog ml-3" aria-hidden="true"></i>
+    </button>
       <button class="btn btn-info float-right mr-1">
         Export as PDF
-      </button>
-      <button class="btn btn-light float-right">
-        <i class="fa fa-sort" aria-hidden="true"></i>
-      </button>
-      <button class="btn btn-light float-right">
-        <i class="fa fa-filter" aria-hidden="true"></i>
       </button>
     </div>
     <table class="table table-striped">
@@ -345,58 +380,91 @@
         <tr>
           <th><input type="checkbox" /></th>
           <th>Date</th>
-          <th>Assigned Staff (for Admin view only)</th>
+          <th *ngIf="userRole == 0">Assigned Staff</th>
           <th>Elders Name</th>
           <th>Medicine Description</th>
           <th>Quantity</th>
           <th>Time</th>
           <th>Status</th>
-          <th class="text-center">
-            <button
-              class="btn bg-transparent"
-              (click)="open(weekview)"
-            >
-              <i class="fa fa-cog ml-3" aria-hidden="true"></i>
-            </button>
-          </th> 
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td>
+            <i class="fa fa-filter" aria-hidden="true"></i>
+          </td>
+          <td>
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td *ngIf="userRole == 0">
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td>
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td>
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td>
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 80px;"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td>
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 80px;"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+          <td>
+            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 80px;"/>
+            <button class="btn btn-light float-right">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
         <tr *ngFor="let acc of accList; let i = index">
           <th><input type="checkbox" /></th>
           <td>2020-02-21</td>
-          <td>Jhen Fernando</td>
+          <td *ngIf="userRole == 0">Jhen Fernando</td>
           <td>Nathalie Tamayo</td>
           <td><p>Yeash</p> Aminosol</td>
           <td><p>1</p> 2</td>
           <td><p>5pm</p> 6pm</td>
           <td><p>Done</p> Done</td>
-          <!-- button for view of the full report -->
-          <td class="text-center"></td>
         </tr>
         <tr *ngFor="let acc of accList; let i = index">
           <th><input type="checkbox" /></th>
           <td>2020-02-21</td>
-          <td>Faith Santiago</td>
+          <td *ngIf="userRole == 0">Faith Santiago</td>
           <td><p> Nathalie Tamayo </p><p>Sai Ramirez</p></td>
           <td><p>Yeash</p> <p> Aminosol </p><p>Vitamins</p></td>
           <td><p>1</p> <p>2</p><p>1</p></td>
           <td><p>5pm</p> <p> 6pm</p> <p>5pm</p></td>
           <td><p>Done</p> <p>Refuse </p> <p>Done</p></td>
-          <!-- button for view of the full report -->
-          <td class="text-center"></td>
         </tr>
         <tr *ngFor="let acc of accList; let i = index">
           <th><input type="checkbox" /></th>
           <td>2020-02-21</td>
-          <td>Nao Fu</td>
+          <td *ngIf="userRole == 0">Nao Fu</td>
           <td>Jane Tamayo</td>
           <td><p>Yeash</p> Aminosol</td>
           <td><p>1</p> 2</td>
           <td><p>5pm</p> 6pm</td>
           <td><p>Refuse</p> Done</td>
-          <!-- button for view of the full report -->
-          <td class="text-center"></td>
         </tr>
         <tr *ngIf="accList.length == 0">
           <td class="text-center p-3" colspan="13">No Record</td>

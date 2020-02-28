@@ -1,25 +1,9 @@
 <div class="top">
-  <h2 class="">
-    <small>Doctor List</small>
-  </h2>
-</div>
-<div class="card-header pt-3" *ngIf="userRole == 0">
-  <input
-    type="search"
-    name=""
-    id=""
-    class="ml-3 rounded px-2 py-1"
-    placeholder="Search"
-  />
-  <button class="btn btn-light float-right" (click)="open(content)">
-    <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
-  </button>
-  <button class="btn btn-light float-right">
-    <i class="fa fa-sort" aria-hidden="true"></i> Sort
-  </button>
-  <button class="btn btn-light float-right">
-    <i class="fa fa-filter" aria-hidden="true"></i> Filter
-  </button>
+  <hr><h2 class="text-center">DOCTOR LIST
+    <button class="btn btn-light float-right"
+    (click)="open(content)" *ngIf="userRole == 0">
+    <i class="fa fa-plus mr-2" aria-hidden="true" *ngIf="userRole == 0"></i> Add
+  </button></h2><hr>
 </div>
 <div class="card mb-3">
   <table class="table table-striped">
@@ -37,6 +21,46 @@
       </tr>
     </thead>
     <tbody>
+      <tr>
+        <td>
+          <i class="fa fa-filter" aria-hidden="true"></i>
+        </td>
+        <td>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td *ngIf="userRole == 0">
+          <button class="btn btn-info float-right mr-1">
+            Export as PDF
+          </button>
+        </td>
+      </tr>
       <tr *ngIf="doctorList.length == 0">
         <td class="text-center p-3" colspan="13">No Record</td>
       </tr>
@@ -47,7 +71,6 @@
         <td>{{ doctor.schedules }}</td>
         <td>{{ doctor.specialization }}</td>
         <td>{{ doctor.updated_at }}</td>
-
         <td *ngIf="userRole == 0">
           <button class="btn bg-transparent">
             <i class="fa fa-cog ml-3" aria-hidden="true"></i>
@@ -59,7 +82,6 @@
 </div>
 
 <!-- add modal -->
-
 <div>
   <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
@@ -68,8 +90,7 @@
         type="button"
         class="close"
         aria-label="Close"
-        (click)="c('Cross click')"
-      >
+        (click)="c('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
     </div>

@@ -1,32 +1,9 @@
 <div class="top">
-  <h2 class="">
-    <small>Staff</small>
-  </h2>
-</div>
-<div class="card-header pt-3">
-  <input
-    type="text"
-    name=""
-    id=""
-    ng-model="search"
-    class="ml-3 rounded px-2 py-1"
-    placeholder="Search"
-  />
-  <button class="btn btn-info float-right mr-1">
-    Export as PDF
-  </button>
-  <button
-    class="btn btn-light float-right"
-    (click)="router.navigate(['/staff/add'])"
-  >
+  <hr><h2 class="text-center">STAFF
+    <button class="btn btn-light float-right"
+    (click)="router.navigate(['/staff/add'])">
     <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
-  </button>
-  <button class="btn btn-light float-right">
-    <i class="fa fa-sort" aria-hidden="true"></i> Sort
-  </button>
-  <button class="btn btn-light float-right">
-    <i class="fa fa-filter" aria-hidden="true"></i> Filter
-  </button>
+  </button></h2><hr>
 </div>
 <div class="card mb-3">
   <table class="table table-striped">
@@ -39,28 +16,65 @@
         <th>Date Hired</th>
         <th>Status</th>
         <th class="text-center">
-           <button
-              class="btn bg-transparent"
-              (click)="router.navigate(['/staff/details', { id: staff.id }])"
-            >
+          <button class="btn bg-transparent" (click)="open(setting)">
             <i class="fa fa-cog ml-3" aria-hidden="true"></i>
           </button>
         </th>
       </tr>
     </thead>
     <tbody>
+      <tr>
+        <td>
+          <i class="fa fa-filter" aria-hidden="true"></i>
+        </td>
+        <td>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 60px;"/>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td>
+          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 100px;"/>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-info float-right mr-1">
+            Export as PDF
+          </button>
+        </td>
+      </tr>
       <tr *ngFor="let staff of staffList" ng-repeat="post in posts | Filter">
         <th><input type="checkbox" /></th>
         <th scope="row">{{ staff.first_name }} {{ staff.last_name }}</th>
-        <td>{{ staff.role }}</td>
-        <td>{{ staff.email }}</td>
-        <td>{{ staff.date_hired }}</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ staff.role }}</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ staff.email }}</td>
+        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ staff.date_hired }}</td>
         <td
           [ngClass]="{
             'text-danger': staff.status == 0,
             'text-success': staff.status == 1
           }"
-        >
+        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           {{ staff.status == 0 ? 'Inactive' : 'Active' }}
         </td>
 
@@ -78,6 +92,101 @@
       </tr>
     </tbody>
   </table>
+</div>
+
+<!-- Settings -->
+<div>
+  <ng-template #setting let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h5 class="modal-title text-center">Settings</h5>
+      <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="c('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <fieldset class="form-group">
+        <div class="d-flex justify-content-between ">
+          <div class="px-1 border-right">
+            <ul style="list-style: none;">
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Name</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Age</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Birthday</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Birth Place</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Sabbath</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Provincial Address</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Civil Status</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Gender</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Date Affiliated</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Bed No.</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Nationality</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Provincial Address</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Phil Health ID</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>SSS ID</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Senior Citizen ID</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Pagibig ID</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Status</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </fieldset>
+      <hr />
+    </div>
+  </ng-template>
 </div>
 
 <div>

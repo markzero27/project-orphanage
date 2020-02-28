@@ -1,5 +1,9 @@
 <div class="top">
-  <hr><h2 class="text-center">ELDERS</h2><hr>
+  <hr><h2 class="text-center">ELDERS
+    <button class="btn btn-light float-right"
+    (click)="router.navigate(['/elders/add'])">
+    <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
+  </button></h2><hr>
 </div>
 <div class="card mb-3">
   <table class="table table-striped">
@@ -12,8 +16,7 @@
         <th>Date Affiliated</th>
         <th>Status</th>
         <th class="text-center">
-          <button class="btn bg-transparent" 
-          (click)="open(setting)">
+          <button class="btn bg-transparent" (click)="open(setting)">
             <i class="fa fa-cog ml-3" aria-hidden="true"></i>
           </button>
         </th>
@@ -73,7 +76,7 @@
         <td class="text-center">
           <button
             class="btn bg-transparent"
-            (click)="router.navigate(['/elders/details', { id: elder.id }])"
+           (click)="router.navigate(['/elders/details', { id: elder.id }])"
           >
             <i class="fa fa-user ml-3" aria-hidden="true"></i>
           </button>
@@ -88,20 +91,108 @@
   <ng-template #setting let-c="close" let-d="dismiss">
     <div class="modal-header">
       <h5 class="modal-title text-center">Settings</h5>
+      <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="c('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
     <div class="modal-body">
       <fieldset class="form-group">
         <div class="d-flex justify-content-between ">
-          <div class="text-center px-3 border-right">
-            <input type="checkbox"/>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp; Name</span>
-          </div>
-          <div class="text-center px-3 border-right">
-            <input type="checkbox"> &nbsp;&nbsp;&nbsp;&nbsp; Nickname </input>
-          </div>
-          <div class="text-center px-3 border-right">
-            <input type="checkbox"/>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp; Age</span>
+          <div class="px-1 border-right">
+            <ul style="list-style: none;">
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Name</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Nickname</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Age</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Birthday</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Birth Place</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Sabbath</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Provincial Address</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Civil Status</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Gender</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Date Affiliated</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Bed No.</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Nationality</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Provincial Address</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Contact Person</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Contact Number</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Relationship</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Provincial Address</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Phil Health ID</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>SSS ID</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Senior Citizen ID</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Pagibig ID</span>
+              </li>
+              <li>
+                <input type="checkbox" class="mr-2" />
+                  <span>Status</span>
+              </li>
+            </ul>
           </div>
         </div>
       </fieldset>
