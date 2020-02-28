@@ -1,16 +1,14 @@
 <div class="top">
   <hr><h2 class="text-center">GUEST MONITORING
+    <button class="btn btn-info float-right mr-1">
+      Export as PDF
+    </button>
     <button class="btn btn-light float-right"
     (click)="open(content)">
-    <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
-  </button></h2><hr>
-</div>
+      <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
+    </button>
+  </h2><hr>
 
-<div class="card-header pt-3">
-  <button class="btn btn-info float-right mr-1">
-    Export as PDF
-  </button>
-</div>
 <table class="table table-striped">
   <thead class="bg-primary-color text-light">
     <tr>
@@ -98,14 +96,7 @@
       <td>{{ guest.elder_name }}</td>
       <td>{{ guest.relationship_description }}</td>
       <td>{{ formatTime(guest.time_in) | date: 'hh:mm a' }}</td>
-      <!-- auto time-in na sya one na nagfillup ng form -->
-      <td *ngIf="guest.time_out">
-        {{ formatTime(guest.time_out) | date: 'hh:mm a' }}
-      </td>
-      <td *ngIf="!guest.time_out" (click)="timeOut(i)">
-        <button class="btn btn-primary">Time out</button>
-      </td>
-      <!-- button na lng yung time-out, di sya required sa form na m -->
+      <td>{{ formatTime(guest.time_out) | date: 'hh:mm a' }}</td>
       <td>{{ guest.created_at }}</td>
       <td>
         <button
@@ -116,7 +107,6 @@
         </button>
       </td>
     </tr>
-
     <tr *ngIf="guestList.length == 0">
       <td class="text-center p-3" colspan="13">No Record</td>
     </tr>
@@ -138,8 +128,8 @@
       </button>
     </div>
     <div class="modal-body">
-      <!-- <fieldset class="form-group">
-        <div class="d-flex justify-content-center ">
+      <fieldset class="form-group">
+        <div class="d-flex justify-content-between ">
           <div class="text-center px-3 border-right">
             Time In
             <ngb-timepicker
@@ -156,7 +146,7 @@
           </div>
         </div>
       </fieldset>
-      <hr /> -->
+      <hr />
       <fieldset class="form-group">
         <label>Name</label>
         <input
@@ -198,7 +188,6 @@
           </select>
         </div>
       </fieldset>
-
       <fieldset class="form-group">
         <label>Relationship</label>
         <div class="form-group">
@@ -255,7 +244,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <!-- <fieldset class="form-group">
+      <fieldset class="form-group">
         <div class="d-flex justify-content-between ">
           <div class="text-center px-3 border-right">
             Time In
@@ -273,7 +262,7 @@
           </div>
         </div>
       </fieldset>
-      <hr /> -->
+      <hr />
       <fieldset class="form-group">
         <label>Name</label>
         <input
@@ -341,6 +330,7 @@
         }}</ngb-alert>
       </p>
     </div>
+
     <div class="modal-footer">
       <button
         type="button"
@@ -351,38 +341,6 @@
       </button>
       <button type="button" class="btn btn-primary" (click)="updateGuest()">
         Update
-      </button>
-    </div>
-  </ng-template>
-</div>
-
-<!-- Delete modal -->
-<div>
-  <ng-template #content3 let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h5 class="modal-title text-center">Delete Record</h5>
-      <button
-        type="button"
-        class="close"
-        aria-label="Close"
-        (click)="c('Cross click')"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p>Are you sure you want to delete this record?</p>
-    </div>
-    <div class="modal-footer">
-      <button
-        type="button"
-        class="btn btn-secondary"
-        (click)="c('Close click')"
-      >
-        Cancel
-      </button>
-      <button type="button" class="btn btn-primary" (click)="deleteGuest()">
-        Delete
       </button>
     </div>
   </ng-template>
