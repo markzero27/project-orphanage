@@ -52,6 +52,37 @@
             <input
               type="search"
               class="border-0 w-100 rounded px-2 py-1"
+              [(ngModel)]="name"
+              (keyup)="filter()"
+            />
+          </div>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </div>
+      </td>
+      <td>
+        <div class="d-flex border border-secondary rounded">
+          <div class="flex-1">
+            <input
+              type="search"
+              class="border-0 w-100 rounded px-2 py-1"
+              [(ngModel)]="contact"
+              (keyup)="filter()"
+            />
+          </div>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </div>
+      </td>
+      <td>
+        <div class="d-flex border border-secondary rounded">
+          <div class="flex-1">
+            <input
+              type="search"
+              class="border-0 w-100 rounded px-2 py-1"
+              [(ngModel)]="address"
               (keyup)="filter()"
             />
           </div>
@@ -67,6 +98,7 @@
               type="search"
               class="border-0 w-100 rounded px-2 py-1"
               (keyup)="filter()"
+              [(ngModel)]="visited"
             />
           </div>
           <button class="btn btn-light float-right">
@@ -81,6 +113,7 @@
               type="search"
               class="border-0 w-100 rounded px-2 py-1"
               (keyup)="filter()"
+              [(ngModel)]="relationship"
             />
           </div>
           <button class="btn btn-light float-right">
@@ -95,6 +128,8 @@
               type="search"
               class="border-0 w-100 rounded px-2 py-1"
               (keyup)="filter()"
+              [(ngModel)]="in"
+              disabled
             />
           </div>
           <button class="btn btn-light float-right">
@@ -109,6 +144,8 @@
               type="search"
               class="border-0 w-100 rounded px-2 py-1"
               (keyup)="filter()"
+              [(ngModel)]="out"
+              disabled
             />
           </div>
           <button class="btn btn-light float-right">
@@ -123,34 +160,7 @@
               type="search"
               class="border-0 w-100 rounded px-2 py-1"
               (keyup)="filter()"
-            />
-          </div>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
-        </div>
-      </td>
-      <td>
-        <div class="d-flex border border-secondary rounded">
-          <div class="flex-1">
-            <input
-              type="search"
-              class="border-0 w-100 rounded px-2 py-1"
-              (keyup)="filter()"
-            />
-          </div>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
-        </div>
-      </td>
-      <td>
-        <div class="d-flex border border-secondary rounded">
-          <div class="flex-1">
-            <input
-              type="search"
-              class="border-0 w-100 rounded px-2 py-1"
-              (keyup)="filter()"
+              [(ngModel)]="date"
             />
           </div>
           <button class="btn btn-light float-right">
@@ -177,7 +187,7 @@
         <button class="btn btn-primary">Time out</button>
       </td>
       <!-- button na lng yung time-out, di sya required sa form na m -->
-      <td>{{ formatTime(guest.created_at) | date: 'MM dd yyyy' }}</td>
+      <td>{{ formatTime(guest.created_at) | date: 'yyyy-MM-dd' }}</td>
       <td>
         <button
           class="btn bg-transparent"

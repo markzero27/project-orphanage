@@ -15,8 +15,9 @@ export class GuestMonitoringComponent implements OnInit {
   elderList: Elders[] = [];
   guestList: Guest[] = [];
   selectedElder = 1;
-  selectedGuest: Guest = JSON.parse(JSON.stringify(initialGuests)); rawguestList: any;
+  selectedGuest: Guest = JSON.parse(JSON.stringify(initialGuests));
 
+  rawguestList: Guest[] = [];
   closeResult: string;
   alerts: Array<any> = [];
   time_in: any;
@@ -26,6 +27,7 @@ export class GuestMonitoringComponent implements OnInit {
   deleteId = 0;
 
   // filter variables
+  index = '';
   name = '';
   contact = '';
   address = '';
@@ -48,6 +50,7 @@ export class GuestMonitoringComponent implements OnInit {
   ngOnInit() {
     this.guestService.getAllGuests(0).subscribe((guests: Guest[]) => {
       this.guestList = guests;
+      this.rawguestList = guests;
     });
 
     this.elderService.getAllElders('elders', 0).subscribe((elders: any[]) => {
@@ -194,57 +197,100 @@ export class GuestMonitoringComponent implements OnInit {
   filter() {
     let guest = this.rawguestList;
 
+    if (this.index != '') {
+      guest = guest[this.index];
+    }
+
     if (this.name != '') {
-      guest = guest.filter(stff => {
-        const name = `${stff.first_name} ${stff.last_name}`;
-        if (name.includes(this.name)) {
+      guest = guest.filter(gs => {
+        if (gs.guest_name.includes(this.name)) {
           return true;
         }
         return false;
       });
     }
 
-    if (this.role != '') {
-      guest = guest.filter(stff => {
-        if (+this.role == stff.role) {
+    if (this.contact != '') {
+      guest = guest.filter(gs => {
+        if (gs.contact_no.includes(this.contact)) {
+
           return true;
         }
         return false;
       });
     }
 
-    if (this.email != '') {
-      guest = guest.filter(stff => {
-        if (this.email == stff.email) {
+    if (this.address != '') {
+      guest = guest.filter(gs => {
+        if (gs.address.includes(this.address)) {
           return true;
         }
         return false;
       });
     }
 
-    if (this.date_hired != '') {
-      guest = guest.filter(stff => {
-        const dateAff = new Date(this.date_hired).getTime();
-        const stffAff = new Date(stff.date_hired).getTime();
+    if (this.in != '') {
+      guest = guest.filter(gs => {
+        const dateAff = new Date(this.in).getTime();
+        const gsAff = new Date(gs.time_in).getTime();
 
-        if (dateAff == stffAff) {
+        if (dateAff == gsAff) {
           return true;
         }
         return false;
       });
     }
 
-    if (this.status != '') {
-      guest = guest.filter(stff => {
+    if (this.out != '') {
+      guest = guest.filter(gs => {
+        const dateAff = new Date(this.out).getTime();
+        const gsAff = new Date(gs.time_out).getTime();
 
-        if (+this.status == stff.status) {
+        if (dateAff == gsAff) {
           return true;
         }
         return false;
       });
     }
 
-    console.log(guest);
+    if (this.date != '') {
+      console.log('asd');
+
+      guest = guest.filter(gs => {
+        const date = new Date(this.date);
+        const dateCreate = new Date(gs.created_at);
+        const newDate1 = `${dateCreate.getFullYear()}-${(dateCreate.getMonth() + 1)}-${dateCreate.getDate()}`;
+        const newDate2 = `${date.getFullYear()}-${(date.getMonth() + 1)}-${date.getDate()}`;
+
+
+        console.log(newDate1, newDate2);
+
+        if (newDate1 == newDate2) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    if (this.visited != '') {
+      guest = guest.filter(gs => {
+
+        if (gs.elder_name.includes(this.visited)) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+
+    if (this.relationship != '') {
+      guest = guest.filter(gs => {
+        if (gs.relationship_description.toLowerCase().includes(this.relationship.toLowerCase())) {
+          return true;
+        }
+        return false;
+      });
+    }
 
     this.guestList = guest;
 
