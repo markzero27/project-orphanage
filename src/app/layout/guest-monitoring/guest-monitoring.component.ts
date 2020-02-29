@@ -33,7 +33,7 @@ export class GuestMonitoringComponent implements OnInit {
   address = '';
   visited = '';
   relationship = '';
-  order = '';
+  order = 'asc';
   in = '';
   out = '';
   date = '';

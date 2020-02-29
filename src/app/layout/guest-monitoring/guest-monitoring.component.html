@@ -32,20 +32,7 @@
       <td>
         <i class="fa fa-filter" aria-hidden="true"></i>
       </td>
-      <td>
-        <div class="d-flex border border-secondary rounded">
-          <div class="flex-1">
-            <input
-              type="search"
-              class="border-0 w-100 rounded px-2 py-1"
-              (keyup)="filter()"
-            />
-          </div>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
-        </div>
-      </td>
+      <td></td>
       <td>
         <div class="d-flex border border-secondary rounded">
           <div class="flex-1">
@@ -56,7 +43,7 @@
               (keyup)="filter()"
             />
           </div>
-          <button class="btn btn-light float-right">
+          <button class="btn btn-light" (click)="sort('guest_name')">
             <i class="fa fa-sort" aria-hidden="true"></i>
           </button>
         </div>
@@ -71,7 +58,7 @@
               (keyup)="filter()"
             />
           </div>
-          <button class="btn btn-light float-right">
+          <button class="btn btn-light" (click)="sort('contact_no')">
             <i class="fa fa-sort" aria-hidden="true"></i>
           </button>
         </div>
@@ -86,7 +73,7 @@
               (keyup)="filter()"
             />
           </div>
-          <button class="btn btn-light float-right">
+          <button class="btn btn-light" (click)="sort('address')">
             <i class="fa fa-sort" aria-hidden="true"></i>
           </button>
         </div>
@@ -101,7 +88,7 @@
               [(ngModel)]="visited"
             />
           </div>
-          <button class="btn btn-light float-right">
+          <button class="btn btn-light" (click)="sort('elder_name')">
             <i class="fa fa-sort" aria-hidden="true"></i>
           </button>
         </div>
@@ -116,7 +103,7 @@
               [(ngModel)]="relationship"
             />
           </div>
-          <button class="btn btn-light float-right">
+          <button class="btn btn-light" (click)="sort('relationship')">
             <i class="fa fa-sort" aria-hidden="true"></i>
           </button>
         </div>
@@ -132,7 +119,7 @@
               disabled
             />
           </div>
-          <button class="btn btn-light float-right">
+          <button class="btn btn-light" (click)="sort('time_in')">
             <i class="fa fa-sort" aria-hidden="true"></i>
           </button>
         </div>
@@ -148,7 +135,7 @@
               disabled
             />
           </div>
-          <button class="btn btn-light float-right">
+          <button class="btn btn-light" (click)="sort('time_out')">
             <i class="fa fa-sort" aria-hidden="true"></i>
           </button>
         </div>
@@ -163,7 +150,7 @@
               [(ngModel)]="date"
             />
           </div>
-          <button class="btn btn-light float-right">
+          <button class="btn btn-light" (click)="sort('created_at')">
             <i class="fa fa-sort" aria-hidden="true"></i>
           </button>
         </div>
