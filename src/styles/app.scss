@@ -24,3 +24,8 @@
     background-color: #2D7DAC;
     color: white;
 }
+
+input:focus,
+button:focus {
+    outline: none;
+}

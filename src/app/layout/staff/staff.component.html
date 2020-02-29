@@ -1,21 +1,27 @@
 <div class="top">
-  <hr><h2 class="text-center">STAFF
-    <button class="btn btn-light float-right"
-    (click)="router.navigate(['/staff/add'])">
-    <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
-  </button></h2><hr>
+  <hr />
+  <h2 class="text-center">
+    STAFF
+    <button
+      class="btn btn-light float-right"
+      (click)="router.navigate(['/staff/add'])"
+    >
+      <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
+    </button>
+  </h2>
+  <hr />
 </div>
 <div class="card mb-3">
   <table class="table table-striped">
     <thead class="bg-primary-color text-light">
       <tr>
         <th><input type="checkbox" /></th>
-        <th>Name</th>
-        <th>User Role</th>
-        <th>Email</th>
-        <th>Date Hired</th>
-        <th>Status</th>
-        <th class="text-center">
+        <th class="text-center">Name</th>
+        <th class="text-center">User Role</th>
+        <th class="text-center">Email</th>
+        <th class="text-center">Date Hired</th>
+        <th class="text-center">Status</th>
+        <th class="text-center" class="text-center">
           <button class="btn bg-transparent" (click)="open(setting)">
             <i class="fa fa-cog ml-3" aria-hidden="true"></i>
           </button>
@@ -28,53 +34,108 @@
           <i class="fa fa-filter" aria-hidden="true"></i>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
+          <div class="d-flex border border-secondary rounded bg-white">
+            <div class="flex-1">
+              <input
+                type="search"
+                class="border-0 w-100 rounded px-2 py-1"
+                (keyup)="filter()"
+                [(ngModel)]="name"
+              />
+            </div>
+            <button class="btn btn-light ">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </div>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 60px;"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
+          <div class="d-flex border border-secondary rounded bg-white">
+            <div class="flex-1">
+              <select
+                class="w-100 border-0 h-100"
+                [(ngModel)]="role"
+                (change)="filter()"
+              >
+                <option value=""></option>
+                <option value="0">Admin</option>
+                <option value="1">Medical Staff</option>
+                <option value="2">Staff</option>
+              </select>
+            </div>
+            <button class="btn btn-light ">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </div>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
+          <div class="d-flex border border-secondary rounded bg-white">
+            <div class="flex-1">
+              <input
+                type="search"
+                class="border-0 w-100 rounded px-2 py-1"
+                (keyup)="filter()"
+                [(ngModel)]="email"
+              />
+            </div>
+            <button class="btn btn-light ">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </div>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
+          <div class="d-flex border border-secondary rounded bg-white">
+            <div class="flex-1">
+              <input
+                type="search"
+                class="border-0 w-100 rounded px-2 py-1"
+                (keyup)="filter()"
+                [(ngModel)]="date_hired"
+              />
+            </div>
+            <button class="btn btn-light ">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </div>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 100px;"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
+          <div class="d-flex border border-secondary rounded bg-white">
+            <div class="flex-1">
+              <select
+                class="w-100 border-0 h-100"
+                [(ngModel)]="status"
+                (change)="filter()"
+              >
+                <option value=""></option>
+                <option value="0">Inactive</option>
+                <option value="1">Active</option>
+              </select>
+            </div>
+            <button class="btn btn-light ">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </div>
         </td>
         <td>
-          <button class="btn btn-info float-right mr-1">
+          <button class="btn btn-info  mr-1">
             Export as PDF
           </button>
         </td>
       </tr>
       <tr *ngFor="let staff of staffList" ng-repeat="post in posts | Filter">
-        <th><input type="checkbox" /></th>
-        <th scope="row">{{ staff.first_name }} {{ staff.last_name }}</th>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ staff.role }}</td>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ staff.email }}</td>
-        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ staff.date_hired }}</td>
+        <td><input type="checkbox" /></td>
+        <td class="text-center">
+          {{ staff.first_name }} {{ staff.last_name }}
+        </td>
+        <td class="text-center">{{ getRole(staff.role) }}</td>
+        <td class="text-center">{{ staff.email }}</td>
+        <td class="text-center">{{ staff.date_hired }}</td>
         <td
+          class="text-center"
           [ngClass]="{
             'text-danger': staff.status == 0,
             'text-success': staff.status == 1
           }"
-        >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        >
           {{ staff.status == 0 ? 'Inactive' : 'Active' }}
         </td>
 
@@ -100,85 +161,88 @@
     <div class="modal-header">
       <h5 class="modal-title text-center">Settings</h5>
       <button
-      type="button"
-      class="close"
-      aria-label="Close"
-      (click)="c('Cross click')">
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="c('Cross click')"
+      >
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
     <div class="modal-body">
       <fieldset class="form-group">
-        <div class="d-flex justify-content-between ">
+        <div
+          class="d-flex border border-secondary rounded bg-white justify-content-between "
+        >
           <div class="px-1 border-right">
             <ul style="list-style: none;">
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Name</span>
+                <span>Name</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Age</span>
+                <span>Age</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Birthday</span>
+                <span>Birthday</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Birth Place</span>
+                <span>Birth Place</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Sabbath</span>
+                <span>Sabbath</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Provincial Address</span>
+                <span>Provincial Address</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Civil Status</span>
+                <span>Civil Status</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Gender</span>
+                <span>Gender</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Date Affiliated</span>
+                <span>Date Affiliated</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Bed No.</span>
+                <span>Bed No.</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Nationality</span>
+                <span>Nationality</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Provincial Address</span>
+                <span>Provincial Address</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Phil Health ID</span>
+                <span>Phil Health ID</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>SSS ID</span>
+                <span>SSS ID</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Senior Citizen ID</span>
+                <span>Senior Citizen ID</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Pagibig ID</span>
+                <span>Pagibig ID</span>
               </li>
               <li>
                 <input type="checkbox" class="mr-2" />
-                  <span>Status</span>
+                <span>Status</span>
               </li>
             </ul>
           </div>
