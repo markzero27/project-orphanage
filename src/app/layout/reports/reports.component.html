@@ -369,8 +369,8 @@
           <td *ngIf="userRole == 0">{{ acc.submitted_by[1] }}</td>
           <td>{{ acc.problems_encountered }}</td>
           <td>{{ acc.remarks }}</td>
-          <td>{{ formatTime(acc.time_in) | date: 'hh:mm a' }}</td>
-          <td>{{ formatTime(acc.time_out) | date: 'hh:mm a' }}</td>
+          <td>{{ convertDate(acc.time_in) | date: 'hh:mm a' }}</td>
+          <td>{{ convertDate(acc.time_out) | date: 'hh:mm a' }}</td>
           <!-- button for view of the full report -->
         </tr>
         <tr *ngIf="accList.length == 0">
