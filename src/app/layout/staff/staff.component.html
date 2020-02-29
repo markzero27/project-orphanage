@@ -43,7 +43,7 @@
                 [(ngModel)]="name"
               />
             </div>
-            <button class="btn btn-light ">
+            <button class="btn btn-light " (click)="sort('first_name')">
               <i class="fa fa-sort" aria-hidden="true"></i>
             </button>
           </div>
@@ -62,7 +62,7 @@
                 <option value="2">Staff</option>
               </select>
             </div>
-            <button class="btn btn-light ">
+            <button class="btn btn-light " (click)="sort('role')">
               <i class="fa fa-sort" aria-hidden="true"></i>
             </button>
           </div>
@@ -77,7 +77,7 @@
                 [(ngModel)]="email"
               />
             </div>
-            <button class="btn btn-light ">
+            <button class="btn btn-light " (click)="sort('email')">
               <i class="fa fa-sort" aria-hidden="true"></i>
             </button>
           </div>
@@ -92,7 +92,7 @@
                 [(ngModel)]="date_hired"
               />
             </div>
-            <button class="btn btn-light ">
+            <button class="btn btn-light " (click)="sort('date_hired')">
               <i class="fa fa-sort" aria-hidden="true"></i>
             </button>
           </div>
@@ -110,7 +110,7 @@
                 <option value="1">Active</option>
               </select>
             </div>
-            <button class="btn btn-light ">
+            <button class="btn btn-light " (click)="sort('status')">
               <i class="fa fa-sort" aria-hidden="true"></i>
             </button>
           </div>

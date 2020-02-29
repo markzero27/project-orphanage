@@ -1,15 +1,15 @@
 <div class="top">
-  <hr><h2 class="text-center">GUEST MONITORING
-    <button class="btn btn-light float-right"
-    (click)="open(content)">
-    <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
-  </button></h2><hr>
-</div>
-
-<div class="card-header pt-3">
-  <button class="btn btn-info float-right mr-1">
-    Export as PDF
-  </button>
+  <hr />
+  <h2 class="text-center">
+    GUEST MONITORING
+    <button class="btn btn-info float-right">
+      Export as PDF
+    </button>
+    <button class="btn btn-light float-right mx-2" (click)="open(content)">
+      <i class="fa fa-plus mx-2" aria-hidden="true"></i> Add
+    </button>
+  </h2>
+  <hr />
 </div>
 <table class="table table-striped">
   <thead class="bg-primary-color text-light">
@@ -33,61 +33,132 @@
         <i class="fa fa-filter" aria-hidden="true"></i>
       </td>
       <td>
-        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 50px;"/>
-        <button class="btn btn-light float-right">
-          <i class="fa fa-sort" aria-hidden="true"></i>
-        </button>
+        <div class="d-flex border border-secondary rounded">
+          <div class="flex-1">
+            <input
+              type="search"
+              class="border-0 w-100 rounded px-2 py-1"
+              (keyup)="filter()"
+            />
+          </div>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </div>
       </td>
       <td>
-        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-        <button class="btn btn-light float-right">
-          <i class="fa fa-sort" aria-hidden="true"></i>
-        </button>
+        <div class="d-flex border border-secondary rounded">
+          <div class="flex-1">
+            <input
+              type="search"
+              class="border-0 w-100 rounded px-2 py-1"
+              (keyup)="filter()"
+            />
+          </div>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </div>
       </td>
       <td>
-        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-        <button class="btn btn-light float-right">
-          <i class="fa fa-sort" aria-hidden="true"></i>
-        </button>
+        <div class="d-flex border border-secondary rounded">
+          <div class="flex-1">
+            <input
+              type="search"
+              class="border-0 w-100 rounded px-2 py-1"
+              (keyup)="filter()"
+            />
+          </div>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </div>
       </td>
       <td>
-        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-        <button class="btn btn-light float-right">
-          <i class="fa fa-sort" aria-hidden="true"></i>
-        </button>
+        <div class="d-flex border border-secondary rounded">
+          <div class="flex-1">
+            <input
+              type="search"
+              class="border-0 w-100 rounded px-2 py-1"
+              (keyup)="filter()"
+            />
+          </div>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </div>
       </td>
       <td>
-        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-        <button class="btn btn-light float-right">
-          <i class="fa fa-sort" aria-hidden="true"></i>
-        </button>
+        <div class="d-flex border border-secondary rounded">
+          <div class="flex-1">
+            <input
+              type="search"
+              class="border-0 w-100 rounded px-2 py-1"
+              (keyup)="filter()"
+            />
+          </div>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </div>
       </td>
       <td>
-        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-        <button class="btn btn-light float-right">
-          <i class="fa fa-sort" aria-hidden="true"></i>
-        </button>
+        <div class="d-flex border border-secondary rounded">
+          <div class="flex-1">
+            <input
+              type="search"
+              class="border-0 w-100 rounded px-2 py-1"
+              (keyup)="filter()"
+            />
+          </div>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </div>
       </td>
       <td>
-        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"  style="width: 100px;"/>
-        <button class="btn btn-light float-right">
-          <i class="fa fa-sort" aria-hidden="true"></i>
-        </button>
+        <div class="d-flex border border-secondary rounded">
+          <div class="flex-1">
+            <input
+              type="search"
+              class="border-0 w-100 rounded px-2 py-1"
+              (keyup)="filter()"
+            />
+          </div>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </div>
       </td>
       <td>
-        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"  style="width: 100px;"/>
-        <button class="btn btn-light float-right">
-          <i class="fa fa-sort" aria-hidden="true"></i>
-        </button>
+        <div class="d-flex border border-secondary rounded">
+          <div class="flex-1">
+            <input
+              type="search"
+              class="border-0 w-100 rounded px-2 py-1"
+              (keyup)="filter()"
+            />
+          </div>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </div>
       </td>
       <td>
-        <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-        <button class="btn btn-light float-right">
-          <i class="fa fa-sort" aria-hidden="true"></i>
-        </button>
+        <div class="d-flex border border-secondary rounded">
+          <div class="flex-1">
+            <input
+              type="search"
+              class="border-0 w-100 rounded px-2 py-1"
+              (keyup)="filter()"
+            />
+          </div>
+          <button class="btn btn-light float-right">
+            <i class="fa fa-sort" aria-hidden="true"></i>
+          </button>
+        </div>
       </td>
-      <td>
-      </td>
+      <td></td>
     </tr>
     <tr *ngFor="let guest of guestList; let i = index">
       <th><input type="checkbox" /></th>
@@ -106,7 +177,7 @@
         <button class="btn btn-primary">Time out</button>
       </td>
       <!-- button na lng yung time-out, di sya required sa form na m -->
-      <td>{{ guest.created_at }}</td>
+      <td>{{ formatTime(guest.created_at) | date: 'MM dd yyyy' }}</td>
       <td>
         <button
           class="btn bg-transparent"
@@ -139,10 +210,10 @@
     </div>
     <div class="modal-body">
       <!-- <fieldset class="form-group">
-        <div class="d-flex justify-content-center ">
+        <div class= rounded"d-flex border border-secondary justify-content-center ">
           <div class="text-center px-3 border-right">
-            Time In
-            <ngb-timepicker
+         border-0    Time In
+        keyup="filter()"    <n(gb-ti)mepicker
               [(ngModel)]="time_in"
               [meridian]="true"
             ></ngb-timepicker>
@@ -256,10 +327,10 @@
     </div>
     <div class="modal-body">
       <!-- <fieldset class="form-group">
-        <div class="d-flex justify-content-between ">
+        <div class= rounded"d-flex border border-secondary justify-content-between ">
           <div class="text-center px-3 border-right">
-            Time In
-            <ngb-timepicker
+         border-0    Time In
+        keyup="filter()"    <n(gb-ti)mepicker
               [(ngModel)]="time_in2"
               [meridian]="true"
             ></ngb-timepicker>

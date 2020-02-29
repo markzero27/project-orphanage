@@ -15,7 +15,8 @@ export class GuestMonitoringComponent implements OnInit {
   elderList: Elders[] = [];
   guestList: Guest[] = [];
   selectedElder = 1;
-  selectedGuest: Guest = JSON.parse(JSON.stringify(initialGuests));;
+  selectedGuest: Guest = JSON.parse(JSON.stringify(initialGuests)); rawguestList: any;
+
   closeResult: string;
   alerts: Array<any> = [];
   time_in: any;
@@ -23,6 +24,17 @@ export class GuestMonitoringComponent implements OnInit {
   time_out: any;
   time_out2: any;
   deleteId = 0;
+
+  // filter variables
+  name = '';
+  contact = '';
+  address = '';
+  visited = '';
+  relationship = '';
+  order = '';
+  in = '';
+  out = '';
+  date = '';
 
   guest: Guest = JSON.parse(JSON.stringify(initialGuests));
 
@@ -177,5 +189,94 @@ export class GuestMonitoringComponent implements OnInit {
       this.guestList = await this.guestService.getAllGuests(0).toPromise() as Guest[];
       this.toastr.success('Guest updated!');
     });
+  }
+
+  filter() {
+    let guest = this.rawguestList;
+
+    if (this.name != '') {
+      guest = guest.filter(stff => {
+        const name = `${stff.first_name} ${stff.last_name}`;
+        if (name.includes(this.name)) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    if (this.role != '') {
+      guest = guest.filter(stff => {
+        if (+this.role == stff.role) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    if (this.email != '') {
+      guest = guest.filter(stff => {
+        if (this.email == stff.email) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    if (this.date_hired != '') {
+      guest = guest.filter(stff => {
+        const dateAff = new Date(this.date_hired).getTime();
+        const stffAff = new Date(stff.date_hired).getTime();
+
+        if (dateAff == stffAff) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    if (this.status != '') {
+      guest = guest.filter(stff => {
+
+        if (+this.status == stff.status) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    console.log(guest);
+
+    this.guestList = guest;
+
+  }
+
+  sort(column) {
+    console.log(column);
+
+    if (this.order == 'desc') {
+
+      this.order = 'asc';
+      this.guestList = this.guestList.sort((a, b) => {
+        if (a[column] > b[column]) {
+          return -1;
+        }
+        if (b[column] > a[column]) {
+          return 1;
+        }
+        return 0;
+      });
+    } else {
+      this.order = 'desc';
+      this.guestList = this.guestList.sort((a, b) => {
+        if (a[column] < b[column]) {
+          return -1;
+        }
+        if (b[column] > a[column]) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+
   }
 }
