@@ -1,8 +1,16 @@
 <div class="h-100" style="margin-bottom: 200px;">
-  <div class="top">
+  <div class="top d-flex justify-content-between align-items-center">
     <h2 class="">
-      <small>My Tasks</small>
+      <small>Daily Tasks</small>
     </h2>
+    <div class="text-center">
+      <h2 class="color-dark-primary ">
+        <small>{{ time | date: 'hh:mm:ss a' }}</small>
+      </h2>
+      <p>
+        <small>{{ time | date: 'MMM dd yyyy' }}</small>
+      </p>
+    </div>
   </div>
   <div class="card-header pt-3">
     <input
@@ -22,7 +30,6 @@
         <th>Medicine</th>
         <th>Qty</th>
         <th>Time</th>
-        <th>Date</th>
         <th>Status</th>
         <th></th>
       </tr>
@@ -37,7 +44,6 @@
         <td>{{ task.medicine_description }}</td>
         <td>{{ task.qty }}</td>
         <td>{{ task.time }}</td>
-        <td>{{ task.updated_at }}</td>
         <td
           [ngClass]="{
             'text-primary': task.status == 'Done',

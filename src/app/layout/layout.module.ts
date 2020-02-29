@@ -30,6 +30,7 @@ import { StaffAddComponent } from './staff-add/staff-add.component';
 import { StaffDashboardComponent } from './staff-dashboard/staff-dashboard.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { TaskDropdownComponent } from './components/task-dropdown/task-dropdown.component';
+import { TaskAddPageComponent } from './task-add-page/task-add-page.component';
 @NgModule({
     imports: [
         CommonModule,
@@ -62,6 +63,7 @@ import { TaskDropdownComponent } from './components/task-dropdown/task-dropdown.
         StaffAddComponent,
         StaffDashboardComponent,
         TasksComponent,
-        TaskDropdownComponent]
+        TaskDropdownComponent,
+        TaskAddPageComponent]
 })
 export class LayoutModule { }

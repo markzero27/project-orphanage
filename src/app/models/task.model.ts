@@ -7,6 +7,7 @@ export interface Task {
     qty: number;
     time: string;
     date: string;
+    date_repeats: any[];
     status: string;
     task_description: string;
     task_owner_id: number;
@@ -29,4 +30,5 @@ export const initialTask: Task = {
     task_owner_id: 0,
     created_by: 0,
     updated_by: 0,
+    date_repeats: [],
 };

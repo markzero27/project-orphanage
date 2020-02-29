@@ -44,6 +44,36 @@ export class StaffDetailsComponent implements OnInit {
   uploadedFilePath: string = null;
 
   addEHistory: EmpoymentHistory = JSON.parse(JSON.stringify(initialEHistory));
+  dateRepeats = [
+    {
+      day: 'Mon',
+      isSelected: false,
+    },
+    {
+      day: 'Tue',
+      isSelected: false,
+    },
+    {
+      day: 'Wed',
+      isSelected: false,
+    },
+    {
+      day: 'Thu',
+      isSelected: false,
+    },
+    {
+      day: 'Fri',
+      isSelected: false,
+    },
+    {
+      day: 'Sat',
+      isSelected: false,
+    },
+    {
+      day: 'Sun',
+      isSelected: false,
+    },
+  ];
 
   constructor(
     public route: ActivatedRoute,
@@ -71,6 +101,8 @@ export class StaffDetailsComponent implements OnInit {
 
   async getAllTasks() {
     this.taskList = await this.taskService.getTaskByStaff(this.staff.id).toPromise() as Task[];
+    console.log(this.taskList);
+
   }
 
   ngOnInit() {
@@ -146,25 +178,29 @@ export class StaffDetailsComponent implements OnInit {
     if (!this.time) {
       return this.toastr.error('Please enter valid time!');
     }
-    if (!this.addDate) {
-      return this.toastr.error('Please enter valid date!');
+    if (!this.dateRepeats.some(date => date.isSelected)) {
+      return this.toastr.error('Please atleast 1 day for repeat!');
     }
 
     if (this.quantity <= 0) {
       return this.toastr.error('Please enter valid quantity!');
     }
 
+    const dateRepeats = this.dateRepeats.filter(date => date.isSelected).map(date => date.day);
+
+
     const newTask: Task = {
       elder_id: this.elderList[this.elderIndex].id,
       elder_name: `${this.elderList[this.elderIndex].first_name} ${this.elderList[this.elderIndex].last_name}`,
       time: `${this.time.hour}:${this.time.minute}`,
       medicine_id: this.medList[this.medIndex].id,
+      date_repeats: dateRepeats,
       medicine_description: this.medList[this.medIndex].medicine_name,
       qty: this.quantity,
       task_owner_id: this.staff.id,
       task_description: `${this.staff.first_name} ${this.staff.first_name}`,
       status: 'Pending',
-      date: `${this.addDate.year}-${this.addDate.month}-${this.addDate.day}`
+      date: new Date().toString()
     };
 
     this.taskService.addTask(newTask).toPromise().then(res => {

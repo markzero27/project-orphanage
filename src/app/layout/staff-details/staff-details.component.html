@@ -52,6 +52,20 @@
         </div>
         <hr />
         <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Status</label>
+          <div class="col-sm-7">
+            <label
+              for=""
+              class="col-form-label"
+              [ngClass]="{
+                'text-danger': staff.status == 0,
+                'text-success': staff.status == 1
+              }"
+              >{{ staff.status == 0 ? 'Inactive' : 'Active' }}</label
+            >
+          </div>
+        </div>
+        <div class="form-group row">
           <label for="" class="col-sm-5 col-form-label">Nickname</label>
           <div class="col-sm-7">
             <label for="" class="col-form-label">{{ staff.nick_name }}</label>
@@ -149,6 +163,15 @@
           </div>
         </div>
         <hr />
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Status</label>
+          <div class="col-sm-7">
+            <select class="form-control " [(ngModel)]="staff.status">
+              <option class="text-center" value="0">Inactive</option>
+              <option class="text-center" value="1">Active</option>
+            </select>
+          </div>
+        </div>
         <div class="form-group row">
           <label for="" class="col-sm-5 col-form-label">Nickname</label>
           <div class="col-sm-7">
@@ -684,7 +707,7 @@
               <th>Medicine</th>
               <th>Qty</th>
               <th>Time</th>
-              <th>Date</th>
+              <th>Date Repeat</th>
               <th>Status</th>
               <th></th>
             </tr>
@@ -699,7 +722,16 @@
               <td>{{ task.medicine_description }}</td>
               <td>{{ task.qty }}</td>
               <td>{{ task.time }}</td>
-              <td>{{ task.updatedAt }}</td>
+              <td>
+                <div class="d-flex">
+                  <div
+                    *ngFor="let date of task.date_repeats"
+                    class="bg-secondary mr-1 px-1 rounded text-white flex-1 text-center"
+                  >
+                    {{ date }}
+                  </div>
+                </div>
+              </td>
               <td>{{ task.status }}</td>
               <td>
                 <button class="btn bg-transparent">
@@ -744,22 +776,13 @@
         </div>
       </fieldset>
       <hr />
-      <fieldset>
-        <label>Date</label>
-        <div class="input-group datepicker-input">
-          <input
-            class="form-control"
-            placeholder="Select Date"
-            name="dp"
-            [(ngModel)]="addDate"
-            ngbDatepicker
-            #d1="ngbDatepicker"
-            readonly
-          />
-          <button class="input-group-addon" (click)="d1.toggle()" type="button">
-            <!-- <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/> -->
-            <span class="fa fa-calendar"></span>
-          </button>
+      <fieldset class="form-group">
+        <label>Date Repeat</label>
+        <div class="d-flex form-control text-sm p-2">
+          <div class="flex-1" *ngFor="let repeat of dateRepeats">
+            <input type="checkbox" [(ngModel)]="repeat.isSelected" />
+            {{ repeat.day }}
+          </div>
         </div>
       </fieldset>
       <fieldset class="form-group">
@@ -815,7 +838,9 @@
 <div>
   <ng-template #content2 let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h5 class="modal-title text-center">Add Task</h5>
+      <h5 class="modal-title text-center">
+        Add Employment <i class="fa fa-history" aria-hidden="true"></i>
+      </h5>
       <button
         type="button"
         class="close"

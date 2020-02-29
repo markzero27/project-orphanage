@@ -33,3 +33,11 @@ $topnav-background-color: #2D7DAC;
     height: calc(100vh - 200px);
     overflow-y: auto;
 }
+
+.flex-1 {
+    flex: 1;
+}
+
+.text-sm {
+    font-size: 10px;
+}

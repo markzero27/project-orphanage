@@ -19,6 +19,7 @@ import { StaffAddComponent } from './staff-add/staff-add.component';
 import { AuthGuard } from '../guards/auth.guard';
 import { StaffDashboardComponent } from './staff-dashboard/staff-dashboard.component';
 import { TasksComponent } from './tasks/tasks.component';
+import { TaskAddPageComponent } from './task-add-page/task-add-page.component';
 
 const routes: Routes = [
     {
@@ -51,6 +52,7 @@ const routes: Routes = [
             { path: 'archives', component: ArchivesComponent, canActivate: [AuthGuard] },
             { path: 'system-users', component: SystemUsersComponent, canActivate: [AuthGuard] },
             { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
+            { path: 'staff/add-task', component: TaskAddPageComponent, canActivate: [AuthGuard] },
         ]
     }
 ];

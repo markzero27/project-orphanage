@@ -12,6 +12,7 @@ import { Task } from 'src/app/models/task.model';
   styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent implements OnInit {
+  time: any;
   taskList: Task[] = [];
   userId = localStorage.getItem('user_id');
   constructor(
@@ -25,9 +26,17 @@ export class TasksComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.setTime();
   }
 
   async getAllTasks(id) {
     this.taskList = await this.taskService.getTaskByStaff(id).toPromise() as Task[];
   }
+
+  setTime() {
+    setInterval(() => {
+      this.time = new Date();
+    }, 1000);
+  }
+
 }
