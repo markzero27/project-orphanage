@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { User } from 'src/app/models/user.model';
-import { Task } from 'src/app/models/task.model';
+import { Task, TaskReport } from 'src/app/models/task.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,5 +36,21 @@ export class TaskService {
     data.updated_by = Number(this.userId);
     data.updated_at = new Date().toLocaleString();
     return this.http.patch(`${this.url}/${data.id}`, data, { headers: this.reqHeader });
+  }
+
+  getTaskReports() {
+    return this.http.get<TaskReport[]>(`${environment.api}/tasks-reports`, { headers: this.reqHeader });
+  }
+
+  addTaskReport(data: any) {
+    data.created_by = Number(this.userId);
+    data.updated_by = Number(this.userId);
+    data.created_at = new Date();
+    data.updated_at = new Date();
+    return this.http.post(`${environment.api}/tasks-reports`, data, { headers: this.reqHeader });
+  }
+
+  getTaskReportById(id) {
+    return this.http.get(`${environment.api}/tasks-reports?staff_id=${id}`, { headers: this.reqHeader });
   }
 }

@@ -3,12 +3,13 @@ import { AccomplishmentsService } from 'src/app/services/accomplishments/accompl
 import { Accomplishments, initAccomp } from 'src/app/models/accomplishments.model';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import { Task } from 'src/app/models/task.model';
+import { Task, TaskReport } from 'src/app/models/task.model';
 import { User } from 'src/app/models/user.model';
 import { GuestService } from 'src/app/services/guest/guest.service';
 import { Guest } from 'src/app/models/guest.model';
 import { MedicineService } from 'src/app/services/medicine/medicine.service';
 import { MedReport } from 'src/app/models/med-report.model';
+import { TaskService } from 'src/app/services/task/task.service';
 
 @Component({
   selector: 'app-reports',
@@ -21,6 +22,7 @@ export class ReportsComponent implements OnInit {
   selectedType = 'daily';
   accList: Accomplishments[] = [];
   medReports: MedReport[] = [];
+  taskReports: TaskReport[] = [];
   time_in: any;
   time_out: any;
   closeResult: string;
@@ -34,6 +36,7 @@ export class ReportsComponent implements OnInit {
     private modalService: NgbModal,
     private guestService: GuestService,
     private medService: MedicineService,
+    private taskService: TaskService,
     private toastr: ToastrService) {
     this.getAllAccmp();
     this.guestService.getAllGuests(0).subscribe((guests: Guest[]) => {
@@ -45,6 +48,8 @@ export class ReportsComponent implements OnInit {
         return report;
       });
     });
+
+    this.getTaskReports();
   }
 
   getAllAccmp() {
@@ -53,6 +58,12 @@ export class ReportsComponent implements OnInit {
         res.submitted_by = JSON.parse(res.submitted_by);
         return res;
       });
+    });
+  }
+
+  getTaskReports() {
+    this.taskService.getTaskReports().subscribe(reports => {
+      this.taskReports = reports;
     });
   }
 
@@ -113,6 +124,10 @@ export class ReportsComponent implements OnInit {
     this.accomp = JSON.parse(JSON.stringify(initAccomp));
     this.time_in = null;
     this.time_out = null;
+  }
+
+  convertDate(date) {
+    return new Date(date);
   }
 
 }

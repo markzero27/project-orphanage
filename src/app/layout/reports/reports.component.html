@@ -1,12 +1,11 @@
 <div class="top">
-  <hr><h2 class="text-center">ACCOMPLISHMENT REPORT</h2>
+  <hr />
+  <h2 class="text-center">ACCOMPLISHMENT REPORT</h2>
 </div>
 
 <ul class="nav nav-tabs">
   <li class="nav-item" (click)="selectedType = 'daily'">
-    <a
-      class="nav-link"
-      [ngClass]="{ active: selectedType == 'daily' }"
+    <a class="nav-link" [ngClass]="{ active: selectedType == 'daily' }"
       >Daily</a
     >
   </li>
@@ -38,14 +37,15 @@
           <th>Problems Encountered</th>
           <!-- <th>Remarks</th> -->
           <th>Time-in</th>
-          <th>Time-out</th>        
+          <th>Time-out</th>
           <th>
             <button
-            class="btn btn-light float-right"
-            *ngIf="userRole != 0"
-            (click)="open(content)">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-          </button>
+              class="btn btn-light float-right"
+              *ngIf="userRole != 0"
+              (click)="open(content)"
+            >
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
           </th>
         </tr>
       </thead>
@@ -55,34 +55,44 @@
             <i class="fa fa-filter" aria-hidden="true"></i>
           </td>
           <td>
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
           <td *ngIf="userRole == 0">
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
           <td>
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
           <td>
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 100px;"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
           <td>
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 100px;"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
           <td>
             <button class="btn btn-info float-right mr-1">
@@ -101,10 +111,7 @@
           <td>{{ formatTime(acc.time_out) | date: 'hh:mm a' }}</td>
           <!-- button for view of the full report -->
           <td class="text-center">
-            <button
-              class="btn bg-transparent"
-              (click)="open(view)"
-            >
+            <button class="btn bg-transparent" (click)="open(view)">
               <i class="fa fa-eye ml-3" aria-hidden="true"></i>
             </button>
           </td>
@@ -151,7 +158,7 @@
           </div>
         </fieldset>
         <hr />
-          <fieldset class="form-group">
+        <fieldset class="form-group">
           <label>Task</label>
           <input
             class="form-control"
@@ -169,7 +176,7 @@
           />
         </fieldset>
         <fieldset class="form-group">
-           <!-- change to textarea -->
+          <!-- change to textarea -->
           <label>Remarks</label>
           <input
             class="form-control"
@@ -234,7 +241,7 @@
           />
         </fieldset>
         <fieldset class="form-group">
-           <!-- change to textarea -->
+          <!-- change to textarea -->
           <label>Remarks</label>
           <input
             class="form-control"
@@ -245,37 +252,37 @@
         </fieldset>
         <!-- Auto generate all the task within the day -->
         <fieldset class="form-group">
-        <label>Task</label>
-        <table class="table table-striped">
-          <thead class="bg-primary-color text-light">
-            <tr>
-              <th>Elders Name</th>
-              <th>Medicine</th>
-              <th>Qty</th>
-              <th>Time</th>
-              <th>Status</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row"></th>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
+          <label>Task</label>
+          <table class="table table-striped">
+            <thead class="bg-primary-color text-light">
+              <tr>
+                <th>Elders Name</th>
+                <th>Medicine</th>
+                <th>Qty</th>
+                <th>Time</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row"></th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
         </fieldset>
         <fieldset class="form-group">
           <!-- change to textarea -->
           <label>Created By (Admin View Only)</label>
-       </fieldset>
-       <button class="btn btn-info float-right mr-1">
-        Export as PDF
-      </button>
+        </fieldset>
+        <button class="btn btn-info float-right mr-1">
+          Export as PDF
+        </button>
       </div>
     </ng-template>
   </div>
@@ -283,11 +290,9 @@
   <!-- Reports -->
   <div class=" mb-3 py-3" *ngSwitchCase="'report'">
     <div class="mb-3">
-      <button
-      class="btn bg-transparent float-right"
-      (click)="open(weekview)">
-      <i class="fa fa-cog ml-3" aria-hidden="true"></i>
-    </button>
+      <button class="btn bg-transparent float-right" (click)="open(weekview)">
+        <i class="fa fa-cog ml-3" aria-hidden="true"></i>
+      </button>
       <button class="btn btn-info float-right mr-1">
         Export as PDF
       </button>
@@ -301,7 +306,7 @@
           <th>Problems Encountered</th>
           <th>Remarks</th>
           <th>Time-in</th>
-          <th>Time-out</th>        
+          <th>Time-out</th>
         </tr>
       </thead>
       <tbody>
@@ -310,40 +315,52 @@
             <i class="fa fa-filter" aria-hidden="true"></i>
           </td>
           <td>
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
           <td *ngIf="userRole == 0">
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
           <td>
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
           <td>
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
           <td>
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 100px;"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
           <td>
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 100px;"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
         </tr>
         <tr *ngFor="let acc of accList; let i = index">
@@ -366,11 +383,9 @@
   <!-- Tasks -->
   <div class=" mb-3 py-3" *ngSwitchCase="'task'">
     <div class="mb-3">
-      <button
-      class="btn bg-transparent float-right"
-      (click)="open(weekview)">
-      <i class="fa fa-cog ml-3" aria-hidden="true"></i>
-    </button>
+      <button class="btn bg-transparent float-right" (click)="open(weekview)">
+        <i class="fa fa-cog ml-3" aria-hidden="true"></i>
+      </button>
       <button class="btn btn-info float-right mr-1">
         Export as PDF
       </button>
@@ -394,81 +409,88 @@
             <i class="fa fa-filter" aria-hidden="true"></i>
           </td>
           <td>
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
           <td *ngIf="userRole == 0">
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
           <td>
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
           <td>
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
           <td>
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 80px;"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
           <td>
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 80px;"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
           <td>
-            <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" style="width: 80px;"/>
-            <button class="btn btn-light float-right">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
+            <div class="d-flex border border-secondary rounded">
+              <input type="search" class="w-100 border-0 rounded px-2 py-1" />
+              <button class="btn btn-light">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+              </button>
+            </div>
           </td>
         </tr>
-        <tr *ngFor="let acc of accList; let i = index">
-          <th><input type="checkbox" /></th>
-          <td>2020-02-21</td>
-          <td *ngIf="userRole == 0">Jhen Fernando</td>
-          <td>Nathalie Tamayo</td>
-          <td><p>Yeash</p> Aminosol</td>
-          <td><p>1</p> 2</td>
-          <td><p>5pm</p> 6pm</td>
-          <td><p>Done</p> Done</td>
+        <tr *ngFor="let report of taskReports; let i = index">
+          <td class="text-center"><input type="checkbox" /></td>
+          <td class="text-center">
+            {{ convertDate(report.date) | date: 'yyyy-MM-dd' }}
+          </td>
+          <td class="text-center" *ngIf="userRole == 0">
+            {{ report.staff_name }}
+          </td>
+          <td class="text-center">{{ report.elder_name }}</td>
+          <td class="text-center">
+            {{ report.medicine_description }}
+          </td>
+          <td class="text-center">
+            {{ report.qty }}
+          </td>
+          <td class="text-center">
+            {{ report.time }}
+          </td>
+          <td class="text-center">
+            {{ report.status }}
+          </td>
         </tr>
-        <tr *ngFor="let acc of accList; let i = index">
-          <th><input type="checkbox" /></th>
-          <td>2020-02-21</td>
-          <td *ngIf="userRole == 0">Faith Santiago</td>
-          <td><p> Nathalie Tamayo </p><p>Sai Ramirez</p></td>
-          <td><p>Yeash</p> <p> Aminosol </p><p>Vitamins</p></td>
-          <td><p>1</p> <p>2</p><p>1</p></td>
-          <td><p>5pm</p> <p> 6pm</p> <p>5pm</p></td>
-          <td><p>Done</p> <p>Refuse </p> <p>Done</p></td>
-        </tr>
-        <tr *ngFor="let acc of accList; let i = index">
-          <th><input type="checkbox" /></th>
-          <td>2020-02-21</td>
-          <td *ngIf="userRole == 0">Nao Fu</td>
-          <td>Jane Tamayo</td>
-          <td><p>Yeash</p> Aminosol</td>
-          <td><p>1</p> 2</td>
-          <td><p>5pm</p> 6pm</td>
-          <td><p>Refuse</p> Done</td>
-        </tr>
-        <tr *ngIf="accList.length == 0">
+        <tr *ngIf="taskReports.length == 0">
           <td class="text-center p-3" colspan="13">No Record</td>
         </tr>
       </tbody>
     </table>
   </div>
+</div>

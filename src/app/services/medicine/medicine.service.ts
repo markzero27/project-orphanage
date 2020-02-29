@@ -18,6 +18,10 @@ export class MedicineService {
     console.log('====================================');
   }
 
+  getMedicine(id) {
+    return this.http.get<Medicine>(`${this.url}?id=${id}`, { headers: this.reqHeader });
+  }
+
   getAllMedicine(isArchived) {
     return this.http.get(`${this.api}?table=medicines&archived_value=${isArchived}`, { headers: this.reqHeader });
   }
