@@ -107,8 +107,8 @@
           <td *ngIf="userRole == 0">{{ acc.submitted_by[1] }}</td>
           <td>{{ acc.problems_encountered }}</td>
           <!-- <td>{{ acc.remarks }}</td>-->
-          <td>{{ formatTime(acc.time_in) | date: 'hh:mm a' }}</td>
-          <td>{{ formatTime(acc.time_out) | date: 'hh:mm a' }}</td>
+          <td>{{ convertDate(acc.time_in) | date: 'hh:mm a' }}</td>
+          <td>{{ convertDate(acc.time_out) | date: 'hh:mm a' }}</td>
           <!-- button for view of the full report -->
           <td class="text-center">
             <button class="btn bg-transparent" (click)="open(view)">
@@ -139,7 +139,7 @@
       </div>
       <!-- Huwag na irequire yung login and out ng staff, automatic na pagkalogin ni staff at logout pagkasubmit ni staff ng report  -->
       <div class="modal-body">
-        <fieldset class="form-group">
+        <!-- <fieldset class="form-group">
           <div class="d-flex justify-content-between ">
             <div class="text-center px-3 border-right">
               Time In
@@ -157,7 +157,7 @@
             </div>
           </div>
         </fieldset>
-        <hr />
+        <hr /> -->
         <fieldset class="form-group">
           <label>Task</label>
           <input
@@ -168,22 +168,22 @@
         </fieldset>
         <fieldset class="form-group">
           <label>Problems Encountered</label>
-          <!-- change to textarea -->
-          <input
-            class="form-control"
-            placeholder=""
+          <textarea
+            cols="30"
+            rows="5"
             [(ngModel)]="accomp.problems_encountered"
-          />
+            class="form-control"
+          ></textarea>
         </fieldset>
         <fieldset class="form-group">
           <!-- change to textarea -->
           <label>Remarks</label>
-          <input
-            class="form-control"
-            placeholder=""
-            type="text"
+          <textarea
+            cols="30"
+            rows="5"
             [(ngModel)]="accomp.remarks"
-          />
+            class="form-control"
+          ></textarea>
         </fieldset>
       </div>
       <div class="modal-footer">

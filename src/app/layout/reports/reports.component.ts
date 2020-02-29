@@ -10,6 +10,8 @@ import { Guest } from 'src/app/models/guest.model';
 import { MedicineService } from 'src/app/services/medicine/medicine.service';
 import { MedReport } from 'src/app/models/med-report.model';
 import { TaskService } from 'src/app/services/task/task.service';
+import { UsersService } from 'src/app/services/users/users.service';
+import { Userlogs } from 'src/app/models/use-logs.model';
 
 @Component({
   selector: 'app-reports',
@@ -27,6 +29,7 @@ export class ReportsComponent implements OnInit {
   time_out: any;
   closeResult: string;
   accomp: Accomplishments = JSON.parse(JSON.stringify(initAccomp));
+  userLogs: Userlogs[] = [];
 
 
   guestList: Guest[] = [];
@@ -37,6 +40,7 @@ export class ReportsComponent implements OnInit {
     private guestService: GuestService,
     private medService: MedicineService,
     private taskService: TaskService,
+    private userService: UsersService,
     private toastr: ToastrService) {
     this.getAllAccmp();
     this.guestService.getAllGuests(0).subscribe((guests: Guest[]) => {
@@ -47,6 +51,13 @@ export class ReportsComponent implements OnInit {
         report.staff = JSON.parse(report.staff);
         return report;
       });
+    });
+
+    this.userService.getUserLogsById(this.userData.id).subscribe(logs => {
+      this.userLogs = logs;
+      console.log('Logs ====================================');
+      console.log(logs);
+      console.log('====================================');
     });
 
     this.getTaskReports();
@@ -71,16 +82,18 @@ export class ReportsComponent implements OnInit {
   }
 
   addAccomplishment() {
-    if (!this.time_in || !this.time_out) {
-      return this.toastr.error('Please enter valid time!');
-    }
+    // if (!this.time_in || !this.time_out) {
+    //   return this.toastr.error('Please enter valid time!');
+    // }
 
     if (this.accomp.task_description.trim() == '') {
       return this.toastr.error('Please enter task description!');
     }
 
-    this.accomp.time_in = `${this.time_in.hour}:${this.time_in.minute}`;
-    this.accomp.time_out = `${this.time_out.hour}:${this.time_out.minute}`;
+    // this.accomp.time_in = `${this.time_in.hour}:${this.time_in.minute}`;
+    // this.accomp.time_out = `${this.time_out.hour}:${this.time_out.minute}`;
+    this.accomp.time_in = new Date().toLocaleDateString();
+    this.accomp.time_out = new Date().toLocaleDateString();
     this.accomp.submitted_by = [this.userData.id, `${this.userData.first_name} ${this.userData.last_name}`];
     this.accompService.addAccomplishments(this.accomp).subscribe(res => {
       this.toastr.success('Successfuly added!');

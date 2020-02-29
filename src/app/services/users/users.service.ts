@@ -30,6 +30,10 @@ export class UsersService {
     return this.http.get<Userlogs[]>(`${environment.api}/user-log`);
   }
 
+  getUserLogsById(id) {
+    return this.http.get<Userlogs[]>(`${environment.api}/user-log`);
+  }
+
   addUser(data: User) {
     data.created_by = Number(this.userId);
     data.updated_by = Number(this.userId);
