@@ -15,6 +15,7 @@ export class TasksComponent implements OnInit {
   time: any;
   taskList: Task[] = [];
   userId = localStorage.getItem('user_id');
+  weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   constructor(
     public router: Router,
     private userService: UsersService,
@@ -30,7 +31,16 @@ export class TasksComponent implements OnInit {
   }
 
   async getAllTasks(id) {
-    this.taskList = await this.taskService.getTaskByStaff(id).toPromise() as Task[];
+    const today = new Date().getDay();
+    const tasks = await this.taskService.getTaskByStaff(id).toPromise() as Task[];
+    console.log(tasks);
+
+    this.taskList = tasks.filter(task => {
+      if (task.date_repeats.includes(this.weekdays[today])) {
+        return true;
+      }
+      return false;
+    });
   }
 
   setTime() {
