@@ -126,7 +126,6 @@ export class StaffComponent implements OnInit {
   }
 
   sort(column) {
-    console.log(column);
 
     if (this.order == 'desc') {
 
