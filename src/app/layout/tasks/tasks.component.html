@@ -46,15 +46,19 @@
         <td>{{ task.time }}</td>
         <td
           [ngClass]="{
-            'text-primary': task.status == 'Done',
-            'text-warning': task.status == 'Pending',
-            'text-danger': task.status == 'Refused'
+            'text-primary': getStatus(task.id) == 'Done',
+            'text-warning': getStatus(task.id) == 'Pending',
+            'text-danger': getStatus(task.id) == 'Refused'
           }"
         >
-          {{ task.status }}
+          {{ getStatus(task.id) }}
         </td>
         <td>
-          <app-task-dropdown [task]="task"></app-task-dropdown>
+          <app-task-dropdown
+            [task]="task"
+            *ngIf="getStatus(task.id) == 'Pending'"
+            (getReports)="getReports()"
+          ></app-task-dropdown>
         </td>
       </tr>
     </tbody>

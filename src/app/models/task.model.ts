@@ -19,6 +19,7 @@ export interface Task {
 
 export interface TaskReport {
     id?: number;
+    task_id: number;
     elder_id: number;
     elder_name: string;
     medicine_id: number;
@@ -53,6 +54,7 @@ export const initialTask: Task = {
 };
 
 export const initialTaskReport: TaskReport = {
+    task_id: 0,
     elder_id: 0,
     elder_name: '',
     medicine_id: 0,

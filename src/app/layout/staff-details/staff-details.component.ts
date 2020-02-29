@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from 'src/app/services/users/users.service';
 import { User, initialUser, EmpoymentHistory, initialEHistory } from 'src/app/models/user.model';
 import { ToastrService } from 'ngx-toastr';
-import { Task } from 'src/app/models/task.model';
+import { Task, TaskReport } from 'src/app/models/task.model';
 import { TaskService } from 'src/app/services/task/task.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { EldersService } from 'src/app/services/elders/elders.service';
@@ -19,6 +19,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class StaffDetailsComponent implements OnInit {
   userRole = localStorage.getItem('user_role');
+  userId = localStorage.getItem('user_id');
   tab = 1;
   editing1 = false;
   editing2 = false;
@@ -42,7 +43,7 @@ export class StaffDetailsComponent implements OnInit {
   previewUrl: any = null;
   fileUploadProgress: string = null;
   uploadedFilePath: string = null;
-
+  doneTasks: TaskReport[] = [];
   addEHistory: EmpoymentHistory = JSON.parse(JSON.stringify(initialEHistory));
   dateRepeats = [
     {
@@ -96,6 +97,7 @@ export class StaffDetailsComponent implements OnInit {
       this.medList = await this.medService.getAllMedicine(0).toPromise() as Medicine[];
       this.getAllTasks();
       this.initDates();
+      this.getReports();
     });
   }
 
@@ -173,6 +175,20 @@ export class StaffDetailsComponent implements OnInit {
       this.toastr.error(err.message);
     });
   }
+
+  getReports() {
+    this.taskService.getTaskReportById(this.staff.id).subscribe(reports => {
+      this.doneTasks = reports.filter(report => {
+        const date = new Date(report.date).toLocaleDateString();
+        const today = new Date().toLocaleDateString();
+        if (date == today) {
+          return true;
+        }
+        return false;
+      });
+    });
+  }
+
 
   async addTask() {
     if (!this.time) {
@@ -310,5 +326,12 @@ export class StaffDetailsComponent implements OnInit {
     this.userService.deleteEHistory(this.ehistory[i].id).then(() => {
       this.ehistory.splice(i, 1);
     });
+  }
+
+  getStatus(id) {
+    if (this.doneTasks.some(task => task.id == id)) {
+      return this.doneTasks.find(task => task.id == id).status;
+    }
+    return 'Pending';
   }
 }

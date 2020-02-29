@@ -51,6 +51,6 @@ export class TaskService {
   }
 
   getTaskReportById(id) {
-    return this.http.get(`${environment.api}/tasks-reports?staff_id=${id}`, { headers: this.reqHeader });
+    return this.http.get<TaskReport[]>(`${environment.api}/tasks-reports?staff_id=${id}`, { headers: this.reqHeader });
   }
 }

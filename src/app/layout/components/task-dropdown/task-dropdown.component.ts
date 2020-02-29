@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { TaskService } from 'src/app/services/task/task.service';
 import { Task, TaskReport } from 'src/app/models/task.model';
 import { ToastrService } from 'ngx-toastr';
@@ -14,6 +14,8 @@ import { User } from 'src/app/models/user.model';
 })
 export class TaskDropdownComponent implements OnInit {
   @Input() task: Task;
+  @Output() getReports = new EventEmitter<void>();
+
   userData: User = JSON.parse(localStorage.getItem('user_data'));
   med: Medicine;
   constructor(
@@ -23,12 +25,8 @@ export class TaskDropdownComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.task);
     this.medService.getMedicine(this.task.medicine_id).subscribe(med => {
       this.med = med[0];
-      console.log('====================================');
-      console.log(this.med);
-      console.log('====================================');
     });
   }
 
@@ -56,9 +54,10 @@ export class TaskDropdownComponent implements OnInit {
       staff: [this.task.task_owner_id, `${this.userData.first_name} ${this.userData.last_name}`],
       updated_by: this.userData.id,
     };
-    console.log(this.med);
+
     const taskReport: TaskReport = {
-      date: new Date().toString(),
+      task_id: this.task.id,
+      date: new Date().toLocaleString(),
       elder_id: this.task.elder_id,
       elder_name: this.task.elder_name,
       medicine_description: this.task.medicine_description,
@@ -70,9 +69,11 @@ export class TaskDropdownComponent implements OnInit {
       task_description: this.task.task_description,
       time: this.task.time,
     };
+
     this.taskService.addTaskReport(taskReport).subscribe();
     this.medService.updateMed(this.med, medReport).subscribe(med => {
       this.toastr.success('Status updated!');
+      this.getReports.emit();
     });
   }
 
