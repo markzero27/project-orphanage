@@ -4,7 +4,9 @@ import { EldersService } from 'src/app/services/elders/elders.service';
 import { Elders, initialElder } from 'src/app/models/elders.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
   selector: 'app-elders',
   templateUrl: './elders.component.html',
@@ -13,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class EldersComponent implements OnInit {
   rawElderList: Elders[] = [];
   elderList: Elders[] = [];
+  printList = [];
   userId = 0;
   order = 'asc';
 
@@ -142,4 +145,46 @@ export class EldersComponent implements OnInit {
 
   }
 
+
+  exportPdf(){
+    console.log("export pdf sample");
+    console.log(this.elderList);
+    this.elderList.forEach(elder => {
+      const elderPrintList = [];
+      elderPrintList.push(elder['first_name'] + ' ' + elder['last_name']);
+      elderPrintList.push(elder['age']);
+      elderPrintList.push(elder['bed_no']);
+      elderPrintList.push(elder['date_stay_in_orphanage']);
+      
+      this.printList.push(elderPrintList);
+    });
+    console.log(this.printList);
+    //console.log(this.elderList);
+    // playground requires you to assign document definition to a variable called dd
+    setTimeout(() => {
+      var docDefinition = {
+        content: [
+          {
+            style: 'tableExample',
+            table: {
+              body: [
+                ['Full Name', 'Age', 'Bed No', 'Date Affiliated'],
+                this.printList
+              ]
+            }
+          }
+        ]
+        
+      }
+      pdfMake.createPdf(docDefinition).open();
+    }, 1000);
+    // const pdfDocGenerator = pdfMake.createPdf(docDefinition);
+    // pdfDocGenerator.getDataUrl((dataUrl) => {
+    //   const targetElement = document.querySelector('#iframeContainer');
+    //   const iframe = document.createElement('iframe');
+    //   iframe.style.cssText = 'width:100%;height: 500px;';
+    //   iframe.src = dataUrl;
+    //   targetElement.appendChild(iframe);
+    // });
+  }
 }
