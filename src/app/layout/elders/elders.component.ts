@@ -146,9 +146,9 @@ export class EldersComponent implements OnInit {
   }
 
 
-  exportPdf(){
-    console.log("export pdf sample");
-    console.log(this.elderList);
+  async exportPdf(){
+    this.printList = [];
+    this.printList.push(['Fullname', 'Age', 'Bed No.', 'Date Affiliated']);
     this.elderList.forEach(elder => {
       const elderPrintList = [];
       elderPrintList.push(elder['first_name'] + ' ' + elder['last_name']);
@@ -159,32 +159,27 @@ export class EldersComponent implements OnInit {
       this.printList.push(elderPrintList);
     });
     console.log(this.printList);
-    //console.log(this.elderList);
+
     // playground requires you to assign document definition to a variable called dd
-    setTimeout(() => {
       var docDefinition = {
         content: [
           {
-            style: 'tableExample',
             table: {
-              body: [
-                ['Full Name', 'Age', 'Bed No', 'Date Affiliated'],
-                this.printList
+              widths: ['*', '*', '*', '*'],
+              body: [ ... this.printList
               ]
             }
           }
-        ]
-        
+        ],
+        styles: {
+          font_8:{
+              fontSize: 8,
+              color: '#1B4E75'
+          }
+    }
       }
+
       pdfMake.createPdf(docDefinition).open();
-    }, 1000);
-    // const pdfDocGenerator = pdfMake.createPdf(docDefinition);
-    // pdfDocGenerator.getDataUrl((dataUrl) => {
-    //   const targetElement = document.querySelector('#iframeContainer');
-    //   const iframe = document.createElement('iframe');
-    //   iframe.style.cssText = 'width:100%;height: 500px;';
-    //   iframe.src = dataUrl;
-    //   targetElement.appendChild(iframe);
-    // });
   }
+
 }
