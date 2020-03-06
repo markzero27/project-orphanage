@@ -22,26 +22,31 @@
         <th class="text-center">Name</th>
         <th class="text-center">Addess</th>
         <th class="text-center">Contact Number</th>
-        <th class="text-center">
-          <i class="fa" aria-hidden="true" *ngIf="userRole == 0"></i>
-        </th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>
+        <td *ngIf="userRole == 0">
           <i class="fa fa-filter" aria-hidden="true"></i>
-          <input
-            type="search"
-            name=""
-            id=""
-            class="ml-3 rounded px-2 py-1"
-            *ngIf="userRole != 0"
-          />
-          <button class="btn btn-light float-right" *ngIf="userRole != 0">
-            <i class="fa fa-sort" aria-hidden="true" *ngIf="userRole != 0"></i>
-          </button>
         </td>
+
+        <td>
+          <div class="d-flex border border-secondary rounded bg-white">
+            <div class="flex-1">
+              <input
+                type="text"
+                class="border-0 px-2 py-1 w-100"
+                [(ngModel)]="name"
+                (keyup)="filter($event.target.value)"
+              />
+            </div>
+            <button class="btn btn-light" (click)="sort('first_name')">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </div>
+        </td>
+
         <td>
           <div class="d-flex border border-secondary rounded bg-white">
             <div class="flex-1">
@@ -57,7 +62,8 @@
             </button>
           </div>
         </td>
-        <td *ngIf="userRole == 0">
+
+        <td>
           <div class="d-flex border border-secondary rounded bg-white">
             <div class="flex-1">
               <input
@@ -72,17 +78,13 @@
             </button>
           </div>
         </td>
+
         <td></td>
-        <td>
-          <button class="btn btn-info float-right mr-1" (click)="exportPdf()">
-            Export as PDF
-          </button>
-        </td>
       </tr>
       <tr *ngFor="let hospital of hospitalList">
         <th *ngIf="userRole == 0"><input type="checkbox" /></th>
-        <th scope="row">{{ hospital.hospital_name }}</th>
-        <td>
+        <th class="text-center">{{ hospital.hospital_name }}</th>
+        <td class="text-center">
           {{ hospital.address }}
         </td>
         <td class="text-center">{{ hospital.hospital_contact_no }}</td>
