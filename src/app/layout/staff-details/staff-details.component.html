@@ -99,6 +99,7 @@
           </div>
         </div>
       </div>
+
       <!-- End Display mode 1 -->
 
       <!-- Editing mode 1 -->
@@ -232,6 +233,69 @@
         </div>
       </div>
       <!-- End Editing mode 1 -->
+
+      <div class="card p-4 mb-3">
+        <h5 class="pb-2 color-dark-primary">
+          Account
+          <button
+            class="btn btn-transparent float-right large border"
+            (click)="editing3 = !editing3"
+            *ngIf="!editing3"
+          >
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </button>
+          <button
+            class="btn btn-primary float-right large border"
+            (click)="updatePassword()"
+            *ngIf="editing3"
+          >
+            Save
+          </button>
+        </h5>
+        <div class="form-group row">
+          <label for="" class="col-sm-5 col-form-label">Email</label>
+          <div class="col-sm-7">
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="staff.email"
+              [disabled]="!editing3"
+            />
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="!editing3">
+          <label for="" class="col-sm-5 col-form-label"> Password</label>
+          <div class="col-sm-7">
+            <input
+              type="password"
+              class="form-control"
+              [(ngModel)]="staff.password"
+              [disabled]="!editing3"
+            />
+          </div>
+        </div>
+        <div class="form-group row" *ngIf="editing3">
+          <label for="" class="col-sm-5 col-form-label">New Password</label>
+          <div class="col-sm-7">
+            <input
+              type="password"
+              class="form-control"
+              [(ngModel)]="newPassword"
+            />
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="editing3">
+          <label for="" class="col-sm-5 col-form-label">Confirm Password</label>
+          <div class="col-sm-7">
+            <input
+              type="password"
+              class="form-control"
+              [(ngModel)]="confirmPassword"
+            />
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Personal Info tab -->

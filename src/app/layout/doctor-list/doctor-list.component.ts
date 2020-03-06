@@ -4,7 +4,9 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { DoctorService } from 'src/app/services/doctor/doctor.service';
-
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
   selector: 'app-doctor-list',
   templateUrl: './doctor-list.component.html',
@@ -13,6 +15,7 @@ import { DoctorService } from 'src/app/services/doctor/doctor.service';
 export class DoctorListComponent implements OnInit {
   userRole = localStorage.getItem('user_role');
   doctor: Doctor;
+  printList = [];
   doctorList: Doctor[] = [];
   closeResult: string;
 
@@ -144,4 +147,41 @@ export class DoctorListComponent implements OnInit {
 
   }
 
+
+  async exportPdf() {
+    this.printList = [];
+    this.printList.push(['Name', 'Contact Number', 'Schedules', 'Specialization', 'Date Updated']);
+    this.doctorList.forEach(hospital => {
+      const hospitalPrintList = [];
+      hospitalPrintList.push(hospital['doc_name']);
+      hospitalPrintList.push(hospital['contact_no']);
+      hospitalPrintList.push(hospital['schedules']);
+      hospitalPrintList.push(hospital['specialization']);
+      hospitalPrintList.push(hospital['updated_at']);
+
+      this.printList.push(hospitalPrintList);
+    });
+
+    console.log(this.printList);
+
+    // playground requires you to assign document definition to a variable called dd
+    var docDefinition = {
+      content: [
+        {
+          table: {
+            widths: ['*', '*', '*', '*', '*'],
+            body: [... this.printList]
+          }
+        }
+      ],
+      styles: {
+        font_8: {
+          fontSize: 8,
+          color: '#1B4E75'
+        }
+      }
+    }
+
+    pdfMake.createPdf(docDefinition).open();
+  }
 }

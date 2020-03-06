@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { UsersService } from 'src/app/services/users/users.service';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-staff',
@@ -15,6 +18,7 @@ export class StaffComponent implements OnInit {
   rawStaffList: User[] = [];
   staffList: User[] = [];
   alerts: Array<any> = [];
+  printList = [];
   userId = 0;
   order = 'asc';
 
@@ -154,4 +158,42 @@ export class StaffComponent implements OnInit {
 
   }
 
+  async exportPdf(){
+    this.printList = [];
+    this.printList.push(['Name', 'User Role', 'Email', 'Date Hired', 'Status']);
+    this.staffList.forEach(staff => {
+      const staffPrintList = [];
+      staffPrintList.push(staff['first_name'] + ' ' + staff['last_name']);
+      staffPrintList.push(this.getRole(staff.role));
+      staffPrintList.push(staff['email']);
+      staffPrintList.push(staff['date_hired']);
+      const statusValue = staff.status == 0 ? 'Inactive' : 'Active';
+      staffPrintList.push(statusValue);
+      
+      this.printList.push(staffPrintList);
+    });
+
+    console.log(this.printList);
+
+    // playground requires you to assign document definition to a variable called dd
+      var docDefinition = {
+        content: [
+          {
+            table: {
+              widths: ['*', '*', '*', '*', '*'],
+              body: [ ... this.printList
+              ]
+            }
+          }
+        ],
+        styles: {
+          font_8:{
+              fontSize: 8,
+              color: '#1B4E75'
+          }
+    }
+      }
+
+      pdfMake.createPdf(docDefinition).open();
+  }
 }

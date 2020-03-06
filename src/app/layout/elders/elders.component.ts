@@ -4,7 +4,9 @@ import { EldersService } from 'src/app/services/elders/elders.service';
 import { Elders, initialElder } from 'src/app/models/elders.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
   selector: 'app-elders',
   templateUrl: './elders.component.html',
@@ -13,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 export class EldersComponent implements OnInit {
   rawElderList: Elders[] = [];
   elderList: Elders[] = [];
+  printList = [];
   userId = 0;
   order = 'asc';
 
@@ -140,6 +143,43 @@ export class EldersComponent implements OnInit {
       });
     }
 
+  }
+
+
+  async exportPdf(){
+    this.printList = [];
+    this.printList.push(['Fullname', 'Age', 'Bed No.', 'Date Affiliated']);
+    this.elderList.forEach(elder => {
+      const elderPrintList = [];
+      elderPrintList.push(elder['first_name'] + ' ' + elder['last_name']);
+      elderPrintList.push(elder['age']);
+      elderPrintList.push(elder['bed_no']);
+      elderPrintList.push(elder['date_stay_in_orphanage']);
+      
+      this.printList.push(elderPrintList);
+    });
+    console.log(this.printList);
+
+    // playground requires you to assign document definition to a variable called dd
+      var docDefinition = {
+        content: [
+          {
+            table: {
+              widths: ['*', '*', '*', '*'],
+              body: [ ... this.printList
+              ]
+            }
+          }
+        ],
+        styles: {
+          font_8:{
+              fontSize: 8,
+              color: '#1B4E75'
+          }
+    }
+      }
+
+      pdfMake.createPdf(docDefinition).open();
   }
 
 }
