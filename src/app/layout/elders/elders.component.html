@@ -106,7 +106,7 @@
       </tr>
       <tr *ngFor="let elder of elderList">
         <td><input type="checkbox" /></td>
-        <td class="text-center">
+        <td>
           {{ elder.first_name }} {{ elder.last_name }}
         </td>
         <td class="text-center">{{ elder.age }}</td>
@@ -239,6 +239,11 @@
         </div>
       </fieldset>
       <hr />
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary">
+        Done
+      </button>
     </div>
   </ng-template>
 </div>

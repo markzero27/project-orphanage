@@ -123,8 +123,7 @@
       </tr>
       <tr *ngFor="let staff of staffList" ng-repeat="post in posts | Filter">
         <td><input type="checkbox" /></td>
-        <td class="text-center">
-          {{ staff.first_name }} {{ staff.last_name }}
+        <td>{{ staff.first_name }} {{ staff.last_name }}
         </td>
         <td class="text-center">{{ getRole(staff.role) }}</td>
         <td class="text-center">{{ staff.email }}</td>
