@@ -21,24 +21,21 @@
   </li>
 </ul>
 
-<!-- Kung ano lng yung need ni User (filteres) un lng mkkta para iprint -->
-
 <div [ngSwitch]="selectedType">
   <!-- Daily Accomplishments -->
   <div class=" mb-3 py-3" *ngSwitchCase="'daily'">
-    <!-- Accomplishment Reports, auto generated na yung mga task ng staff -->
     <table class="table table-striped">
       <thead class="bg-primary-color text-light">
         <tr>
           <th><input type="checkbox" /></th>
           <!-- <th>Task</th> -->
-          <th>Date</th>
-          <th *ngIf="userRole == 0">Created By</th>
-          <th>Problems Encountered</th>
+          <th class="text-center">Date</th>
+          <th class="text-center" *ngIf="userRole == 0">Created By</th>
+          <th class="text-center">Problems Encountered</th>
           <!-- <th>Remarks</th> -->
-          <th>Time-in</th>
-          <th>Time-out</th>
-          <th>
+          <th class="text-center">Time-in</th>
+          <th class="text-center">Time-out</th>
+          <th class="text-center">
             <button
               class="btn btn-light float-right"
               *ngIf="userRole != 0"

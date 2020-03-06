@@ -10,12 +10,12 @@
     <thead class="bg-primary-color text-light">
       <tr>
         <th><input type="checkbox" /></th>
-        <th>Name</th>
-        <th>Contact Number</th>
-        <th>Schedules</th>
-        <th>Specialization</th>
-        <th>Date Updated</th>
-        <th *ngIf="userRole == 0">
+        <th class="text-center">Name</th>
+        <th class="text-center">Contact Number</th>
+        <th class="text-center">Schedules</th>
+        <th class="text-center">Specialization</th>
+        <th class="text-center">Date Updated</th>
+        <th class="text-center" *ngIf="userRole == 0">
           <i class="fa ml-3" aria-hidden="true"></i>
         </th>
       </tr>
@@ -26,34 +26,62 @@
           <i class="fa fa-filter" aria-hidden="true"></i>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
+          <div class="d-flex border border-secondary rounded bg-white">
+            <div class="flex-1">
+              <input
+                type="text"
+                class="border-0 px-2 py-1 w-100"
+                [(ngModel)]="doc_name"
+                (keyup)="filter($event.target.value)"
+              />
+            </div>
+            <button
+              class="btn btn-light"
+              (click)="sort('doc_name')"
+            >
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </div>
+        </td>
+        <td class="border-0 px-2 py-1">
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
+          <div class="d-flex border border-secondary rounded bg-white">
+            <div class="flex-1">
+              <input
+                type="text"
+                class="border-0 px-2 py-1 w-100"
+                [(ngModel)]="schedules"
+                (keyup)="filter($event.target.value)"
+              />
+            </div>
+            <button
+              class="btn btn-light"
+              (click)="sort('schedules')"
+            >
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </div>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
+          <div class="d-flex border border-secondary rounded bg-white">
+            <div class="flex-1">
+              <input
+                type="text"
+                class="border-0 px-2 py-1 w-100"
+                [(ngModel)]="specialization"
+                (keyup)="filter($event.target.value)"
+              />
+            </div>
+            <button
+              class="btn btn-light"
+              (click)="sort('specialization')"
+            >
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </div>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
-        </td>
-        <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
         </td>
         <td *ngIf="userRole == 0">
           <button class="btn btn-info float-right mr-1">
@@ -67,11 +95,11 @@
       <tr *ngFor="let doctor of doctorList">
         <th><input type="checkbox" /></th>
         <th scope="row">{{ doctor.doc_name }}</th>
-        <td>{{ doctor.contact_no }}</td>
-        <td>{{ doctor.schedules }}</td>
-        <td>{{ doctor.specialization }}</td>
-        <td>{{ doctor.updated_at }}</td>
-        <td *ngIf="userRole == 0">
+        <td class="text-center">{{ doctor.contact_no }}</td>
+        <td class="text-center">{{ doctor.schedules }}</td>
+        <td class="text-center">{{ doctor.specialization }}</td>
+        <td class="text-center">{{ doctor.updated_at }}</td>
+        <td class="text-center" *ngIf="userRole == 0">
           <button class="btn bg-transparent">
             <i class="fa fa-cog ml-3" aria-hidden="true"></i>
           </button>

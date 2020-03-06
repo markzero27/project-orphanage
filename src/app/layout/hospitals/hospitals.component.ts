@@ -101,75 +101,64 @@ export class HospitalsComponent implements OnInit {
     this.close();
   }
 
-  // filter(value) {
-  //   let hospitals = this.hospitalList;
+  filter(value) {
+    let hospitals = this.hospitalList;
 
-  //   if (this.hospital_name != '') {
-  //     console.log('hospital_name');
+    if (this.hospital_name != '') {
+      console.log('hospital_name');
 
-  //     hospitals = hospitals.filter(hospital => {
-  //       if (+this.hospital_name == hospital.hospital_name) {
-  //         return true;
-  //       }
-  //       return false;
-  //     });
-  //   }
+      hospitals = hospitals.filter(hospital => {
+        if (this.hospital_name == hospital.hospital_name) {
+          return true;
+        }
+        return false;
+      });
+    }
 
-  //   if (this.address != '') {
-  //     console.log('address');
+    if (this.address != '') {
+      console.log('address');
 
-  //     hospitals = hospitals.filter(hospital => {
-  //       if (+this.address == hospital.address) {
-  //         return true;
-  //       }
-  //       return false;
-  //     });
-  //   }
+      hospitals = hospitals.filter(hospital => {
+        if (this.address == hospital.address) {
+          return true;
+        }
+        return false;
+      });
+    }
 
-  //   if (this.hospital_contact_no != '') {
-  //     console.log('hospital_contact_no');
+    console.log(hospitals);
 
-  //     hospitals = hospitals.filter(hospital => {
-  //       if (+this.hospital_contact_no == hospital.hospital_contact_no) {
-  //         return true;
-  //       }
-  //       return false;
-  //     });
-  //   }
+    this.hospitalList = hospitals;
 
-  //   console.log(hospitals);
+  }
 
-  //   this.hospitalList = hospitals;
+  sort(column) {
+    console.log(column);
 
-  // }
+    if (this.order == 'desc') {
 
-  // sort(column) {
-  //   console.log(column);
+      this.order = 'asc';
+      this.hospitalList = this.hospitalList.sort((a, b) => {
+        if (a[column] > b[column]) {
+          return -1;
+        }
+        if (b[column] > a[column]) {
+          return 1;
+        }
+        return 0;
+      });
+    } else {
+      this.order = 'desc';
+      this.hospitalList = this.hospitalList.sort((a, b) => {
+        if (a[column] < b[column]) {
+          return -1;
+        }
+        if (b[column] > a[column]) {
+          return 1;
+        }
+        return 0;
+      });
+    }
 
-  //   if (this.order == 'desc') {
-
-  //     this.order = 'asc';
-  //     this.hospitalList = this.hospitalList.sort((a, b) => {
-  //       if (a[column] > b[column]) {
-  //         return -1;
-  //       }
-  //       if (b[column] > a[column]) {
-  //         return 1;
-  //       }
-  //       return 0;
-  //     });
-  //   } else {
-  //     this.order = 'desc';
-  //     this.hospitalList = this.hospitalList.sort((a, b) => {
-  //       if (a[column] < b[column]) {
-  //         return -1;
-  //       }
-  //       if (b[column] > a[column]) {
-  //         return 1;
-  //       }
-  //       return 0;
-  //     });
-  //   }
-
-  // }
+  }
 }

@@ -15,6 +15,12 @@ export class DoctorListComponent implements OnInit {
   doctor: Doctor;
   doctorList: Doctor[] = [];
   closeResult: string;
+
+  doc_name = '';
+  schedules = '';
+  specialization = '';
+  order = 'asc';
+
   constructor(
     private doctorService: DoctorService,
     private modalService: NgbModal,
@@ -64,6 +70,78 @@ export class DoctorListComponent implements OnInit {
     await this.doctorService.addDoctor(this.doctor).toPromise();
     this.setdoctors();
     this.close();
+  }
+
+  filter(value) {
+    let doctors = this.doctorList;
+
+    if (this.doc_name != '') {
+      console.log('doc_name');
+
+      doctors = doctors.filter(doctor => {
+        if (this.doc_name == doctor.doc_name) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    if (this.schedules != '') {
+      console.log('schedules');
+
+      doctors = doctors.filter(doctor => {
+        if (this.schedules == doctor.schedules) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    if (this.specialization != '') {
+      console.log('specialization');
+
+      doctors = doctors.filter(doctor => {
+        if (this.specialization == doctor.specialization) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    console.log(doctors);
+
+    this.doctorList = doctors;
+
+  }
+
+  sort(column) {
+    console.log(column);
+
+    if (this.order == 'desc') {
+
+      this.order = 'asc';
+      this.doctorList = this.doctorList.sort((a, b) => {
+        if (a[column] > b[column]) {
+          return -1;
+        }
+        if (b[column] > a[column]) {
+          return 1;
+        }
+        return 0;
+      });
+    } else {
+      this.order = 'desc';
+      this.doctorList = this.doctorList.sort((a, b) => {
+        if (a[column] < b[column]) {
+          return -1;
+        }
+        if (b[column] > a[column]) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+
   }
 
 }

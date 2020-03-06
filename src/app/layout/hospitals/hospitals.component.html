@@ -11,10 +11,10 @@
     <thead class="bg-primary-color text-light">
       <tr>
         <th *ngIf="userRole == 0"><input type="checkbox" /></th>
-        <th>Name</th>
-        <th>Addess</th>
-        <th>Contact Number</th>
-        <th>
+        <th class="text-center">Name</th>
+        <th class="text-center">Addess</th>
+        <th class="text-center">Contact Number</th>
+        <th class="text-center">
           <i
             class="fa"
             aria-hidden="true"
@@ -33,20 +33,38 @@
           </button>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
+          <div class="d-flex border border-secondary rounded bg-white">
+            <div class="flex-1">
+              <input
+                type="text"
+                class="border-0 px-2 py-1 w-100"
+                [(ngModel)]="hospital_name"
+                (keyup)="filter($event.target.value)"
+              />
+            </div>
+            <button class="btn btn-light" (click)="sort('hospital_name')">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </div>
         </td>
         <td *ngIf="userRole == 0">
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
+          <div class="d-flex border border-secondary rounded bg-white">
+            <div class="flex-1">
+              <input
+                type="text"
+                class="border-0 px-2 py-1"
+                [(ngModel)]="address"
+                (keyup)="filter($event.target.value)"
+              />
+            </div>
+            <button class="btn btn-light" (click)="sort('address')">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </div>
         </td> 
         <td>
         </td>
-        <td>
+        <td class="text-center">
           <button class="btn btn-info float-right mr-1">
             Export as PDF
           </button>
@@ -58,14 +76,13 @@
         <td>
           {{ hospital.address }}
         </td>
-        <td>{{ hospital.hospital_contact_no }}</td>
-        <td>
+        <td class="text-center">{{ hospital.hospital_contact_no }}</td>
+        <td class="text-center">
           <button
             class="btn bg-transparent"
             (click)="
               router.navigate(['/hospitals/details', { id: hospital.id }])
-            "
-          >
+            ">
             <i class="fa fa-cog ml-3" aria-hidden="true"></i>
           </button>
         </td>
