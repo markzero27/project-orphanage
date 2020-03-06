@@ -26,6 +26,11 @@ export class HospitalsComponent implements OnInit {
   docIndex = [];
   serviceIndex = [];
   serviceList = ['hermatology', '2D echo', 'X-ray', 'lood Chemistry', 'EKG', 'Dental X-ray', 'Ultrasound'];
+  order = 'asc';
+
+  hospital_name = '';
+  address = '';
+  hospital_contact_no = '';
 
   constructor(
     private hospitalService: HospitalService,
@@ -35,6 +40,9 @@ export class HospitalsComponent implements OnInit {
     public router: Router
   ) {
     this.setHospitals();
+    this.hospitalService.getAllHospitals('hospital').subscribe((hospital: Hospital[]) => {
+      this.hospitalList = hospital;
+    });
   }
 
   setHospitals() {
@@ -98,7 +106,7 @@ export class HospitalsComponent implements OnInit {
   }
 
 
-  async exportPdf(){
+  async exportPdf() {
     this.printList = [];
     this.printList.push(['Name', 'Address', 'Contact Number']);
     this.hospitalList.forEach(hospital => {
@@ -106,30 +114,30 @@ export class HospitalsComponent implements OnInit {
       hospitalPrintList.push(hospital['hospital_name']);
       hospitalPrintList.push(hospital['address']);
       hospitalPrintList.push(hospital['hospital_contact_no']);
-      
+
       this.printList.push(hospitalPrintList);
     });
 
     console.log(this.printList);
 
     // playground requires you to assign document definition to a variable called dd
-      var docDefinition = {
-        content: [
-          {
-            table: {
-              widths: ['*', '*', '*'],
-              body: [ ... this.printList]
-            }
+    var docDefinition = {
+      content: [
+        {
+          table: {
+            widths: ['*', '*', '*'],
+            body: [... this.printList]
           }
-        ],
-        styles: {
-          font_8:{
-              fontSize: 8,
-              color: '#1B4E75'
-          }
-    }
+        }
+      ],
+      styles: {
+        font_8: {
+          fontSize: 8,
+          color: '#1B4E75'
+        }
       }
+    }
 
-      pdfMake.createPdf(docDefinition).open();
+    pdfMake.createPdf(docDefinition).open();
   }
 }

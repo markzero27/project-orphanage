@@ -56,8 +56,8 @@ export const initialElder: Elders = {
     gender: 'male',
     image: 'assets/images/default.jpeg',
     nationality: '',
-    age: 0
-    , birth_place: '',
+    age: 0,
+    birth_place: '',
     provincial_address: '',
     birth_date: '',
     sabbath: '',

@@ -11,7 +11,7 @@
           class="user-image mr-2 rounded-circle"
         />
       </div>
-      <div class="w-100 p-2">
+      <div class="w-200 p-2">
         <p class="m-0 small text-capitalize">
           {{ user.first_name }} {{ user.last_name }}
         </p>
@@ -214,15 +214,6 @@
       <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;
       <span>{{ 'Logout' | translate }}</span>
     </a>
-  </div>
-  <div
-    class="toggle-button"
-    [ngClass]="{ collapsed: collapsed }"
-    (click)="toggleCollapsed()"
-  >
-    <i class="fa fa-fw fa-angle-double-{{ collapsed ? 'right' : 'left' }}"></i
-    >&nbsp;
-    <span>{{ 'Collapse Sidebar' | translate }}</span>
   </div>
 </nav>
 

@@ -23,6 +23,7 @@ export class StaffDetailsComponent implements OnInit {
   tab = 1;
   editing1 = false;
   editing2 = false;
+  editing3 = false;
   dateHired: any;
   bDate: any;
   sabbathDate: any;
@@ -38,7 +39,8 @@ export class StaffDetailsComponent implements OnInit {
   time: any;
   addDate: any;
   alerts: Array<any> = [];
-
+  confirmPassword = '';
+  newPassword = '';
   fileData: File = null;
   previewUrl: any = null;
   fileUploadProgress: string = null;
@@ -104,7 +106,6 @@ export class StaffDetailsComponent implements OnInit {
   async getAllTasks() {
     this.taskList = await this.taskService.getTaskByStaff(this.staff.id).toPromise() as Task[];
     console.log(this.taskList);
-
   }
 
   ngOnInit() {
@@ -333,5 +334,26 @@ export class StaffDetailsComponent implements OnInit {
       return this.doneTasks.find(task => task.id == id).status;
     }
     return 'Pending';
+  }
+
+  updatePassword() {
+
+    if (this.newPassword.trim() == '' && this.confirmPassword.trim() == '') {
+      return this.editing3 = !this.editing3;
+    }
+
+    if (this.newPassword.trim() !== this.confirmPassword.trim()) {
+      return this.toastr.warning('Passwords did not match');
+    }
+
+    this.userService.updatePassword(this.staff.email, this.newPassword).then(() => {
+      this.toastr.success('Password updated');
+      this.editing3 = !this.editing3;
+      this.newPassword = '';
+      this.confirmPassword = '';
+    }).catch(err => {
+      this.editing3 = !this.editing3;
+      this.toastr.error(err.message);
+    });
   }
 }
