@@ -54,6 +54,10 @@ export class EldersAddPageComponent implements OnInit {
       this.toastr.success('Success!');
       this.clearAll();
       this.router.navigate(['/elders']);
+    }, reject => {
+      console.log(reject);
+
+      this.toastr.warning(reject.error.message);
     });
 
 
@@ -88,14 +92,8 @@ export class EldersAddPageComponent implements OnInit {
   onSubmit() {
     return new Promise(resolve => {
       const formData = new FormData();
-      console.log('====================================');
-      console.log(this.fileData);
-      console.log('====================================');
       formData.append('image', this.fileData);
       this.userService.uploadImage(formData).subscribe((res: any) => {
-        console.log('====================================');
-        console.log(res.filePath);
-        console.log('====================================');
         resolve(`http://localhost:8000/storage/images/${res.filePath.substring(14)}`);
       });
     });

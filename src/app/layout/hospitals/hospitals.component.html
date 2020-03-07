@@ -1,9 +1,17 @@
 <div class="top">
-  <hr><h2 class="text-center">HOSPITAL LIST
-    <button class="btn btn-light float-right"
-    (click)="open(content)" *ngIf="userRole == 0">
-    <i class="fa fa-plus mr-2" aria-hidden="true" *ngIf="userRole == 0"></i> Add
-  </button></h2><hr>
+  <hr />
+  <h2 class="text-center">
+    HOSPITAL LIST
+    <button
+      class="btn btn-light float-right"
+      (click)="open(content)"
+      *ngIf="userRole == 0"
+    >
+      <i class="fa fa-plus mr-2" aria-hidden="true" *ngIf="userRole == 0"></i>
+      Add
+    </button>
+  </h2>
+  <hr />
 </div>
 
 <div class="card mb-3">
@@ -14,43 +22,49 @@
         <th>Name</th>
         <th>Addess</th>
         <th>Contact Number</th>
-        <th>
-          <i
-            class="fa"
-            aria-hidden="true"
-            *ngIf="userRole == 0"
-          ></i>
-        </th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td>
           <i class="fa fa-filter" aria-hidden="true"></i>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1" *ngIf="userRole != 0"/>
-          <button class="btn btn-light float-right" *ngIf="userRole != 0">
-            <i class="fa fa-sort" aria-hidden="true" *ngIf="userRole != 0"></i>
-          </button>
         </td>
         <td>
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
+          <div class="d-flex border border-secondary rounded bg-white">
+            <div class="flex-1">
+              <input
+                type="text"
+                class="border-0 px-2 py-1 w-100"
+                [(ngModel)]="name"
+                (keyup)="filter($event.target.value)"
+              />
+            </div>
+            <button class="btn btn-light" (click)="sort('first_name')">
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </div>
         </td>
         <td *ngIf="userRole == 0">
-          <input type="search" name="" id="" class="ml-3 rounded px-2 py-1"/>
-          <button class="btn btn-light float-right">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-          </button>
-        </td> 
-        <td>
+          <div class="d-flex border border-secondary rounded bg-white">
+            <div class="flex-1">
+              <input
+                type="text"
+                class="border-0 px-2 py-1 w-100"
+                [(ngModel)]="date_aff"
+                (keyup)="filter($event.target.value)"
+              />
+            </div>
+            <button
+              class="btn btn-light"
+              (click)="sort('date_stay_in_orphanage')"
+            >
+              <i class="fa fa-sort" aria-hidden="true"></i>
+            </button>
+          </div>
         </td>
-        <td>
-          <button class="btn btn-info float-right mr-1" (click)="exportPdf()">
-            Export as PDF
-          </button>
-        </td>
+        <td></td>
+        <td></td>
       </tr>
       <tr *ngFor="let hospital of hospitalList">
         <th *ngIf="userRole == 0"><input type="checkbox" /></th>
@@ -142,7 +156,7 @@
         <label>Sevices Offer</label>
         <div class="form-group">
           <label for=""></label>
-          <select class="custom-select" [(ngModel)]="serviceIndex" multiple="">
+          <select class="custom-select" [(ngModel)]="serviceIndex" multiple>
             <option
               *ngFor="let service of serviceList; let i = index"
               [value]="i"

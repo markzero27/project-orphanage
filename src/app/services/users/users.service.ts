@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User, EmpoymentHistory } from 'src/app/models/user.model';
 import { Userlogs } from 'src/app/models/use-logs.model';
+import { Notification } from 'src/app/models/notification.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,10 @@ export class UsersService {
 
   getStaff(id) {
     return this.http.get<User>(this.url + `/${id}`, { headers: this.reqHeader });
+  }
+
+  getStaffByEmail(email) {
+    return this.http.get<User>(this.url + `?email=${email}`, { headers: this.reqHeader });
   }
 
   getUserLogs() {
@@ -107,4 +112,27 @@ export class UsersService {
 
     return this.http.post(`${environment.api}/file-upload`, file);
   }
+
+  sendNotif(data) {
+    const api = environment.api + '/notification';
+    data.created_by = Number(this.userId);
+    data.updated_by = Number(this.userId);
+    return this.http.post(api, data, { headers: this.reqHeader });
+  }
+
+  getAllNotifs() {
+    const api = environment.api + '/notification';
+    return this.http.get<Notification[]>(api);
+  }
+
+  getNotifsByType(type) {
+    const api = `${environment.api}/notification?type=${type}`;
+    return this.http.get<Notification[]>(api);
+  }
+
+  updateNotif(data: Notification) {
+    const api = `${environment.api}/notification/${data.id}`;
+    return this.http.patch(api, data, { headers: this.reqHeader });
+  }
+
 }

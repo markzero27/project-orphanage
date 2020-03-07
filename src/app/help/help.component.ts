@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { routerTransition } from '../router.animations';
 import { UsersService } from '../services/users/users.service';
 import { ToastrService } from 'ngx-toastr';
+import { Notification } from '../models/notification.model';
 
 @Component({
     selector: 'app-help',
@@ -12,7 +13,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class HelpComponent implements OnInit {
     email = '';
-    password = '';
     constructor(
         public router: Router,
         private userService: UsersService,
@@ -23,26 +23,28 @@ export class HelpComponent implements OnInit {
 
     ngOnInit() { }
 
-    onLoggedin() {
-        localStorage.setItem('isLoggedin', 'true');
-        if (this.email == 'admin' && this.password == 'admin') {
-            localStorage.setItem('user_id', '0');
-            localStorage.setItem('user_role', '0');
-            this.router.navigate(['/dashboard']);
-            this.toastr.success('Welcome Admin!');
-        } else {
-            this.userService.login({ email: this.email, password: this.password }).subscribe((res: any) => {
-                if (res.data) {
-                    localStorage.setItem('user_id', res.data.id);
-                    localStorage.setItem('user_role', res.data.role);
-                    localStorage.setItem('user_data', JSON.stringify(res.data));
-                    this.router.navigate(['/dashboard']);
-                    this.toastr.success(res.message);
-                }
-            }, get => {
-                this.toastr.error(get.error.message);
-            });
-        }
+    sendHelp() {
+        this.userService.getStaffByEmail(this.email).subscribe(user => {
+            if (!user) {
+                return this.toastr.warning('Email does not exist!');
+            }
 
+            const notif: Notification = {
+                description: `${user.first_name} ${user.last_name} is requesting for new password!`,
+                title: 'Password Request',
+                isNew: true,
+                staff_id: user.id,
+                staff_name: `${user.first_name} ${user.last_name}`,
+                type: 'request',
+                created_by: user.id,
+                updated_by: user.id
+            };
+
+            this.userService.sendNotif(notif).subscribe(() => {
+                this.toastr.success('Password reset request sent!');
+                this.router.navigate(['/login']);
+            });
+        });
     }
+
 }
