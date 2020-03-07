@@ -61,9 +61,6 @@ export class UsersService {
   }
 
   udpateUser(data: User, ehistory: EmpoymentHistory[]) {
-    console.log('====================================');
-    console.log(data);
-    console.log('====================================');
     return new Promise((resolve, reject) => {
       data.updated_by = Number(this.userId);
       this.http.patch(`${this.url}/${data.id}`, data, { headers: this.reqHeader }).subscribe(
@@ -79,6 +76,10 @@ export class UsersService {
         }
       );
     });
+  }
+
+  updatePassword(email, password) {
+    return this.http.post(`${environment.api}/change-password?email=${email}&password=${password}`, { headers: this.reqHeader }).toPromise();
   }
 
   deleteUser(id) {

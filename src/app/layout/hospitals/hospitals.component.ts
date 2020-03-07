@@ -6,6 +6,9 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { DoctorService } from 'src/app/services/doctor/doctor.service';
 import { Doctor } from 'src/app/models/doctor.model';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-hospitals',
@@ -17,13 +20,14 @@ export class HospitalsComponent implements OnInit {
   hospitalList: Hospital[] = [];
   hospital: Hospital;
   loading = true;
+  printList = [];
   closeResult: string;
   doctorList: Doctor[] = [];
   docIndex = [];
   serviceIndex = [];
   serviceList = ['hermatology', '2D echo', 'X-ray', 'lood Chemistry', 'EKG', 'Dental X-ray', 'Ultrasound'];
   order = 'asc';
-  
+
   hospital_name = '';
   address = '';
   hospital_contact_no = '';
@@ -160,5 +164,39 @@ export class HospitalsComponent implements OnInit {
       });
     }
 
+  }
+  async exportPdf() {
+    this.printList = [];
+    this.printList.push(['Name', 'Address', 'Contact Number']);
+    this.hospitalList.forEach(hospital => {
+      const hospitalPrintList = [];
+      hospitalPrintList.push(hospital['hospital_name']);
+      hospitalPrintList.push(hospital['address']);
+      hospitalPrintList.push(hospital['hospital_contact_no']);
+
+      this.printList.push(hospitalPrintList);
+    });
+
+    console.log(this.printList);
+
+    // playground requires you to assign document definition to a variable called dd
+    var docDefinition = {
+      content: [
+        {
+          table: {
+            widths: ['*', '*', '*'],
+            body: [... this.printList]
+          }
+        }
+      ],
+      styles: {
+        font_8: {
+          fontSize: 8,
+          color: '#1B4E75'
+        }
+      }
+    }
+
+    pdfMake.createPdf(docDefinition).open();
   }
 }
