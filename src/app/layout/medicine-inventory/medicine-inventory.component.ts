@@ -7,6 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import { MedReport } from 'src/app/models/med-report.model';
 import { User } from 'src/app/models/user.model';
 import { log } from 'util';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-medicine-inventory',
@@ -17,6 +20,7 @@ export class MedicineInventoryComponent implements OnInit {
   userId = +localStorage.getItem('user_id');
   userData: User = JSON.parse(localStorage.getItem('user_data'));
   medicineList: Medicine[] = [];
+  printList = [];
   medName = '';
   quantity = 1;
   buffer = 1;
@@ -200,4 +204,43 @@ export class MedicineInventoryComponent implements OnInit {
     }, (err) => this.toastr.error(err.message));
   }
 
+
+  async exportPdf(){
+    this.printList = [];
+    this.printList.push(['Medicine Name','Medicine Type', 'Buffer', 'Stock',  'Dispense', 'Date Modified']);
+    this.medicineList.forEach(medicine => { 
+      const medicinePrintList = [];
+      medicinePrintList.push(medicine['medicine_name']);
+      medicinePrintList.push(medicine['type_of_medicine_description']);
+      medicinePrintList.push(medicine['buffer']);
+      medicinePrintList.push(medicine['qty']);
+      medicinePrintList.push(medicine['dispense']);
+      medicinePrintList.push(medicine['updated_at']);
+      
+      this.printList.push(medicinePrintList);
+    });
+
+    console.log(this.printList);
+
+    // playground requires you to assign document definition to a variable called dd
+      var docDefinition = {
+        content: [
+          {
+            table: {
+              widths: ['*', '*', '*','*', '*', '*'],
+              body: [ ... this.printList]
+            }
+          }
+        ],
+        styles: {
+          font_8:{
+              fontSize: 8,
+              color: '#1B4E75'
+          }
+    }
+      }
+
+      pdfMake.createPdf(docDefinition).open();
+  }
+  
 }
