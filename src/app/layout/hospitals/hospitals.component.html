@@ -19,16 +19,10 @@
     <thead class="bg-primary-color text-light">
       <tr>
         <th *ngIf="userRole == 0"><input type="checkbox" /></th>
-        <th class="text-center">Name</th>
-        <th class="text-center">Addess</th>
-        <th class="text-center">Contact Number</th>
-        <th class="text-center">
-          <i
-            class="fa"
-            aria-hidden="true"
-            *ngIf="userRole == 0"
-          ></i>
-        </th>
+        <th>Name</th>
+        <th>Addess</th>
+        <th>Contact Number</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -56,7 +50,7 @@
             <div class="flex-1">
               <input
                 type="text"
-                class="border-0 px-2 py-1"
+                class="border-0 px-2 py-1 w-100"
                 [(ngModel)]="address"
                 (keyup)="filter($event.target.value)"
               />
@@ -65,13 +59,6 @@
               <i class="fa fa-sort" aria-hidden="true"></i>
             </button>
           </div>
-        </td> 
-        <td>
-        </td>
-        <td>
-          <button class="btn btn-info float-right mr-1" (click)="exportPdf()">
-            Export as PDF
-          </button>
         </td>
         <td></td>
         <td></td>
@@ -88,7 +75,8 @@
             class="btn bg-transparent"
             (click)="
               router.navigate(['/hospitals/details', { id: hospital.id }])
-            ">
+            "
+          >
             <i class="fa fa-cog ml-3" aria-hidden="true"></i>
           </button>
         </td>
