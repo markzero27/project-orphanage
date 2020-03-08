@@ -145,7 +145,6 @@ export class EldersComponent implements OnInit {
 
   }
 
-
   async exportPdf(){
     this.printList = [];
     this.printList.push(['Fullname', 'Age', 'Bed No.', 'Date Affiliated']);
@@ -163,6 +162,11 @@ export class EldersComponent implements OnInit {
     // playground requires you to assign document definition to a variable called dd
       var docDefinition = {
         content: [
+          {
+            type: 'Line',
+            style: { penColor: '#000080', penSize: 2, dashStyle: 'Solid' },
+            points: { x1: 0, y1: 4, x2: 685, y2: 4 }
+          },
           {
             table: {
               widths: ['*', '*', '*', '*'],

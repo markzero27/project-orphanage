@@ -65,8 +65,8 @@ export class TasksComponent implements OnInit {
   }
 
   getStatus(id) {
-    if (this.doneTasks.some(task => task.id == id)) {
-      return this.doneTasks.find(task => task.id == id).status;
+    if (this.doneTasks.some(task => task.task_id == id)) {
+      return this.doneTasks.find(task => task.task_id == id).status;
     }
     return 'Pending';
   }

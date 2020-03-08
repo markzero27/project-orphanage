@@ -55,10 +55,11 @@ export class ReportsComponent implements OnInit {
 
     this.userService.getUserLogsById(this.userData.id).subscribe(logs => {
       this.userLogs = logs;
-      console.log('Logs ====================================');
-      console.log(logs);
-      console.log('====================================');
     });
+
+    const today = new Date().toDateString();
+    console.log(today);
+
 
     this.getTaskReports();
   }
@@ -73,9 +74,16 @@ export class ReportsComponent implements OnInit {
   }
 
   getTaskReports() {
-    this.taskService.getTaskReports().subscribe(reports => {
-      this.taskReports = reports;
-    });
+    if (this.userData.role != 0) {
+      this.taskService.getTaskReportById(this.userData.id).subscribe(reports => {
+        this.taskReports = reports;
+      });
+    } else {
+      this.taskService.getTaskReports().subscribe(reports => {
+        this.taskReports = reports;
+      });
+    }
+
   }
 
   ngOnInit() {
@@ -86,8 +94,8 @@ export class ReportsComponent implements OnInit {
     //   return this.toastr.error('Please enter valid time!');
     // }
 
-    if (this.accomp.task_description.trim() == '') {
-      return this.toastr.error('Please enter task description!');
+    if (this.accomp.problems_encountered.trim() == '' || this.accomp.remarks.trim() == '') {
+      return this.toastr.error('Please complete All fields!');
     }
 
     // this.accomp.time_in = `${this.time_in.hour}:${this.time_in.minute}`;

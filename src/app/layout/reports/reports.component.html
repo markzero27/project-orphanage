@@ -155,14 +155,14 @@
           </div>
         </fieldset>
         <hr /> -->
-        <fieldset class="form-group">
+        <!-- <fieldset class="form-group">
           <label>Task</label>
           <input
             class="form-control"
             placeholder=""
             [(ngModel)]="accomp.task_description"
           />
-        </fieldset>
+        </fieldset> -->
         <fieldset class="form-group">
           <label>Problems Encountered</label>
           <textarea
@@ -472,7 +472,7 @@
             {{ report.qty }}
           </td>
           <td class="text-center">
-            {{ report.time }}
+            {{ convertDate(report.created_at) | date: 'hh:mm a' }}
           </td>
           <td class="text-center">
             {{ report.status }}

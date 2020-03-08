@@ -1,9 +1,17 @@
 <div class="top">
-  <hr><h2 class="text-center">DOCTOR LIST
-    <button class="btn btn-light float-right"
-    (click)="open(content)" *ngIf="userRole == 0">
-    <i class="fa fa-plus mr-2" aria-hidden="true" *ngIf="userRole == 0"></i> Add
-  </button></h2><hr>
+  <hr />
+  <h2 class="text-center">
+    DOCTOR LIST
+    <button
+      class="btn btn-light float-right"
+      (click)="open(content)"
+      *ngIf="userRole == 0"
+    >
+      <i class="fa fa-plus mr-2" aria-hidden="true" *ngIf="userRole == 0"></i>
+      Add
+    </button>
+  </h2>
+  <hr />
 </div>
 <div class="card mb-3">
   <table class="table table-striped">
@@ -118,7 +126,8 @@
         type="button"
         class="close"
         aria-label="Close"
-        (click)="c('Cross click')">
+        (click)="c('Cross click')"
+      >
         <span aria-hidden="true">&times;</span>
       </button>
     </div>

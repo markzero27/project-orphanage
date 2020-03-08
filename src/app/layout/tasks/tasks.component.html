@@ -40,11 +40,11 @@
       </tr>
       <tr *ngFor="let task of taskList">
         <th><input type="checkbox" /></th>
-        <th scope="row">{{ task.elder_name }}</th>
-        <td>{{ task.medicine_description }}</td>
-        <td>{{ task.qty }}</td>
-        <td>{{ task.time }}</td>
-        <td
+        <th class="text-center" scope="row">{{ task.elder_name }}</th>
+        <td class="text-center">{{ task.medicine_description }}</td>
+        <td class="text-center">{{ task.qty }}</td>
+        <td class="text-center">{{ task.time }}</td>
+        <td class="text-center"
           [ngClass]="{
             'text-primary': getStatus(task.id) == 'Done',
             'text-warning': getStatus(task.id) == 'Pending',
@@ -53,7 +53,7 @@
         >
           {{ getStatus(task.id) }}
         </td>
-        <td>
+        <td class="text-center">
           <app-task-dropdown
             [task]="task"
             *ngIf="getStatus(task.id) == 'Pending'"
