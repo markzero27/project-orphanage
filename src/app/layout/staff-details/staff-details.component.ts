@@ -205,6 +205,8 @@ export class StaffDetailsComponent implements OnInit {
 
     const dateRepeats = this.dateRepeats.filter(date => date.isSelected).map(date => date.day);
 
+    console.log(this.medList[this.medIndex]);
+    console.log(this.medList[this.medIndex].id);
 
     const newTask: Task = {
       elder_id: this.elderList[this.elderIndex].id,
@@ -330,8 +332,8 @@ export class StaffDetailsComponent implements OnInit {
   }
 
   getStatus(id) {
-    if (this.doneTasks.some(task => task.id == id)) {
-      return this.doneTasks.find(task => task.id == id).status;
+    if (this.doneTasks.some(task => task.task_id == id)) {
+      return this.doneTasks.find(task => task.task_id == id).status;
     }
     return 'Pending';
   }

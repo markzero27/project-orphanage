@@ -8,26 +8,26 @@
         <div class="form-content">
           <p>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            Please enter your email or phone number:
+            Please enter your email:
           </p>
           <div class="form-group mx-5">
             <input
-              type="password"
+              type="email"
               class="form-control input-underline input-lg"
-              [(ngModel)]="value"
+              [(ngModel)]="email"
             />
           </div>
         </div>
         <div class="form-buttons text-center">
           <a [routerLink]="['/login']">
-            <button class="btn bg-primary-color text-light px-5">
-              Sent
+            <button class="btn btn-secondary text-light px-5">
+              Cancel
             </button></a
           >
           &nbsp;
-          <a [routerLink]="['/login']">
+          <a (click)="sendHelp()">
             <button class="btn bg-primary-color text-light px-5">
-              Cancel
+              Sent
             </button></a
           >
         </div>
