@@ -32,7 +32,7 @@ export class HelpComponent implements OnInit {
             const notif: Notification = {
                 description: `${user.first_name} ${user.last_name} is requesting for new password!`,
                 title: 'Password Request',
-                isNew: true,
+                isNew: 1,
                 staff_id: user.id,
                 staff_name: `${user.first_name} ${user.last_name}`,
                 type: 'request',
