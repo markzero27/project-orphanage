@@ -17,6 +17,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class HospitalsComponent implements OnInit {
   userRole = localStorage.getItem('user_role');
+  rawHospitalList: Hospital[] = [];
   hospitalList: Hospital[] = [];
   hospital: Hospital;
   loading = true;
@@ -42,7 +43,11 @@ export class HospitalsComponent implements OnInit {
     this.setHospitals();
     this.hospitalService.getAllHospitals('hospital').subscribe((hospital: Hospital[]) => {
       this.hospitalList = hospital;
+      this.rawHospitalList = hospital;
     });
+  }
+
+  ngOnInit() {
   }
 
   setHospitals() {
@@ -60,9 +65,6 @@ export class HospitalsComponent implements OnInit {
     this.doctorService.getAllDoctors(0).subscribe(docs => {
       this.doctorList = docs;
     });
-  }
-
-  ngOnInit() {
   }
 
   open(content) {
@@ -106,13 +108,14 @@ export class HospitalsComponent implements OnInit {
   }
 
   filter(value) {
-    let hospitals = this.hospitalList;
+    let hospitals = this.rawHospitalList;
 
     if (this.hospital_name != '') {
       console.log('hospital_name');
 
       hospitals = hospitals.filter(hospital => {
-        if (this.hospital_name == hospital.hospital_name) {
+        const hospital_name = `${hospital.hospital_name}`;
+        if (hospital_name.includes(this.hospital_name)) {
           return true;
         }
         return false;
@@ -123,7 +126,20 @@ export class HospitalsComponent implements OnInit {
       console.log('address');
 
       hospitals = hospitals.filter(hospital => {
-        if (this.address == hospital.address) {
+        const address = `${hospital.address}`;
+        if (address.includes(this.address)) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    if (this.hospital_contact_no != '') {
+      console.log('hospital_contact_no');
+
+      hospitals = hospitals.filter(hospital => {
+        const hospital_contact_no = `${hospital.hospital_contact_no}`;
+        if (hospital_contact_no.includes(this.hospital_contact_no)) {
           return true;
         }
         return false;

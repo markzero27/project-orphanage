@@ -17,19 +17,15 @@
   <table class="table table-striped">
     <thead class="bg-primary-color text-light">
       <tr>
-        <th><input type="checkbox" /></th>
-        <th>Name</th>
-        <th>Contact Number</th>
-        <th>Schedules</th>
-        <th>Specialization</th>
-        <th>Date Updated</th>
+        <th class="text-center">Name</th>
+        <th class="text-center">Contact Number</th>
+        <th class="text-center">Schedules</th>
+        <th class="text-center">Specialization</th>
+        <th class="text-center">Date Updated</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td>
-          <i class="fa fa-filter" aria-hidden="true"></i>
-        </td>
         <td>
           <div class="d-flex border border-secondary rounded bg-white">
             <div class="flex-1">
@@ -45,23 +41,20 @@
             </button>
           </div>
         </td>
-        <td>
-          <div class="d-flex border border-secondary rounded bg-white">
+        <td class="text-center">
+          <div class="btn d-flex border border-secondary rounded bg-white">
             <div class="flex-1">
               <input
                 type="text"
                 class="border-0 px-2 py-1 w-100"
-                [(ngModel)]="age"
+                [(ngModel)]="contact_no"
                 (keyup)="filter($event.target.value)"
               />
             </div>
-            <button class="btn btn-light" (click)="sort('age')">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
           </div>
         </td>
         <td>
-          <div class="d-flex border border-secondary rounded bg-white">
+          <div class="btn d-flex border border-secondary rounded bg-white">
             <div class="flex-1">
               <input
                 type="text"
@@ -70,13 +63,10 @@
                 (keyup)="filter($event.target.value)"
               />
             </div>
-            <button class="btn btn-light" (click)="sort('schedules')">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
           </div>
         </td>
         <td>
-          <div class="d-flex border border-secondary rounded bg-white">
+          <div class="btn d-flex border border-secondary rounded bg-white">
             <div class="flex-1">
               <input
                 type="text"
@@ -85,9 +75,6 @@
                 (keyup)="filter($event.target.value)"
               />
             </div>
-            <button class="btn btn-light" (click)="sort('specialization')">
-              <i class="fa fa-sort" aria-hidden="true"></i>
-            </button>
           </div>
         </td>
         <td>
@@ -96,13 +83,13 @@
               <input
                 type="text"
                 class="border-0 px-2 py-1 w-100"
-                [(ngModel)]="date_aff"
+                [(ngModel)]="updated_at"
                 (keyup)="filter($event.target.value)"
               />
             </div>
             <button
               class="btn btn-light"
-              (click)="sort('date_stay_in_orphanage')"
+              (click)="sort('updated_at')"
             >
               <i class="fa fa-sort" aria-hidden="true"></i>
             </button>
@@ -113,12 +100,11 @@
         <td class="text-center p-3" colspan="13">No Record</td>
       </tr>
       <tr *ngFor="let doctor of doctorList">
-        <th><input type="checkbox" /></th>
         <th scope="row">{{ doctor.doc_name }}</th>
-        <td>{{ doctor.contact_no }}</td>
-        <td>{{ doctor.schedules }}</td>
-        <td>{{ doctor.specialization }}</td>
-        <td>{{ doctor.updated_at }}</td>
+        <td class="text-center">{{ doctor.contact_no }}</td>
+        <td class="text-center">{{ doctor.schedules }}</td>
+        <td class="text-center">{{ doctor.specialization }}</td>
+        <td class="text-center">{{ doctor.updated_at }}</td>
       </tr>
     </tbody>
   </table>
