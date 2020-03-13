@@ -21,6 +21,7 @@ export class MedicineInventoryComponent implements OnInit {
   userData: User = JSON.parse(localStorage.getItem('user_data'));
   medicineList: Medicine[] = [];
   printList = [];
+  rawMedicineList: Medicine[] = [];
   medName = '';
   quantity = 1;
   buffer = 1;
@@ -34,6 +35,14 @@ export class MedicineInventoryComponent implements OnInit {
   medToUpdate: any;
   operation = '+';
   restockType = 'qty';
+  order = 'asc';
+
+  medicine_name = '';
+  type_of_medicine_description = '';
+  qty = '';
+  dispense = '';
+  updated_at = '';
+  buff = '';
 
   constructor(
     private modalService: NgbModal,
@@ -79,6 +88,9 @@ export class MedicineInventoryComponent implements OnInit {
       console.log('====================================');
       console.log(list);
       console.log('====================================');
+    });
+    this.medicineService.getAllMedicine(0).subscribe((med: Medicine[]) => {
+      this.rawMedicineList = med;
     });
   }
 
@@ -205,10 +217,10 @@ export class MedicineInventoryComponent implements OnInit {
   }
 
 
-  async exportPdf(){
+  async exportPdf() {
     this.printList = [];
-    this.printList.push(['Medicine Name','Medicine Type', 'Buffer', 'Stock',  'Dispense', 'Date Modified']);
-    this.medicineList.forEach(medicine => { 
+    this.printList.push(['Medicine Name', 'Medicine Type', 'Buffer', 'Stock', 'Dispense', 'Date Modified']);
+    this.medicineList.forEach(medicine => {
       const medicinePrintList = [];
       medicinePrintList.push(medicine['medicine_name']);
       medicinePrintList.push(medicine['type_of_medicine_description']);
@@ -216,31 +228,102 @@ export class MedicineInventoryComponent implements OnInit {
       medicinePrintList.push(medicine['qty']);
       medicinePrintList.push(medicine['dispense']);
       medicinePrintList.push(medicine['updated_at']);
-      
+
       this.printList.push(medicinePrintList);
     });
 
-    console.log(this.printList);
-
     // playground requires you to assign document definition to a variable called dd
-      var docDefinition = {
-        content: [
-          {
-            table: {
-              widths: ['*', '*', '*','*', '*', '*'],
-              body: [ ... this.printList]
-            }
+    var docDefinition = {
+      content: [
+        {
+          table: {
+            widths: ['*', '*', '*', '*', '*', '*'],
+            body: [... this.printList
+            ]
           }
-        ],
-        styles: {
-          font_8:{
-              fontSize: 8,
-              color: '#1B4E75'
-          }
-    }
+        }
+      ],
+      styles: {
+        font_8: {
+          fontSize: 8,
+          color: '#1B4E75'
+        }
       }
+    }
 
-      pdfMake.createPdf(docDefinition).open();
+    pdfMake.createPdf(docDefinition).open();
   }
-  
+
+
+  filter(value) {
+    let medicine = this.rawMedicineList;
+
+    if (this.medicine_name != '') {
+      console.log('medicine_name');
+      medicine = medicine.filter(med => {
+        const name = `${med.medicine_name}`;
+        if (name.includes(this.medicine_name)) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    if (this.type_of_medicine_description != '') {
+      console.log('type_of_medicine_description');
+      medicine = medicine.filter(med => {
+        const type_of_medicine_description = `${med.type_of_medicine_description}`;
+        if (type_of_medicine_description.includes(this.type_of_medicine_description)) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    if (this.buff != '') {
+      console.log('buffer');
+      medicine = medicine.filter(med => {
+        const buffer = `${med.buffer}`;
+        if (buffer.includes(this.buff)) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    console.log(medicine);
+
+    this.medicineList = medicine;
+
+  }
+
+  sort(column) {
+    console.log(column);
+
+    if (this.order == 'desc') {
+
+      this.order = 'asc';
+      this.medicineList = this.medicineList.sort((a, b) => {
+        if (a[column] > b[column]) {
+          return -1;
+        }
+        if (b[column] > a[column]) {
+          return 1;
+        }
+        return 0;
+      });
+    } else {
+      this.order = 'desc';
+      this.medicineList = this.medicineList.sort((a, b) => {
+        if (a[column] < b[column]) {
+          return -1;
+        }
+        if (b[column] > a[column]) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+
+  }
 }

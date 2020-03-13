@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 @Component({
   selector: 'app-elders',
   templateUrl: './elders.component.html',
@@ -77,7 +78,8 @@ export class EldersComponent implements OnInit {
       console.log('age');
 
       elders = elders.filter(elder => {
-        if (+this.age == elder.age) {
+        const age = `${elder.age}`;
+        if (age.includes(this.age)) {
           return true;
         }
         return false;
@@ -88,7 +90,8 @@ export class EldersComponent implements OnInit {
       console.log('bed');
 
       elders = elders.filter(elder => {
-        if (+this.bed_no == elder.bed_no) {
+        const bed = `${elder.bed_no}`;
+        if (bed.includes(this.bed_no)) {
           return true;
         }
         return false;
@@ -101,8 +104,8 @@ export class EldersComponent implements OnInit {
       elders = elders.filter(elder => {
         const dateAff = new Date(this.date_aff).getTime();
         const elderAff = new Date(elder.date_stay_in_orphanage).getTime();
-
-        if (dateAff == elderAff) {
+        const date = `${elder.date_stay_in_orphanage}`;
+        if (date.includes(this.date_aff)) {
           return true;
         }
         return false;
@@ -145,7 +148,6 @@ export class EldersComponent implements OnInit {
 
   }
 
-
   async exportPdf(){
     this.printList = [];
     this.printList.push(['Fullname', 'Age', 'Bed No.', 'Date Affiliated']);
@@ -164,6 +166,18 @@ export class EldersComponent implements OnInit {
       var docDefinition = {
         content: [
           {
+            text: 'ADD-CHE',
+            bold: true,
+            fontSize: 20,
+            alignment: 'center',
+          },
+          {
+            text: 'K-40 Bagong Pag asa Subd. Brgy San Vicente Apalit Pampanga', alignment: 'center'
+          },
+          {
+            text: '+639232715825', style: 'sub_header'
+          },
+          {
             table: {
               widths: ['*', '*', '*', '*'],
               body: [ ... this.printList
@@ -172,6 +186,11 @@ export class EldersComponent implements OnInit {
           }
         ],
         styles: {
+          sub_header: {
+            fontSize: 12,
+            alignment: 'center',
+            margin: [0, 0, 0, 10]
+          },
           font_8:{
               fontSize: 8,
               color: '#1B4E75'

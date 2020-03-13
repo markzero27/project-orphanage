@@ -6,6 +6,9 @@ import { MedicineService } from 'src/app/services/medicine/medicine.service';
 import { Medicine } from 'src/app/models/medicine.model';
 import { MedReport } from 'src/app/models/med-report.model';
 import { User } from 'src/app/models/user.model';
+import { UsersService } from 'src/app/services/users/users.service';
+import { Notification } from 'src/app/models/notification.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-dropdown',
@@ -21,12 +24,14 @@ export class TaskDropdownComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     private toastr: ToastrService,
-    private medService: MedicineService
+    private medService: MedicineService,
+    private userService: UsersService,
+    private router: Router
   ) { }
 
   ngOnInit() {
     this.medService.getMedicine(this.task.medicine_id).subscribe(med => {
-      this.med = med[0];
+      this.med = med;
     });
   }
 
@@ -36,13 +41,19 @@ export class TaskDropdownComponent implements OnInit {
     //   this.toastr.success('Status updated!');
     // });
 
-    if (this.med.qty > 0 && this.med.qty > this.task.qty) {
+    if (this.med.qty > this.task.qty) {
       this.med.qty = this.med.qty - this.task.qty;
     } else {
-      this.med.buffer = this.med.buffer - this.task.qty;
+      const remainder = this.task.qty - this.med.qty;
+      this.med.qty = 0;
+      this.med.buffer = this.med.buffer - remainder;
     }
 
-    this.med.dispense = this.med.dispense + this.task.qty;
+    this.med.dispense += this.task.qty;
+
+    if (this.med.qty <= 10) {
+      this.sendHelp(this.med);
+    }
 
     const medReport: MedReport = {
       action: 'dispense',
@@ -54,6 +65,8 @@ export class TaskDropdownComponent implements OnInit {
       staff: [this.task.task_owner_id, `${this.userData.first_name} ${this.userData.last_name}`],
       updated_by: this.userData.id,
     };
+
+
 
     const taskReport: TaskReport = {
       task_id: this.task.id,
@@ -74,6 +87,23 @@ export class TaskDropdownComponent implements OnInit {
     this.medService.updateMed(this.med, medReport).subscribe(med => {
       this.toastr.success('Status updated!');
       this.getReports.emit();
+    });
+  }
+
+  sendHelp(med: Medicine) {
+    const notif: Notification = {
+      description: med.qty == 0 ? `${med.medicine_name} is out of stock!` : `${med.medicine_name} is almost out of stock!`,
+      title: 'Medicine Stock',
+      isNew: 1,
+      staff_id: this.userData.id,
+      staff_name: `${this.userData.first_name} ${this.userData.last_name}`,
+      type: 'request',
+      created_by: this.userData.id,
+      updated_by: this.userData.id
+    };
+
+    this.userService.sendNotif(notif).subscribe(() => {
+      this.toastr.success('Medicine stock notification sent!');
     });
   }
 

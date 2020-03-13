@@ -94,7 +94,8 @@ export class StaffComponent implements OnInit {
 
     if (this.email != '') {
       staff = staff.filter(stff => {
-        if (this.email == stff.email) {
+        const email = `${stff.email}`;
+        if (email.includes(this.email)) {
           return true;
         }
         return false;
@@ -102,11 +103,12 @@ export class StaffComponent implements OnInit {
     }
 
     if (this.date_hired != '') {
+      console.log('date');
       staff = staff.filter(stff => {
         const dateAff = new Date(this.date_hired).getTime();
         const stffAff = new Date(stff.date_hired).getTime();
-
-        if (dateAff == stffAff) {
+        const date = `${stff.date_hired}`;
+        if (date.includes(this.date_hired)) {
           return true;
         }
         return false;
@@ -179,6 +181,18 @@ export class StaffComponent implements OnInit {
       var docDefinition = {
         content: [
           {
+            text: 'ADD-CHE',
+            bold: true,
+            fontSize: 20,
+            alignment: 'center',
+          },
+          {
+            text: 'K-40 Bagong Pag asa Subd. Brgy San Vicente Apalit Pampanga', alignment: 'center'
+          },
+          {
+            text: '+639232715825', style: 'sub_header'
+          },
+          {
             table: {
               widths: ['*', '*', '*', '*', '*'],
               body: [ ... this.printList
@@ -187,6 +201,11 @@ export class StaffComponent implements OnInit {
           }
         ],
         styles: {
+          sub_header: {
+            fontSize: 12,
+            alignment: 'center',
+            margin: [0, 0, 0, 10]
+          },
           font_8:{
               fontSize: 8,
               color: '#1B4E75'
