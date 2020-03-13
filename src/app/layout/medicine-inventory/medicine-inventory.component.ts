@@ -223,22 +223,68 @@ export class MedicineInventoryComponent implements OnInit {
     console.log(this.printList);
 
     // playground requires you to assign document definition to a variable called dd
-      var docDefinition = {
-        content: [
-          {
-            table: {
-              widths: ['*', '*', '*','*', '*', '*'],
-              body: [ ... this.printList]
+    var docDefinition = {
+      content: [
+        {
+          text: 'ORPHANAGE',
+          style: 'header',
+          alignment: 'left',
+          fontSize: 12,
+          bold: true
+        },
+        {
+          text: '888-B sabak street, baranggay san Antonio, San pedro City, Laguna \n\n\n',
+          alignment: 'left',
+          fontSize: 12
+        },
+        {
+          text: 'Hospitals Report \n\n',
+          style: 'header',
+          alignment: 'center',
+          fontSize: 14,
+          bold: true
+        },
+        {
+          alignment: 'center',
+          style: 'tableExample',
+          table: {
+            widths: ['*', '*'],
+            body: [
+              ['Submitted By: Anna Kendrick','Date Coverage: January 1,2020 - February 1,2020'],
+              ['Printed by: Juan Dela Cruz' , 'Date Printed: January 2, 2020']
+            ]
+          }
+        },
+        {
+          text: ' \n\n',
+          style: 'header',
+          alignment: 'center',
+          fontSize: 14,
+          bold: true
+        },
+        {
+          table: {
+            widths: ['*', '*', '*','*', '*', '*'],
+            body: [ ... this.printList]
+          },
+          layout: {
+            fillColor: function (rowIndex, node, columnIndex) {
+              if(rowIndex == 0){
+                return '#2d7dac';
+              }else if(rowIndex % 2 === 0){
+                return '#CCCCCC';
+              } else { return null; }
             }
           }
-        ],
-        styles: {
-          font_8:{
-              fontSize: 8,
-              color: '#1B4E75'
-          }
-    }
+        }
+      ],
+      styles: {
+        font_8:{
+            fontSize: 8,
+            color: '#1B4E75'
+        }
       }
+    }
 
       pdfMake.createPdf(docDefinition).open();
   }
