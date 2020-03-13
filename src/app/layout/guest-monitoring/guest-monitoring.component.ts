@@ -5,6 +5,9 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { EldersService } from 'src/app/services/elders/elders.service';
 import { Elders } from 'src/app/models/elders.model';
 import { ToastrService } from 'ngx-toastr';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-guess-monitoring',
@@ -16,7 +19,7 @@ export class GuestMonitoringComponent implements OnInit {
   guestList: Guest[] = [];
   selectedElder = 1;
   selectedGuest: Guest = JSON.parse(JSON.stringify(initialGuests));
-
+  printList = [];
   rawguestList: Guest[] = [];
   closeResult: string;
   alerts: Array<any> = [];
@@ -323,6 +326,96 @@ export class GuestMonitoringComponent implements OnInit {
         return 0;
       });
     }
-
   }
+
+  async exportPdf(){
+    this.printList = [];
+    this.printList.push(['Guest Name', 'Contact No.', 'Address', 'Elders Visited', 'Relationship', 'Time-in', 'Time-out', 'Date']);
+    this.guestList.forEach(gs => {
+      const guestPrintList = [];
+      guestPrintList.push(gs['guest_name']);
+      guestPrintList.push(gs['contact_no']);
+      guestPrintList.push(gs['address']);
+      guestPrintList.push(gs['elder_name']);
+      guestPrintList.push(gs['relationship_description']);
+      guestPrintList.push(gs['time_in']);
+      guestPrintList.push(gs['time_out']);
+      guestPrintList.push(gs['created_at']);
+      
+      this.printList.push(guestPrintList);
+    });
+    console.log(this.printList);
+
+    // playground requires you to assign document definition to a variable called dd
+      var docDefinition = {
+        pageOrientation: 'landscape',
+        pageSize: 'LETTER',
+        content: [
+          // {
+          //   image: await
+          //   this.getBase64ImageFromURL(
+          //     "https://images.pexels.com/photos/209640/pexels-photo-209640.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=300"
+          //   )
+          // },      
+          {
+            text: 'ADD-CHE',
+            bold: true,
+            fontSize: 20,
+            alignment: 'center',
+          },
+          {
+            text: 'K-40 Bagong Pag asa Subd. Brgy San Vicente Apalit Pampanga', alignment: 'center'
+          },
+          {
+            text: '+639232715825', style: 'sub_header'
+          },
+          {
+            table: {
+              widths: ['*', '*', '*', '*','*', '*', '*', '*'],
+              body: [ ... this.printList
+              ]
+            }
+          }],
+          styles: {
+            sub_header: {
+              fontSize: 12,
+              alignment: 'center',
+              margin: [0, 0, 0, 10]
+            },
+            font_8:{
+                fontSize: 8,
+                color: '#1B4E75'
+            }
+          }
+        }
+
+      pdfMake.createPdf(docDefinition).open();
+  }
+
+  getBase64ImageFromURL(url) {
+    return new Promise((resolve, reject) => {
+      var img = new Image();
+      img.setAttribute("crossOrigin", "anonymous");
+
+      img.onload = () => {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+
+        var dataURL = canvas.toDataURL("image/png");
+
+        resolve(dataURL);
+      };
+
+      img.onerror = error => {
+        reject(error);
+      };
+
+      img.src = url;
+    });
+  }
+
 }

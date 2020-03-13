@@ -19,7 +19,7 @@ export class MedicineService {
   }
 
   getMedicine(id) {
-    return this.http.get<Medicine>(`${this.url}?id=${id}`, { headers: this.reqHeader });
+    return this.http.get<Medicine>(`${this.url}/${id}`, { headers: this.reqHeader });
   }
 
   getAllMedicine(isArchived) {

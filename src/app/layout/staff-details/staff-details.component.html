@@ -61,7 +61,7 @@
                 'text-danger': staff.status == 0,
                 'text-success': staff.status == 1
               }"
-              >{{ staff.status == 0 ? 'Inactive' : 'Active' }}</label
+              >{{ staff.status == 0 ? 'Offline' : 'Active' }}</label
             >
           </div>
         </div>
@@ -750,30 +750,21 @@
 
     <!-- Task Table -->
     <div class="col-md-12 right-div" *ngSwitchCase="2">
-      <div class="card-header bg-transparent border pt-3 color-dark-primary">
-        Task
-        <button class="btn btn-light float-right" (click)="open(content)">
-          <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
-        </button>
-        <button class="btn btn-light float-right">
-          <i class="fa fa-sort" aria-hidden="true"></i> Sort
-        </button>
-        <button class="btn btn-light float-right">
-          <i class="fa fa-filter" aria-hidden="true"></i> Filter
-        </button>
-      </div>
       <div class="card w-100 mb-3">
         <table class="table table-striped">
           <thead class="bg-primary-color text-light">
             <tr>
-              <th><input type="checkbox" /></th>
-              <th>Elder Name</th>
-              <th>Medicine</th>
-              <th>Qty</th>
-              <th>Time</th>
-              <th>Date Repeat</th>
-              <th>Status</th>
-              <th></th>
+              <th class="text-center">Elder Name</th>
+              <th class="text-center">Medicine</th>
+              <th class="text-center">Qty</th>
+              <th class="text-center">Time</th>
+              <th class="text-center">Date Repeat</th>
+              <th class="text-center">Status</th>
+              <th class="text-center">
+                <button class="btn bg-transparent" (click)="open(content)">
+                  <i class="fa fa-plus mr-2" aria-hidden="true"></i> Add
+                </button>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -781,12 +772,11 @@
               <td colspan="13" class="text-center">No Record</td>
             </tr>
             <tr *ngFor="let task of taskList">
-              <th><input type="checkbox" /></th>
               <th scope="row">{{ task.elder_name }}</th>
-              <td>{{ task.medicine_description }}</td>
-              <td>{{ task.qty }}</td>
-              <td>{{ task.time }}</td>
-              <td>
+              <td class="text-center">{{ task.medicine_description }}</td>
+              <td class="text-center">{{ task.qty }}</td>
+              <td class="text-center">{{ task.time }}</td>
+              <td class="text-center">
                 <div class="d-flex">
                   <div
                     *ngFor="let date of task.date_repeats"
@@ -796,8 +786,8 @@
                   </div>
                 </div>
               </td>
-              <td>{{ getStatus(task.id) }}</td>
-              <td>
+              <td class="text-center">{{ getStatus(task.id) }}</td>
+              <td class="text-center">
                 <button class="btn bg-transparent">
                   <i class="fa fa-pencil" aria-hidden="true"></i>
                 </button>

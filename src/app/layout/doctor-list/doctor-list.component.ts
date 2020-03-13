@@ -14,10 +14,19 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class DoctorListComponent implements OnInit {
   userRole = localStorage.getItem('user_role');
+  rawDoctorList: Doctor[] = [];
   doctor: Doctor;
   printList = [];
   doctorList: Doctor[] = [];
   closeResult: string;
+
+  doc_name = '';
+  contact_no ='';
+  schedules = '';
+  specialization = '';
+  updated_at = '';
+  order = 'asc';
+
   constructor(
     private doctorService: DoctorService,
     private modalService: NgbModal,
@@ -28,6 +37,10 @@ export class DoctorListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.doctorService.getAllDoctors(0).subscribe((users: any) => {
+      this.doctorList = users;
+      this.rawDoctorList = users;
+    });
   }
 
   close() {
@@ -69,6 +82,99 @@ export class DoctorListComponent implements OnInit {
     this.close();
   }
 
+  filter(value) {
+    let doctors = this.rawDoctorList;
+
+    if (this.doc_name != '') {
+      console.log('doc_name');
+      doctors = doctors.filter(doctor => {
+        const doc_name = `${doctor.doc_name}`;
+        if (doc_name.includes(this.doc_name)) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    if (this.contact_no != '') {
+      console.log('contact_no');
+      doctors = doctors.filter(doctor => {
+        const contact_no = `${doctor.contact_no}`;
+        if (contact_no.includes(this.contact_no)) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    if (this.schedules != '') {
+      console.log('schedules');
+      doctors = doctors.filter(doctor => {
+        const schedules = `${doctor.schedules}`;
+        if (schedules.includes(this.schedules)) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    if (this.specialization != '') {
+      console.log('specialization');
+      doctors = doctors.filter(doctor => {
+        const specialization = `${doctor.specialization}`;
+        if (specialization.includes(this.specialization)) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    if (this.updated_at != '') {
+      console.log('updated_at');
+      doctors = doctors.filter(doctor => {
+        const updated_at = `${doctor.updated_at}`;
+        if (updated_at.includes(this.updated_at)) {
+          return true;
+        }
+        return false;
+      });
+    }
+
+    console.log(doctors);
+
+    this.doctorList = doctors;
+
+  }
+
+  sort(column) {
+    console.log(column);
+
+    if (this.order == 'desc') {
+
+      this.order = 'asc';
+      this.doctorList = this.doctorList.sort((a, b) => {
+        if (a[column] > b[column]) {
+          return -1;
+        }
+        if (b[column] > a[column]) {
+          return 1;
+        }
+        return 0;
+      });
+    } else {
+      this.order = 'desc';
+      this.doctorList = this.doctorList.sort((a, b) => {
+        if (a[column] < b[column]) {
+          return -1;
+        }
+        if (b[column] > a[column]) {
+          return 1;
+        }
+        return 0;
+      });
+    }
+
+  }
 
   async exportPdf(){
     this.printList = [];

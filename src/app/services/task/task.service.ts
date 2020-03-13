@@ -18,8 +18,8 @@ export class TaskService {
     console.log('====================================');
   }
 
-  getAllTasks(isArchived) {
-    return this.http.get(`${this.api}?table=tasks&archived_value=${isArchived}`, { headers: this.reqHeader });
+  getAllTasks() {
+    return this.http.get(this.url, { headers: this.reqHeader });
   }
 
   getTaskByStaff(id) {
@@ -42,6 +42,10 @@ export class TaskService {
     return this.http.get<TaskReport[]>(`${environment.api}/tasks-reports`, { headers: this.reqHeader });
   }
 
+  getTaskReportsByUser(id) {
+    return this.http.get<TaskReport[]>(`${environment.api}/tasks-reports?id=${id}`, { headers: this.reqHeader });
+  }
+
   addTaskReport(data: any) {
     data.created_by = Number(this.userId);
     data.updated_by = Number(this.userId);
@@ -51,6 +55,6 @@ export class TaskService {
   }
 
   getTaskReportById(id) {
-    return this.http.get<TaskReport[]>(`${environment.api}/tasks-reports?staff_id=${id}`, { headers: this.reqHeader });
+    return this.http.get<TaskReport[]>(`${environment.api}/tasks-reports?task_owner_id=${id}`, { headers: this.reqHeader });
   }
 }
