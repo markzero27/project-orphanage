@@ -199,23 +199,16 @@ export class HospitalsComponent implements OnInit {
     var docDefinition = {
       content: [
         {
-          text: 'ORPHANAGE',
-          style: 'header',
-          alignment: 'left',
-          fontSize: 12,
-          bold: true
-        },
-        {
-          text: '888-B sabak street, baranggay san Antonio, San pedro City, Laguna \n\n\n',
-          alignment: 'left',
-          fontSize: 12
-        },
-        {
-          text: 'Hospitals Report \n\n',
-          style: 'header',
+          text: 'ADD-CHE',
+          bold: true,
+          fontSize: 20,
           alignment: 'center',
-          fontSize: 14,
-          bold: true
+        },
+        {
+          text: 'K-40 Bagong Pag asa Subd. Brgy San Vicente Apalit Pampanga', alignment: 'center'
+        },
+        {
+          text: '+639232715825', style: 'sub_header'
         },
         {
           alignment: 'center',
@@ -252,11 +245,16 @@ export class HospitalsComponent implements OnInit {
         }
       ],
       styles: {
+        sub_header: {
+          fontSize: 12,
+          alignment: 'center',
+          margin: [0, 0, 0, 10]
+        },
         font_8:{
             fontSize: 8,
             color: '#1B4E75'
         }
-  }
+      }
     }
 
     pdfMake.createPdf(docDefinition).open();
